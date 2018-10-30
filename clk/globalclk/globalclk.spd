@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simPackage>
+ <file
+   path="simulation/submodules/globalclk_altclkctrl_0.v"
+   type="VERILOG"
+   library="altclkctrl_0" />
+ <file path="simulation/globalclk.v" type="VERILOG" />
+ <topLevel name="globalclk" />
+ <deviceFamily name="max10" />
+</simPackage>

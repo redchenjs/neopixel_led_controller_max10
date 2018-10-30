@@ -1,1 +1,1 @@
-# full_color_light_cube_fpga
+# Full Color Light Cube FPGA Firmware
