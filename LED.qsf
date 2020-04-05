@@ -39,10 +39,10 @@
 
 set_global_assignment -name FAMILY "MAX 10"
 set_global_assignment -name DEVICE 10M08SCM153C8G
-set_global_assignment -name TOP_LEVEL_ENTITY ledtop
+set_global_assignment -name TOP_LEVEL_ENTITY ws2812_led_controller
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 17.0.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "13:11:22  MARCH 25, 2018"
-set_global_assignment -name LAST_QUARTUS_VERSION "17.1.0 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -54,9 +54,6 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
 set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
-set_location_assignment PIN_J5 -to inclk
-set_location_assignment PIN_R14 -to data
-set_location_assignment PIN_P12 -to le
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
 set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH test -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_NAME test -section_id eda_simulation
@@ -74,29 +71,44 @@ set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
 set_global_assignment -name DEVICE_MIGRATION_LIST 10M08SCM153C8G
+set_location_assignment PIN_J5 -to clk_in
+set_location_assignment PIN_P12 -to spi_cs_in
+set_location_assignment PIN_P15 -to spi_sclk_in
+set_location_assignment PIN_R14 -to spi_mosi_in
+set_location_assignment PIN_R11 -to dc_in
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to le
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to inclk
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data
-set_location_assignment PIN_P15 -to SPI_CLK
-set_location_assignment PIN_R7 -to spi_write
-set_location_assignment PIN_R11 -to DC
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_write
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to SPI_CLK
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to DC
-set_location_assignment PIN_P7 -to transl
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to transl
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to zerodata
-set_location_assignment PIN_P3 -to zerodata[1]
-set_location_assignment PIN_M4 -to zerodata[0]
-set_location_assignment PIN_M5 -to zerodata[2]
-set_location_assignment PIN_R3 -to zerodata[3]
-set_location_assignment PIN_L6 -to zerodata[4]
-set_location_assignment PIN_P4 -to zerodata[5]
-set_location_assignment PIN_L7 -to zerodata[6]
-set_location_assignment PIN_R5 -to zerodata[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to clk_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to rst_n_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_cs_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_sclk_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_mosi_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to dc_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[7]
+set_location_assignment PIN_M4 -to ws2812_out[0]
+set_location_assignment PIN_P3 -to ws2812_out[1]
+set_location_assignment PIN_M5 -to ws2812_out[2]
+set_location_assignment PIN_R3 -to ws2812_out[3]
+set_location_assignment PIN_L6 -to ws2812_out[4]
+set_location_assignment PIN_P4 -to ws2812_out[5]
+set_location_assignment PIN_L7 -to ws2812_out[6]
+set_location_assignment PIN_R5 -to ws2812_out[7]
+set_global_assignment -name VERILOG_INPUT_VERSION VERILOG_2001
+set_global_assignment -name VHDL_INPUT_VERSION VHDL_1993
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER spi_sclk_in -section_id spi_in
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER spi_mosi_in -section_id spi_in
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER spi_cs_in -section_id spi_in
+set_global_assignment -name ASSIGNMENT_GROUP_MEMBER dc_in -section_id spi_in
+set_global_assignment -name VERILOG_FILE top.v
 set_global_assignment -name VERILOG_FILE sourcedata.v
 set_global_assignment -name VERILOG_FILE sk6812.v
 set_global_assignment -name MIF_FILE ram64.mif
