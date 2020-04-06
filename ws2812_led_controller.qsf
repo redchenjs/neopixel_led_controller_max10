@@ -104,21 +104,66 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[1]
 set_location_assignment PIN_P3 -to ws2812_data_out[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[0]
 set_location_assignment PIN_M4 -to ws2812_data_out[0]
-
+set_location_assignment PIN_K11 -to water_led_out[0]
+set_location_assignment PIN_L11 -to water_led_out[1]
+set_location_assignment PIN_K12 -to water_led_out[2]
+set_location_assignment PIN_L15 -to water_led_out[3]
+set_location_assignment PIN_M12 -to water_led_out[4]
+set_location_assignment PIN_M14 -to water_led_out[5]
+set_location_assignment PIN_N14 -to water_led_out[6]
+set_location_assignment PIN_N15 -to water_led_out[7]
+set_location_assignment PIN_E1 -to segment_led_1_out[0]
+set_location_assignment PIN_D2 -to segment_led_1_out[1]
+set_location_assignment PIN_K2 -to segment_led_1_out[2]
+set_location_assignment PIN_J2 -to segment_led_1_out[3]
+set_location_assignment PIN_G2 -to segment_led_1_out[4]
+set_location_assignment PIN_F5 -to segment_led_1_out[5]
+set_location_assignment PIN_G5 -to segment_led_1_out[6]
+set_location_assignment PIN_L1 -to segment_led_1_out[7]
+set_location_assignment PIN_E2 -to segment_led_1_out[8]
+set_location_assignment PIN_A3 -to segment_led_2_out[0]
+set_location_assignment PIN_A2 -to segment_led_2_out[1]
+set_location_assignment PIN_P2 -to segment_led_2_out[2]
+set_location_assignment PIN_P1 -to segment_led_2_out[3]
+set_location_assignment PIN_N1 -to segment_led_2_out[4]
+set_location_assignment PIN_C1 -to segment_led_2_out[5]
+set_location_assignment PIN_C2 -to segment_led_2_out[6]
+set_location_assignment PIN_R2 -to segment_led_2_out[7]
+set_location_assignment PIN_B1 -to segment_led_2_out[8]
 set_global_assignment -name VCCA_USER_VOLTAGE 3.3V
 set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 3.3V
-set_global_assignment -name VERILOG_FILE src/top.v
-set_global_assignment -name VERILOG_FILE src/spi_slave.v
-set_global_assignment -name VERILOG_FILE src/layer_ctl.v
-set_global_assignment -name VERILOG_FILE src/layer_out.v
-set_global_assignment -name VERILOG_FILE src/ws2812_ctl.v
-set_global_assignment -name VERILOG_FILE src/ws2812_out.v
-set_global_assignment -name VERILOG_FILE src/idx2addr.v
-set_global_assignment -name QIP_FILE ip/pll/pll.qip
-set_global_assignment -name QIP_FILE ip/ram/ram64.qip
-set_global_assignment -name QSYS_FILE ip/clk/globalclk.qsys
 set_location_assignment PIN_J14 -to rst_n_in
 set_location_assignment PIN_P12 -to spi_cs_n_in
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_cs_n_in
 set_global_assignment -name ASSIGNMENT_GROUP_MEMBER spi_cs_n_in -section_id spi_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[8]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[0]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[8]
+set_global_assignment -name VERILOG_FILE src/top.v
+set_global_assignment -name VERILOG_FILE src/spi_slave.v
+set_global_assignment -name VERILOG_FILE src/layer_ctl.v
+set_global_assignment -name VERILOG_FILE src/layer_out.v
+set_global_assignment -name VERILOG_FILE src/idx2addr.v
+set_global_assignment -name VERILOG_FILE src/ws2812_ctl.v
+set_global_assignment -name VERILOG_FILE src/ws2812_out.v
+set_global_assignment -name VERILOG_FILE src/fps_counter.v
+set_global_assignment -name VERILOG_FILE src/segment_led.v
+set_global_assignment -name QIP_FILE ip/pll/pll.qip
+set_global_assignment -name QIP_FILE ip/ram/ram64.qip
+set_global_assignment -name QSYS_FILE ip/clk/globalclk.qsys
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
