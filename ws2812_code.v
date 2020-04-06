@@ -2,7 +2,7 @@
 `define Time1350 `CLK*135
 `define Time350 `CLK*35
 `define Time1700 `CLK*(170-2)
-module code0_1(
+module ws2812_code(
 		clk,		//高速计时时钟
 		Rst_n,	//全局复位，低电平复位
 		indata,	

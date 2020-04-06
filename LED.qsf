@@ -85,41 +85,40 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_cs_in
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_sclk_in
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_mosi_in
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to dc_in
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_out[7]
-set_location_assignment PIN_M4 -to ws2812_out[0]
-set_location_assignment PIN_P3 -to ws2812_out[1]
-set_location_assignment PIN_M5 -to ws2812_out[2]
-set_location_assignment PIN_R3 -to ws2812_out[3]
-set_location_assignment PIN_L6 -to ws2812_out[4]
-set_location_assignment PIN_P4 -to ws2812_out[5]
-set_location_assignment PIN_L7 -to ws2812_out[6]
-set_location_assignment PIN_R5 -to ws2812_out[7]
-set_global_assignment -name VERILOG_INPUT_VERSION VERILOG_2001
-set_global_assignment -name VHDL_INPUT_VERSION VHDL_1993
+set_global_assignment -name VERILOG_INPUT_VERSION SYSTEMVERILOG_2005
+set_global_assignment -name VERILOG_SHOW_LMF_MAPPING_MESSAGES OFF
+set_global_assignment -name VHDL_INPUT_VERSION VHDL_2008
+set_global_assignment -name VHDL_SHOW_LMF_MAPPING_MESSAGES OFF
 set_global_assignment -name ASSIGNMENT_GROUP_MEMBER spi_sclk_in -section_id spi_in
 set_global_assignment -name ASSIGNMENT_GROUP_MEMBER spi_mosi_in -section_id spi_in
 set_global_assignment -name ASSIGNMENT_GROUP_MEMBER spi_cs_in -section_id spi_in
 set_global_assignment -name ASSIGNMENT_GROUP_MEMBER dc_in -section_id spi_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[7]
+set_location_assignment PIN_R5 -to ws2812_data_out[7]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[6]
+set_location_assignment PIN_L7 -to ws2812_data_out[6]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[5]
+set_location_assignment PIN_P4 -to ws2812_data_out[5]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[4]
+set_location_assignment PIN_L6 -to ws2812_data_out[4]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[3]
+set_location_assignment PIN_R3 -to ws2812_data_out[3]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[2]
+set_location_assignment PIN_M5 -to ws2812_data_out[2]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[1]
+set_location_assignment PIN_P3 -to ws2812_data_out[1]
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[0]
+set_location_assignment PIN_M4 -to ws2812_data_out[0]
+set_global_assignment -name VERILOG_FILE spi_slave.v
+set_global_assignment -name VERILOG_FILE idx2addr.v
+set_global_assignment -name VERILOG_FILE ws2812_data.v
+set_global_assignment -name VERILOG_FILE ws2812_code.v
+set_global_assignment -name VERILOG_FILE ram_com_wr.v
 set_global_assignment -name VERILOG_FILE top.v
 set_global_assignment -name VERILOG_FILE sourcedata.v
-set_global_assignment -name VERILOG_FILE sk6812.v
-set_global_assignment -name MIF_FILE ram64.mif
 set_global_assignment -name QIP_FILE clk/globalclk/synthesis/globalclk.qip
 set_global_assignment -name VERILOG_FILE system_delay.v
-set_global_assignment -name VERILOG_FILE LEDT.v
 set_global_assignment -name QIP_FILE PLL.qip
-set_global_assignment -name VERILOG_FILE ledtop.v
 set_global_assignment -name VERILOG_FILE test.v
 set_global_assignment -name QIP_FILE ram64.qip
-set_global_assignment -name VERILOG_FILE ram_com_wr.v
-set_global_assignment -name VERILOG_FILE trans.v
-set_global_assignment -name VERILOG_FILE addrewr.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
