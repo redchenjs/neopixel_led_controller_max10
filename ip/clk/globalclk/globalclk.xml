@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy
+ date="2020.04.07.03:40:34"
+ outputDirectory="/home/redchenjs/workspace/max10/full_color_light_cube_fpga/ip/clk/globalclk/">
+ <perimeter>
+  <parameter
+     name="AUTO_GENERATION_ID"
+     type="Integer"
+     defaultValue="0"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_UNIQUE_ID"
+     type="String"
+     defaultValue=""
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_FAMILY"
+     type="String"
+     defaultValue="MAX 10"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE"
+     type="String"
+     defaultValue="10M08SCM153C8G"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_SPEEDGRADE"
+     type="String"
+     defaultValue="8"
+     onHdl="0"
+     affectsHdl="1" />
+  <interface name="altclkctrl_input" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="inclk" direction="input" role="inclk" width="1" />
+   <port name="ena" direction="input" role="ena" width="1" />
+  </interface>
+  <interface name="altclkctrl_output" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <port name="outclk" direction="output" role="outclk" width="1" />
+  </interface>
+ </perimeter>
+ <entity
+   path=""
+   parameterizationKey="globalclk:1.0:AUTO_DEVICE=10M08SCM153C8G,AUTO_DEVICE_FAMILY=MAX 10,AUTO_DEVICE_SPEEDGRADE=8,AUTO_GENERATION_ID=1586202034,AUTO_UNIQUE_ID=(altclkctrl:18.1:CLOCK_TYPE=1,DEVICE_FAMILY=MAX 10,ENA_REGISTER_MODE=1,GUI_USE_ENA=true,NUMBER_OF_CLOCKS=1,USE_GLITCH_FREE_SWITCH_OVER_IMPLEMENTATION=false)"
+   instancePathKey="globalclk"
+   kind="globalclk"
+   version="1.0"
+   name="globalclk">
+  <parameter name="AUTO_GENERATION_ID" value="1586202034" />
+  <parameter name="AUTO_DEVICE" value="10M08SCM153C8G" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="MAX 10" />
+  <parameter name="AUTO_UNIQUE_ID" value="" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="8" />
+  <generatedFiles>
+   <file
+       path="/home/redchenjs/workspace/max10/full_color_light_cube_fpga/ip/clk/globalclk/synthesis/globalclk.v"
+       type="VERILOG" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="/home/redchenjs/workspace/max10/full_color_light_cube_fpga/ip/clk/globalclk/synthesis/submodules/globalclk_altclkctrl_0.v"
+       type="VERILOG"
+       attributes="" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="/home/redchenjs/workspace/max10/full_color_light_cube_fpga/ip/clk/globalclk.qsys" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file
+       path="/home/redchenjs/programs/quartus/ip/altera/megafunctions/altclkctrl/altclkctrl_hw.tcl" />
+  </childSourceFiles>
+  <messages>
+   <message level="Debug" culprit="globalclk">queue size: 0 starting:globalclk "globalclk"</message>
+   <message level="Progress" culprit="min"></message>
+   <message level="Progress" culprit="max"></message>
+   <message level="Progress" culprit="current"></message>
+   <message level="Debug">Transform: CustomInstructionTransform</message>
+   <message level="Debug">No custom instruction connections, skipping transform </message>
+   <message level="Debug" culprit="merlin_custom_instruction_transform"><![CDATA[After transform: <b>1</b> modules, <b>0</b> connections]]></message>
+   <message level="Debug">Transform: MMTransform</message>
+   <message level="Debug">Transform: InterruptMapperTransform</message>
+   <message level="Debug">Transform: InterruptSyncTransform</message>
+   <message level="Debug">Transform: InterruptFanoutTransform</message>
+   <message level="Debug">Transform: AvalonStreamingTransform</message>
+   <message level="Debug">Transform: ResetAdaptation</message>
+   <message level="Debug" culprit="globalclk"><![CDATA["<b>globalclk</b>" reuses <b>altclkctrl</b> "<b>submodules/globalclk_altclkctrl_0</b>"]]></message>
+   <message level="Debug" culprit="globalclk">queue size: 0 starting:altclkctrl "submodules/globalclk_altclkctrl_0"</message>
+   <message level="Info" culprit="altclkctrl_0">Generating top-level entity globalclk_altclkctrl_0.</message>
+   <message level="Debug" culprit="altclkctrl_0">Current quartus bindir: /home/redchenjs/programs/quartus/quartus/linux64/.</message>
+   <message level="Info" culprit="altclkctrl_0"><![CDATA["<b>globalclk</b>" instantiated <b>altclkctrl</b> "<b>altclkctrl_0</b>"]]></message>
+  </messages>
+ </entity>
+ <entity
+   path="submodules/"
+   parameterizationKey="altclkctrl:18.1:CLOCK_TYPE=1,DEVICE_FAMILY=MAX 10,ENA_REGISTER_MODE=1,GUI_USE_ENA=true,NUMBER_OF_CLOCKS=1,USE_GLITCH_FREE_SWITCH_OVER_IMPLEMENTATION=false"
+   instancePathKey="globalclk:.:altclkctrl_0"
+   kind="altclkctrl"
+   version="18.1"
+   name="globalclk_altclkctrl_0">
+  <parameter name="NUMBER_OF_CLOCKS" value="1" />
+  <parameter name="USE_GLITCH_FREE_SWITCH_OVER_IMPLEMENTATION" value="false" />
+  <parameter name="GUI_USE_ENA" value="true" />
+  <parameter name="DEVICE_FAMILY" value="MAX 10" />
+  <parameter name="ENA_REGISTER_MODE" value="1" />
+  <parameter name="CLOCK_TYPE" value="1" />
+  <generatedFiles>
+   <file
+       path="/home/redchenjs/workspace/max10/full_color_light_cube_fpga/ip/clk/globalclk/synthesis/submodules/globalclk_altclkctrl_0.v"
+       type="VERILOG"
+       attributes="" />
+  </generatedFiles>
+  <childGeneratedFiles/>
+  <sourceFiles>
+   <file
+       path="/home/redchenjs/programs/quartus/ip/altera/megafunctions/altclkctrl/altclkctrl_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="globalclk" as="altclkctrl_0" />
+  <messages>
+   <message level="Debug" culprit="globalclk">queue size: 0 starting:altclkctrl "submodules/globalclk_altclkctrl_0"</message>
+   <message level="Info" culprit="altclkctrl_0">Generating top-level entity globalclk_altclkctrl_0.</message>
+   <message level="Debug" culprit="altclkctrl_0">Current quartus bindir: /home/redchenjs/programs/quartus/quartus/linux64/.</message>
+   <message level="Info" culprit="altclkctrl_0"><![CDATA["<b>globalclk</b>" instantiated <b>altclkctrl</b> "<b>altclkctrl_0</b>"]]></message>
+  </messages>
+ </entity>
+</deploy>
