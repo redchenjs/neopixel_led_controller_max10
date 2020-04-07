@@ -6,8 +6,8 @@
  */
 
 module ws2812_led_controller(
-    input wire clk_in,      // clk_in: 12MHz
-    input wire rst_n_in,    // rst_n_in
+    input wire clk_in,      // clk_in = 12 MHz
+    input wire rst_n_in,    // rst_n_in, active low
 
     input wire dc_in,
     input wire spi_sclk_in,
@@ -187,7 +187,7 @@ fps_counter fps_counter(
 	.clk_in(sys_clk),
 	.rst_n_in(sys_rst_n),
 
-	.data_rdy_in(data_rdy),
+	.fps_pulse_in(data_rdy),
 
 	.fps_count_out(fps_count)
 );
