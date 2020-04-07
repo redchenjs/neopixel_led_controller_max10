@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2020.04.07.03:40:34"
+ date="2020.04.08.03:53:38"
  outputDirectory="/home/redchenjs/workspace/max10/full_color_light_cube_fpga/ip/clk/globalclk/">
  <perimeter>
   <parameter
@@ -47,12 +47,12 @@
  </perimeter>
  <entity
    path=""
-   parameterizationKey="globalclk:1.0:AUTO_DEVICE=10M08SCM153C8G,AUTO_DEVICE_FAMILY=MAX 10,AUTO_DEVICE_SPEEDGRADE=8,AUTO_GENERATION_ID=1586202034,AUTO_UNIQUE_ID=(altclkctrl:18.1:CLOCK_TYPE=1,DEVICE_FAMILY=MAX 10,ENA_REGISTER_MODE=1,GUI_USE_ENA=true,NUMBER_OF_CLOCKS=1,USE_GLITCH_FREE_SWITCH_OVER_IMPLEMENTATION=false)"
+   parameterizationKey="globalclk:1.0:AUTO_DEVICE=10M08SCM153C8G,AUTO_DEVICE_FAMILY=MAX 10,AUTO_DEVICE_SPEEDGRADE=8,AUTO_GENERATION_ID=1586289218,AUTO_UNIQUE_ID=(altclkctrl:19.1:CLOCK_TYPE=1,DEVICE_FAMILY=MAX 10,ENA_REGISTER_MODE=1,GUI_USE_ENA=true,NUMBER_OF_CLOCKS=1,USE_GLITCH_FREE_SWITCH_OVER_IMPLEMENTATION=false)"
    instancePathKey="globalclk"
    kind="globalclk"
    version="1.0"
    name="globalclk">
-  <parameter name="AUTO_GENERATION_ID" value="1586202034" />
+  <parameter name="AUTO_GENERATION_ID" value="1586289218" />
   <parameter name="AUTO_DEVICE" value="10M08SCM153C8G" />
   <parameter name="AUTO_DEVICE_FAMILY" value="MAX 10" />
   <parameter name="AUTO_UNIQUE_ID" value="" />
@@ -99,10 +99,10 @@
  </entity>
  <entity
    path="submodules/"
-   parameterizationKey="altclkctrl:18.1:CLOCK_TYPE=1,DEVICE_FAMILY=MAX 10,ENA_REGISTER_MODE=1,GUI_USE_ENA=true,NUMBER_OF_CLOCKS=1,USE_GLITCH_FREE_SWITCH_OVER_IMPLEMENTATION=false"
+   parameterizationKey="altclkctrl:19.1:CLOCK_TYPE=1,DEVICE_FAMILY=MAX 10,ENA_REGISTER_MODE=1,GUI_USE_ENA=true,NUMBER_OF_CLOCKS=1,USE_GLITCH_FREE_SWITCH_OVER_IMPLEMENTATION=false"
    instancePathKey="globalclk:.:altclkctrl_0"
    kind="altclkctrl"
-   version="18.1"
+   version="19.1"
    name="globalclk_altclkctrl_0">
   <parameter name="NUMBER_OF_CLOCKS" value="1" />
   <parameter name="USE_GLITCH_FREE_SWITCH_OVER_IMPLEMENTATION" value="false" />
