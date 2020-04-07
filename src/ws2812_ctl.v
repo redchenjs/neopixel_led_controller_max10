@@ -10,85 +10,94 @@ module ws2812_ctl(
     input wire rst_n_in,
 
     input wire bit_done_in,
-    input wire ram_rd_en_in,
-    input wire [31:0] ram_data_in,
+    input wire layer_en_in,
+    input wire frame_rdy_in,
+    input wire [5:0] word_idx_in,
+    input wire [3:0] byte_sel_in,
+    input wire [7:0] byte_data_in,
 
     output wire bit_rdy_out,
-    output wire bit_data_out,
-    output wire ram_rd_en_out,
-    output wire [5:0] ram_rd_addr_out
+    output wire bit_data_out
 );
 
 parameter [15:0] CNT_51_US = 2 * 5100;
 
 parameter [1:0] STA_INIT = 2'b00;   // Init
-parameter [1:0] STA_READ = 2'b01;   // Read Data From RAM
+parameter [1:0] STA_READ = 2'b01;   // Read Data Bit
 parameter [1:0] STA_SEND = 2'b10;   // Send Data Bit
-parameter [1:0] STA_WAIT = 2'b11;   // Wait 51 us
+parameter [1:0] STA_WAIT = 2'b11;   // Wait
 
-reg [1:0] state = STA_INIT;
+reg bit_rdy;
+reg [4:0] bit_sel;
 
-reg [4:0] bit_sel = 5'h00;
-reg [15:0] wait_cnt = 16'h0000;
-reg [23:0] ram_data = 24'h000000;
+reg ram_rd_en;
+reg ram_rd_start;
+reg [5:0] ram_rd_addr;
+reg [31:0] ram_rd_data;
 
-reg ram_rd_en = 1'b0, rd_start = 1'b0, bit_rdy = 1'b0;
+reg [1:0] state;
+reg [15:0] wait_cnt;
 
-reg [1:0] bit_rdy_pul  = 2'b00;
-reg [2:0] ram_rd_en_pul = 2'b000;
-
+reg [1:0] bit_rdy_pul;
 assign bit_rdy_out = bit_rdy_pul[0] & ~bit_rdy_pul[1];          // Rising Edge Pulse
-assign ram_rd_en_out = ram_rd_en_pul[0] & ~ram_rd_en_pul[1];    // Rising Edge Pulse
 
 wire ram_rd_done;
-
+reg [2:0] ram_rd_en_pul;
 assign ram_rd_done = ram_rd_en_pul[1] & ~ram_rd_en_pul[2];      // Rising Edge Pulse
+
+ram64 ram64(
+    .byteena_a(byte_sel_in),
+    .clock(clk_in),
+    .data({byte_data_in, byte_data_in, byte_data_in, byte_data_in}),
+    .rdaddress(ram_rd_addr),
+    .rden(ram_rd_en_pul[0] & ~ram_rd_en_pul[1]),
+    .wraddress(word_idx_in),
+    .wren(layer_en_in),
+    .q(ram_rd_data)
+);
 
 always @(posedge clk_in or negedge rst_n_in)
 begin
     if (!rst_n_in) begin
         state <= STA_INIT;
 
-        wait_cnt <= 16'h0000;
         bit_sel <= 5'b0;
+        wait_cnt <= 16'h0000;
     end else begin
         case (state)
         STA_INIT:
-            if (ram_rd_en_in) begin
+            if (frame_rdy_in) begin
                 state <= STA_READ;
 
                 bit_rdy <= 1'b0;
-                rd_start <= 1'b1;
                 ram_rd_en <= 1'b0;
+                ram_rd_addr <= 6'h00;
+                ram_rd_start <= 1'b1;
 
                 wait_cnt <= 16'h0000;
-
-                ram_rd_addr_out <= 6'h00;
             end
         STA_READ: begin
-            ram_rd_en <= 1'b1;
-
             if (ram_rd_done) begin
                 state <= STA_SEND;
-                
+
                 bit_sel <= 5'b0;
                 ram_rd_en <= 1'b0;
-                
-                ram_data <= ram_data_in[23:0];
-                ram_rd_addr_out <= ram_rd_addr_out + 6'b1;
+                ram_rd_addr <= ram_rd_data[29:24];
+            end else begin
+                ram_rd_en <= 1'b1;
             end
         end
         STA_SEND:
-            if (rd_start || bit_done_in) begin
-                rd_start <= 1'b0;
+            if (ram_rd_start || bit_done_in) begin
+                ram_rd_start <= 1'b0;
 
                 bit_rdy <= 1'b1;
-                bit_data_out <= ram_data[5'd23 - bit_sel];//提取数据
+                bit_data_out <= ram_rd_data[5'd23 - bit_sel];
 
                 if (bit_sel == 5'd23) begin
                     bit_sel <= 5'b0;
 
-                    if (ram_rd_addr_out == 6'h00) begin
+                    if (ram_rd_addr == 6'h00) begin
                         state <= STA_WAIT;
                     end else begin
                         state <= STA_READ;

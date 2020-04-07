@@ -158,7 +158,6 @@ set_global_assignment -name VERILOG_FILE src/top.v
 set_global_assignment -name VERILOG_FILE src/spi_slave.v
 set_global_assignment -name VERILOG_FILE src/layer_ctl.v
 set_global_assignment -name VERILOG_FILE src/layer_out.v
-set_global_assignment -name VERILOG_FILE src/idx2addr.v
 set_global_assignment -name VERILOG_FILE src/ws2812_ctl.v
 set_global_assignment -name VERILOG_FILE src/ws2812_out.v
 set_global_assignment -name VERILOG_FILE src/fps_counter.v
