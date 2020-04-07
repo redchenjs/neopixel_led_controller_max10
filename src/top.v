@@ -28,7 +28,7 @@ wire byte_rdy;
 wire [7:0] byte_data;
 
 wire frame_rdy;
-wire [5:0] word_idx;
+wire [5:0] wr_addr;
 wire [3:0] byte_sel;
 wire [7:0] layer_sel;
 
@@ -70,7 +70,7 @@ layer_ctl layer_ctl(
 
     .frame_rdy_out(frame_rdy),
 
-    .word_idx_out(word_idx),
+    .wr_addr_out(wr_addr),
     .byte_sel_out(byte_sel),
     .layer_sel_out(layer_sel)
 );
@@ -82,7 +82,7 @@ layer_out layer_out0(
     .layer_en_in(layer_sel[0]),
     .frame_rdy_in(frame_rdy),
 
-    .word_idx_in(word_idx),
+    .wr_addr_in(wr_addr),
     .byte_sel_in(byte_sel),
     .byte_data_in(byte_data),
 
@@ -96,7 +96,7 @@ layer_out layer_out1(
     .layer_en_in(layer_sel[1]),
     .frame_rdy_in(frame_rdy),
 
-    .word_idx_in(word_idx),
+    .wr_addr_in(wr_addr),
     .byte_sel_in(byte_sel),
     .byte_data_in(byte_data),
 
@@ -110,7 +110,7 @@ layer_out layer_out2(
     .layer_en_in(layer_sel[2]),
     .frame_rdy_in(frame_rdy),
 
-    .word_idx_in(word_idx),
+    .wr_addr_in(wr_addr),
     .byte_sel_in(byte_sel),
     .byte_data_in(byte_data),
 
@@ -124,7 +124,7 @@ layer_out layer_out3(
     .layer_en_in(layer_sel[3]),
     .frame_rdy_in(frame_rdy),
 
-    .word_idx_in(word_idx),
+    .wr_addr_in(wr_addr),
     .byte_sel_in(byte_sel),
     .byte_data_in(byte_data),
 
@@ -138,7 +138,7 @@ layer_out layer_out4(
     .layer_en_in(layer_sel[4]),
     .frame_rdy_in(frame_rdy),
 
-    .word_idx_in(word_idx),
+    .wr_addr_in(wr_addr),
     .byte_sel_in(byte_sel),
     .byte_data_in(byte_data),
 
@@ -152,7 +152,7 @@ layer_out layer_out5(
     .layer_en_in(layer_sel[5]),
     .frame_rdy_in(frame_rdy),
 
-    .word_idx_in(word_idx),
+    .wr_addr_in(wr_addr),
     .byte_sel_in(byte_sel),
     .byte_data_in(byte_data),
 
@@ -166,7 +166,7 @@ layer_out layer_out6(
     .layer_en_in(layer_sel[6]),
     .frame_rdy_in(frame_rdy),
 
-    .word_idx_in(word_idx),
+    .wr_addr_in(wr_addr),
     .byte_sel_in(byte_sel),
     .byte_data_in(byte_data),
 
@@ -180,7 +180,7 @@ layer_out layer_out7(
     .layer_en_in(layer_sel[7]),
     .frame_rdy_in(frame_rdy),
 
-    .word_idx_in(word_idx),
+    .wr_addr_in(wr_addr),
     .byte_sel_in(byte_sel),
     .byte_data_in(byte_data),
 

@@ -11,7 +11,7 @@ module layer_out(
 
     input wire layer_en_in,
     input wire frame_rdy_in,
-    input wire [5:0] word_idx_in,
+    input wire [5:0] wr_addr_in,
     input wire [3:0] byte_sel_in,
     input wire [7:0] byte_data_in,
 
@@ -27,7 +27,7 @@ ws2812_ctl ws2812_ctl(
     .layer_en_in(layer_en_in),
     .frame_rdy_in(frame_rdy_in),
 
-    .word_idx_in(word_idx_in),
+    .wr_addr_in(wr_addr_in),
     .byte_sel_in(byte_sel_in),
     .byte_data_in(byte_data_in),
 
