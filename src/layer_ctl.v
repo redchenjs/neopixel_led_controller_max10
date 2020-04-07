@@ -22,9 +22,9 @@ module layer_ctl(
 parameter [7:0] CUBE0414_ADDR_WR = 8'hcc;
 parameter [7:0] CUBE0414_DATA_WR = 8'hda;
 
-reg	addr_en;
-reg	[2:0] byte_sel;
-reg	[7:0] layer_sel;
+reg addr_en;
+reg [2:0] byte_sel;
+reg [7:0] layer_sel;
 
 assign byte_sel_out = {addr_en, byte_sel};
 assign layer_sel_out = layer_sel & {byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in};

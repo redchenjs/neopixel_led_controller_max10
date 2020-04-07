@@ -17,10 +17,10 @@ module spi_slave(
     output wire [7:0] byte_data_out
 );
 
-reg	[3:0] bit_cnt;
+reg [3:0] bit_cnt;
 
-reg	[1:0] byte_pul;
-reg	[1:0] byte_rdy_pul;
+reg [1:0] byte_pul;
+reg [1:0] byte_rdy_pul;
 assign byte_rdy_out = byte_rdy_pul[0] & ~byte_rdy_pul[1];  // Rising Edge Pulse
 
 wire spi_rst_n;
