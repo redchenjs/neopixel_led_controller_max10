@@ -120,7 +120,7 @@ begin
     end
 end
 
-always @(negedge clk_in or negedge rst_n_in) //发送使能脉冲
+always @(negedge clk_in or negedge rst_n_in)
 begin
     if (!rst_n_in) begin
         bit_rdy_pul <= 2'b0;

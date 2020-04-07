@@ -16,7 +16,7 @@ module ws2812_led_controller(
 
     output wire [7:0] ws2812_data_out,
 
-    output wire [7:0] water_led_out,        // Optional
+    output wire [7:0] water_led_out,        // Optional, FPS Counter
     output wire [8:0] segment_led_1_out,    // Optional, FPS Counter
     output wire [8:0] segment_led_2_out     // Optional, FPS Counter
 );
