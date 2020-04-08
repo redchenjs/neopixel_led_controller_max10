@@ -38,6 +38,8 @@ begin
     if (!rst_n_in) begin
         wr_addr_out <= 6'h00;
 
+        frame_rdy <= 1'b0;
+
         addr_en <= 1'b0;
         color_en <= 3'b000;
 
