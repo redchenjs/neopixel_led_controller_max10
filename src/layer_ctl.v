@@ -75,8 +75,6 @@ begin
                         wr_addr_out <= wr_addr_out + 1'b1;
                     end
                 end else begin      // Write RAM Data
-                    color_en <= {color_en[0], color_en[2:1]};
-
                     if (color_en[0]) begin
                         if (wr_addr_out == 6'd63) begin
                             wr_addr_out <= 6'h00;
@@ -92,6 +90,8 @@ begin
                             wr_addr_out <= wr_addr_out + 1'b1;
                         end
                     end
+
+                    color_en <= {color_en[0], color_en[2:1]};
                 end
             end
         end
