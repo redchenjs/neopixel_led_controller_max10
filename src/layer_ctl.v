@@ -15,19 +15,19 @@ module layer_ctl(
 
     output wire frame_rdy_out,
     output wire [5:0] wr_addr_out,
-    output wire [3:0] byte_sel_out,
-    output wire [7:0] layer_sel_out
+    output wire [3:0] byte_en_out,
+    output wire [7:0] layer_en_out
 );
 
 parameter [7:0] CUBE0414_ADDR_WR = 8'hcc;
 parameter [7:0] CUBE0414_DATA_WR = 8'hda;
 
 reg addr_en;
-reg [2:0] byte_sel;
-reg [7:0] layer_sel;
+reg [2:0] color_en;
+reg [7:0] layer_en;
 
-assign byte_sel_out = {addr_en, byte_sel};
-assign layer_sel_out = layer_sel & {byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in};
+assign byte_en_out = {addr_en, color_en};
+assign layer_en_out = layer_en & {byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in};
 
 reg frame_rdy;
 reg [1:0] frame_rdy_pul;
@@ -39,47 +39,55 @@ begin
         wr_addr_out <= 6'h00;
 
         addr_en <= 1'b0;
-        byte_sel <= 3'b000;
-        layer_sel <= 8'h00;
+        color_en <= 3'b000;
+
+        layer_en <= 8'h00;
     end else begin
         if (byte_rdy_in) begin
             if (!dc_in) begin   // Command
-                frame_rdy <= 1'b0;
                 wr_addr_out <= 6'h00;
+
+                frame_rdy <= 1'b0;
 
                 case (byte_data_in)
                     CUBE0414_ADDR_WR: begin    // Write RAM Addr
                         addr_en <= 1'b1;
-                        byte_sel <= 3'b000;
-                        layer_sel <= 8'hff;
+                        color_en <= 3'b000;
+
+                        layer_en <= 8'hff;
                     end
                     CUBE0414_DATA_WR: begin    // Write RAM Data
                         addr_en <= 1'b0;
-                        byte_sel <= 3'b100;
-                        layer_sel <= 8'h01;
+                        color_en <= 3'b100;
+
+                        layer_en <= 8'h01;
                     end
                 endcase
             end else begin  // Data
                 if (addr_en) begin  // Write RAM Addr
-                    wr_addr_out <= wr_addr_out + 1'b1;
-
                     if (wr_addr_out == 6'd63) begin
-                        layer_sel <= 8'h00;
+                        wr_addr_out <= 6'h00;
+
+                        layer_en <= 8'h00;
+                    end else begin
+                        wr_addr_out <= wr_addr_out + 1'b1;
                     end
                 end else begin      // Write RAM Data
-                    byte_sel <= {byte_sel[0], byte_sel[2:1]};
+                    color_en <= {color_en[0], color_en[2:1]};
 
-                    if (byte_sel[0]) begin
-                        wr_addr_out <= wr_addr_out + 1'b1;
-
+                    if (color_en[0]) begin
                         if (wr_addr_out == 6'd63) begin
-                            if (layer_sel[7]) begin
-                                layer_sel <= 8'h00;
+                            wr_addr_out <= 6'h00;
+
+                            if (layer_en[7]) begin
+                                layer_en <= 8'h00;
 
                                 frame_rdy <= 1'b1;
                             end else begin
-                                layer_sel <= {layer_sel[6:0], layer_sel[7]};
+                                layer_en <= {layer_en[6:0], layer_en[7]};
                             end
+                        end else begin
+                            wr_addr_out <= wr_addr_out + 1'b1;
                         end
                     end
                 end

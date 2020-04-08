@@ -48,14 +48,15 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to clk_in
 set_location_assignment PIN_J5 -to clk_in
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to rst_n_in
 set_location_assignment PIN_J14 -to rst_n_in
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_sclk_in
-set_location_assignment PIN_P15 -to spi_sclk_in
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_mosi_in
-set_location_assignment PIN_R14 -to spi_mosi_in
-set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_cs_n_in
-set_location_assignment PIN_P12 -to spi_cs_n_in
+
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to dc_in
-set_location_assignment PIN_R11 -to dc_in
+set_location_assignment PIN_P15 -to dc_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_sclk_in
+set_location_assignment PIN_R14 -to spi_sclk_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_mosi_in
+set_location_assignment PIN_P12 -to spi_mosi_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_cs_n_in
+set_location_assignment PIN_R11 -to spi_cs_n_in
 
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[7]
 set_location_assignment PIN_R5 -to ws2812_data_out[7]
@@ -135,8 +136,8 @@ set_global_assignment -name VERILOG_FILE src/layer_ctl.v
 set_global_assignment -name VERILOG_FILE src/layer_out.v
 set_global_assignment -name VERILOG_FILE src/ws2812_ctl.v
 set_global_assignment -name VERILOG_FILE src/ws2812_out.v
-set_global_assignment -name VERILOG_FILE src/fps_counter.v
 set_global_assignment -name VERILOG_FILE src/segment_led.v
+set_global_assignment -name VERILOG_FILE src/pulse_counter.v
 set_global_assignment -name QIP_FILE ip/pll/pll.qip
 set_global_assignment -name QIP_FILE ip/ram/ram64.qip
 set_global_assignment -name QSYS_FILE ip/clk/globalclk.qsys
