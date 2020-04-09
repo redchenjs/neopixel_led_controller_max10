@@ -33,19 +33,26 @@ segment_led segment_led(
     .segment_led_2(segment_led_2_out)
 );
 
-always_ff @(posedge clk_in)
+always_ff @(posedge clk_in or negedge rst_n_in)
 begin
-    if (tim_cnt == CNT_1_S) begin
-        pul <= pul_cnt;
+    if (!rst_n_in) begin
+        pul <= 8'h00;
 
         pul_cnt <= 8'h00;
         tim_cnt <= 32'h00;
     end else begin
-        if (pulse_in == 1'b1) begin
-            pul_cnt <= pul_cnt + 1'b1;
-        end
+        if (tim_cnt == CNT_1_S) begin
+            pul <= pul_cnt;
 
-        tim_cnt <= tim_cnt + 1'b1;
+            pul_cnt <= 8'h00;
+            tim_cnt <= 32'h00;
+        end else begin
+            if (pulse_in == 1'b1) begin
+                pul_cnt <= pul_cnt + 1'b1;
+            end
+
+            tim_cnt <= tim_cnt + 1'b1;
+        end
     end
 end
 
