@@ -15,8 +15,7 @@ module edge2en(
     output wire falling_out
 );
 
-reg edge_cur;
-reg edge_pre;
+reg edge_cur, edge_pre;
 
 assign rising_out = edge_cur & ~edge_pre;
 assign falling_out = ~edge_cur & edge_pre;
