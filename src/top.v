@@ -21,9 +21,6 @@ module ws2812_led_controller(
     output wire [8:0] segment_led_2_out     // Optional, FPS Counter
 );
 
-supply0 pll_rst;
-wire pll_c0, pll_locked;
-
 wire byte_rdy;
 wire [7:0] byte_data;
 
@@ -32,11 +29,11 @@ wire [5:0] wr_addr;
 wire [3:0] byte_en;
 wire [7:0] layer_en;
 
+wire pll_c0, pll_locked;
 wire sys_clk, sys_rst_n;
 assign sys_rst_n = pll_locked & rst_n_in;
 
 pll pll(
-    .areset(pll_rst),
     .inclk0(clk_in),
     .c0(pll_c0),
     .locked(pll_locked)

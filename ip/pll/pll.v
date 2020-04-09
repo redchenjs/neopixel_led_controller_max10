@@ -38,22 +38,13 @@
 `timescale 1 ps / 1 ps
 // synopsys translate_on
 module pll (
-	areset,
 	inclk0,
 	c0,
 	locked);
 
-	input	  areset;
 	input	  inclk0;
 	output	  c0;
 	output	  locked;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_off
-`endif
-	tri0	  areset;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_on
-`endif
 
 	wire [4:0] sub_wire0;
 	wire  sub_wire2;
@@ -65,11 +56,11 @@ module pll (
 	wire [1:0] sub_wire4 = {sub_wire5, sub_wire3};
 
 	altpll	altpll_component (
-				.areset (areset),
 				.inclk (sub_wire4),
 				.clk (sub_wire0),
 				.locked (sub_wire2),
 				.activeclock (),
+				.areset (1'b0),
 				.clkbad (),
 				.clkena ({6{1'b1}}),
 				.clkloss (),
@@ -116,7 +107,7 @@ module pll (
 		altpll_component.operation_mode = "NORMAL",
 		altpll_component.pll_type = "AUTO",
 		altpll_component.port_activeclock = "PORT_UNUSED",
-		altpll_component.port_areset = "PORT_USED",
+		altpll_component.port_areset = "PORT_UNUSED",
 		altpll_component.port_clkbad0 = "PORT_UNUSED",
 		altpll_component.port_clkbad1 = "PORT_UNUSED",
 		altpll_component.port_clkloss = "PORT_UNUSED",
@@ -156,7 +147,7 @@ module pll (
 		altpll_component.port_extclk1 = "PORT_UNUSED",
 		altpll_component.port_extclk2 = "PORT_UNUSED",
 		altpll_component.port_extclk3 = "PORT_UNUSED",
-		altpll_component.self_reset_on_loss_lock = "OFF",
+		altpll_component.self_reset_on_loss_lock = "ON",
 		altpll_component.width_clock = 5;
 
 
@@ -217,7 +208,7 @@ endmodule
 // Retrieval info: PRIVATE: PHASE_SHIFT_STEP_ENABLED_CHECK STRING "0"
 // Retrieval info: PRIVATE: PHASE_SHIFT_UNIT0 STRING "deg"
 // Retrieval info: PRIVATE: PLL_ADVANCED_PARAM_CHECK STRING "0"
-// Retrieval info: PRIVATE: PLL_ARESET_CHECK STRING "1"
+// Retrieval info: PRIVATE: PLL_ARESET_CHECK STRING "0"
 // Retrieval info: PRIVATE: PLL_AUTOPLL_CHECK NUMERIC "1"
 // Retrieval info: PRIVATE: PLL_ENHPLL_CHECK NUMERIC "0"
 // Retrieval info: PRIVATE: PLL_FASTPLL_CHECK NUMERIC "0"
@@ -229,7 +220,7 @@ endmodule
 // Retrieval info: PRIVATE: RECONFIG_FILE STRING "pll.mif"
 // Retrieval info: PRIVATE: SACN_INPUTS_CHECK STRING "0"
 // Retrieval info: PRIVATE: SCAN_FEATURE_ENABLED STRING "1"
-// Retrieval info: PRIVATE: SELF_RESET_LOCK_LOSS STRING "0"
+// Retrieval info: PRIVATE: SELF_RESET_LOCK_LOSS STRING "1"
 // Retrieval info: PRIVATE: SHORT_SCAN_RADIO STRING "0"
 // Retrieval info: PRIVATE: SPREAD_FEATURE_ENABLED STRING "0"
 // Retrieval info: PRIVATE: SPREAD_FREQ STRING "50.000"
@@ -262,7 +253,7 @@ endmodule
 // Retrieval info: CONSTANT: OPERATION_MODE STRING "NORMAL"
 // Retrieval info: CONSTANT: PLL_TYPE STRING "AUTO"
 // Retrieval info: CONSTANT: PORT_ACTIVECLOCK STRING "PORT_UNUSED"
-// Retrieval info: CONSTANT: PORT_ARESET STRING "PORT_USED"
+// Retrieval info: CONSTANT: PORT_ARESET STRING "PORT_UNUSED"
 // Retrieval info: CONSTANT: PORT_CLKBAD0 STRING "PORT_UNUSED"
 // Retrieval info: CONSTANT: PORT_CLKBAD1 STRING "PORT_UNUSED"
 // Retrieval info: CONSTANT: PORT_CLKLOSS STRING "PORT_UNUSED"
@@ -302,14 +293,12 @@ endmodule
 // Retrieval info: CONSTANT: PORT_extclk1 STRING "PORT_UNUSED"
 // Retrieval info: CONSTANT: PORT_extclk2 STRING "PORT_UNUSED"
 // Retrieval info: CONSTANT: PORT_extclk3 STRING "PORT_UNUSED"
-// Retrieval info: CONSTANT: SELF_RESET_ON_LOSS_LOCK STRING "OFF"
+// Retrieval info: CONSTANT: SELF_RESET_ON_LOSS_LOCK STRING "ON"
 // Retrieval info: CONSTANT: WIDTH_CLOCK NUMERIC "5"
 // Retrieval info: USED_PORT: @clk 0 0 5 0 OUTPUT_CLK_EXT VCC "@clk[4..0]"
-// Retrieval info: USED_PORT: areset 0 0 0 0 INPUT GND "areset"
 // Retrieval info: USED_PORT: c0 0 0 0 0 OUTPUT_CLK_EXT VCC "c0"
 // Retrieval info: USED_PORT: inclk0 0 0 0 0 INPUT_CLK_EXT GND "inclk0"
 // Retrieval info: USED_PORT: locked 0 0 0 0 OUTPUT GND "locked"
-// Retrieval info: CONNECT: @areset 0 0 0 0 areset 0 0 0 0
 // Retrieval info: CONNECT: @inclk 0 0 1 1 GND 0 0 0 0
 // Retrieval info: CONNECT: @inclk 0 0 1 0 inclk0 0 0 0 0
 // Retrieval info: CONNECT: c0 0 0 0 0 @clk 0 0 1 0
@@ -320,6 +309,6 @@ endmodule
 // Retrieval info: GEN_FILE: TYPE_NORMAL pll.cmp FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL pll.bsf FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL pll_inst.v FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL pll_bb.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL pll_bb.v FALSE
 // Retrieval info: LIB_FILE: altera_mf
 // Retrieval info: CBX_MODULE_PREFIX: ON
