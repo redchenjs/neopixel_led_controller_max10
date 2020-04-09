@@ -14,7 +14,7 @@ module segment_led(
     output wire [8:0] segment_led_2
 );
 
-reg [6:0] mem [15:0];
+reg [6:0] mem[16];
 
 initial begin
     mem[0]  = 7'h3f;    // 0

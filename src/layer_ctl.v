@@ -30,10 +30,17 @@ assign byte_en_out = {addr_en, color_en};
 assign layer_en_out = layer_en & {byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in};
 
 reg frame_rdy;
-reg [1:0] frame_rdy_pul;
-assign frame_rdy_out = frame_rdy_pul[0] & ~frame_rdy_pul[1];   // Rising Edge Pulse
 
-always @(posedge clk_in or negedge rst_n_in)
+edge2en frame_rdy_edge(
+    .clk_in(clk_in),
+    .rst_n_in(rst_n_in),
+
+    .edge_in(frame_rdy),
+
+    .rising_out(frame_rdy_out)
+);
+
+always_ff @(posedge clk_in or negedge rst_n_in)
 begin
     if (!rst_n_in) begin
         wr_addr_out <= 6'h00;
@@ -62,7 +69,7 @@ begin
                         addr_en <= 1'b0;
                         color_en <= 3'b100;
 
-                        layer_en <= 8'h01;
+                        layer_en <= 8'h80;
                     end
                 endcase
             end else begin  // Data
@@ -79,12 +86,12 @@ begin
                         if (wr_addr_out == 6'd63) begin
                             wr_addr_out <= 6'h00;
 
-                            if (layer_en[7]) begin
+                            if (layer_en[0]) begin
                                 layer_en <= 8'h00;
 
                                 frame_rdy <= 1'b1;
                             end else begin
-                                layer_en <= {layer_en[6:0], layer_en[7]};
+                                layer_en <= {layer_en[0], layer_en[7:1]};
                             end
                         end else begin
                             wr_addr_out <= wr_addr_out + 1'b1;
@@ -95,16 +102,6 @@ begin
                 end
             end
         end
-    end
-end
-
-always @(negedge clk_in or negedge rst_n_in)
-begin
-    if (!rst_n_in) begin
-        frame_rdy_pul <= 2'b00;
-    end else begin
-        frame_rdy_pul[0] <= frame_rdy;
-        frame_rdy_pul[1] <= frame_rdy_pul[0];
     end
 end
 

@@ -75,88 +75,18 @@ layer_ctl layer_ctl(
     .layer_en_out(layer_en)
 );
 
-layer_out layer_out0(
+layer_out layer_out7(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .layer_en_in(layer_en[0]),
+    .layer_en_in(layer_en[7]),
     .frame_rdy_in(frame_rdy),
 
     .wr_addr_in(wr_addr),
     .byte_en_in(byte_en),
     .byte_data_in(byte_data),
 
-    .ws2812_data_out(ws2812_data_out[0])
-);
-
-layer_out layer_out1(
-    .clk_in(sys_clk),
-    .rst_n_in(sys_rst_n),
-
-    .layer_en_in(layer_en[1]),
-    .frame_rdy_in(frame_rdy),
-
-    .wr_addr_in(wr_addr),
-    .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
-
-    .ws2812_data_out(ws2812_data_out[1])
-);
-
-layer_out layer_out2(
-    .clk_in(sys_clk),
-    .rst_n_in(sys_rst_n),
-
-    .layer_en_in(layer_en[2]),
-    .frame_rdy_in(frame_rdy),
-
-    .wr_addr_in(wr_addr),
-    .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
-
-    .ws2812_data_out(ws2812_data_out[2])
-);
-
-layer_out layer_out3(
-    .clk_in(sys_clk),
-    .rst_n_in(sys_rst_n),
-
-    .layer_en_in(layer_en[3]),
-    .frame_rdy_in(frame_rdy),
-
-    .wr_addr_in(wr_addr),
-    .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
-
-    .ws2812_data_out(ws2812_data_out[3])
-);
-
-layer_out layer_out4(
-    .clk_in(sys_clk),
-    .rst_n_in(sys_rst_n),
-
-    .layer_en_in(layer_en[4]),
-    .frame_rdy_in(frame_rdy),
-
-    .wr_addr_in(wr_addr),
-    .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
-
-    .ws2812_data_out(ws2812_data_out[4])
-);
-
-layer_out layer_out5(
-    .clk_in(sys_clk),
-    .rst_n_in(sys_rst_n),
-
-    .layer_en_in(layer_en[5]),
-    .frame_rdy_in(frame_rdy),
-
-    .wr_addr_in(wr_addr),
-    .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
-
-    .ws2812_data_out(ws2812_data_out[5])
+    .ws2812_data_out(ws2812_data_out[7])
 );
 
 layer_out layer_out6(
@@ -173,18 +103,88 @@ layer_out layer_out6(
     .ws2812_data_out(ws2812_data_out[6])
 );
 
-layer_out layer_out7(
+layer_out layer_out5(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .layer_en_in(layer_en[7]),
+    .layer_en_in(layer_en[5]),
     .frame_rdy_in(frame_rdy),
 
     .wr_addr_in(wr_addr),
     .byte_en_in(byte_en),
     .byte_data_in(byte_data),
 
-    .ws2812_data_out(ws2812_data_out[7])
+    .ws2812_data_out(ws2812_data_out[5])
+);
+
+layer_out layer_out4(
+    .clk_in(sys_clk),
+    .rst_n_in(sys_rst_n),
+
+    .layer_en_in(layer_en[4]),
+    .frame_rdy_in(frame_rdy),
+
+    .wr_addr_in(wr_addr),
+    .byte_en_in(byte_en),
+    .byte_data_in(byte_data),
+
+    .ws2812_data_out(ws2812_data_out[4])
+);
+
+layer_out layer_out3(
+    .clk_in(sys_clk),
+    .rst_n_in(sys_rst_n),
+
+    .layer_en_in(layer_en[3]),
+    .frame_rdy_in(frame_rdy),
+
+    .wr_addr_in(wr_addr),
+    .byte_en_in(byte_en),
+    .byte_data_in(byte_data),
+
+    .ws2812_data_out(ws2812_data_out[3])
+);
+
+layer_out layer_out2(
+    .clk_in(sys_clk),
+    .rst_n_in(sys_rst_n),
+
+    .layer_en_in(layer_en[2]),
+    .frame_rdy_in(frame_rdy),
+
+    .wr_addr_in(wr_addr),
+    .byte_en_in(byte_en),
+    .byte_data_in(byte_data),
+
+    .ws2812_data_out(ws2812_data_out[2])
+);
+
+layer_out layer_out1(
+    .clk_in(sys_clk),
+    .rst_n_in(sys_rst_n),
+
+    .layer_en_in(layer_en[1]),
+    .frame_rdy_in(frame_rdy),
+
+    .wr_addr_in(wr_addr),
+    .byte_en_in(byte_en),
+    .byte_data_in(byte_data),
+
+    .ws2812_data_out(ws2812_data_out[1])
+);
+
+layer_out layer_out0(
+    .clk_in(sys_clk),
+    .rst_n_in(sys_rst_n),
+
+    .layer_en_in(layer_en[0]),
+    .frame_rdy_in(frame_rdy),
+
+    .wr_addr_in(wr_addr),
+    .byte_en_in(byte_en),
+    .byte_data_in(byte_data),
+
+    .ws2812_data_out(ws2812_data_out[0])
 );
 
 pulse_counter fps_counter(

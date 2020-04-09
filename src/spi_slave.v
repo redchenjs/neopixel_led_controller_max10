@@ -17,47 +17,31 @@ module spi_slave(
     output wire [7:0] byte_data_out
 );
 
-reg [3:0] bit_cnt;
+reg [2:0] bit_sel;
 
-reg [1:0] byte_pul;
-reg [1:0] byte_rdy_pul;
-assign byte_rdy_out = byte_rdy_pul[0] & ~byte_rdy_pul[1];  // Rising Edge Pulse
+wire byte_rdy;
+assign byte_rdy = (bit_sel == 3'd7) ? 1 : 0;
 
 wire spi_rst_n;
 assign spi_rst_n = ~spi_cs_n_in & rst_n_in;
 
-always @(posedge spi_sclk_in or negedge spi_rst_n)
+edge2en byte_rdy_edge(
+    .clk_in(clk_in),
+    .rst_n_in(rst_n_in),
+
+    .edge_in(byte_rdy),
+
+    .falling_out(byte_rdy_out)
+);
+
+always_ff @(posedge spi_sclk_in or negedge spi_rst_n)
 begin
     if (!spi_rst_n) begin
-        bit_cnt <= 4'h0;
+        bit_sel <= 3'h0;
     end else begin
-        bit_cnt <= bit_cnt + 1'b1;
-
-        if (bit_cnt[3]) begin
-            bit_cnt[3] <= 1'b0;
-        end
+        bit_sel <= bit_sel + 1'b1;
 
         byte_data_out <= {byte_data_out[6:0], spi_mosi_in};
-    end
-end
-
-always @(posedge clk_in or negedge rst_n_in)
-begin
-    if (!rst_n_in) begin
-        byte_pul <= 2'b00;
-    end else begin
-        byte_pul[0] <= bit_cnt[3];
-        byte_pul[1] <= byte_pul[0];
-    end
-end
-
-always @(negedge clk_in or negedge rst_n_in)
-begin
-    if (!rst_n_in) begin
-        byte_rdy_pul <= 2'b00;
-    end else begin
-        byte_rdy_pul[0] <= byte_pul[1];
-        byte_rdy_pul[1] <= byte_rdy_pul[0];
     end
 end
 

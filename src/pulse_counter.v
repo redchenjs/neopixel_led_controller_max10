@@ -33,7 +33,7 @@ segment_led segment_led(
     .segment_led_2(segment_led_2_out)
 );
 
-always @(posedge clk_in)
+always_ff @(posedge clk_in)
 begin
     if (tim_cnt == CNT_1_S) begin
         pul <= pul_cnt;

@@ -24,14 +24,13 @@ ws2812_ctl ws2812_ctl(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
 
+    .bit_done_in(bit_done),
+
     .layer_en_in(layer_en_in),
     .frame_rdy_in(frame_rdy_in),
-
     .wr_addr_in(wr_addr_in),
     .byte_en_in(byte_en_in),
     .byte_data_in(byte_data_in),
-
-    .bit_done_in(bit_done),
 
     .bit_rdy_out(bit_rdy),
     .bit_data_out(bit_data)

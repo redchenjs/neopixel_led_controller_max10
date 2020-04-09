@@ -17,18 +17,24 @@ module ws2812_out(
 );
 
 parameter [15:0] CNT_0_35_US = 2 * 35;
-parameter [15:0] CNT_1_35_US = 2 * 135;
-parameter [15:0] CNT_1_70_US = 2 * 170;
+parameter [15:0] CNT_0_70_US = 2 * 70;
+parameter [15:0] CNT_1_25_US = 2 * 125;
 
 reg bit_bsy;
 
 reg [15:0] bit_cnt;
 reg [15:0] code_cnt;
 
-reg [1:0] bit_done_pul;
-assign bit_done_out = ~bit_done_pul[0] & bit_done_pul[1];   // Falling Edge Pulse
+edge2en bit_bsy_edge(
+    .clk_in(clk_in),
+    .rst_n_in(rst_n_in),
 
-always @(posedge clk_in or negedge rst_n_in)
+    .edge_in(bit_bsy),
+
+    .falling_out(bit_done_out)
+);
+
+always_ff @(posedge clk_in or negedge rst_n_in)
 begin
     if (!rst_n_in) begin
         bit_bsy <= 1'b0;
@@ -39,12 +45,12 @@ begin
             bit_bsy <= 1'b1;
         end else begin
             if (bit_bsy) begin
-                if (bit_cnt == CNT_1_70_US) begin
+                if (bit_cnt == CNT_1_25_US) begin
                     bit_bsy <= 1'b0;
                 end else begin
                     if (bit_cnt == 16'h0000) begin
                         if (bit_data_in) begin
-                            code_cnt <= CNT_1_35_US;
+                            code_cnt <= CNT_0_70_US;
                         end else begin
                             code_cnt <= CNT_0_35_US;
                         end
@@ -60,16 +66,6 @@ begin
                 bit_cnt <= 16'h0000;
             end
         end
-    end
-end
-
-always @(negedge clk_in or negedge rst_n_in)
-begin
-    if (!rst_n_in) begin
-        bit_done_pul <= 2'b00;
-    end else begin
-        bit_done_pul[0] <= bit_bsy;
-        bit_done_pul[1] <= bit_done_pul[0];
     end
 end
 
