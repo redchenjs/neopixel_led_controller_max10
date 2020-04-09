@@ -6,30 +6,30 @@
  */
 
 module layer_ctl(
-    input wire clk_in,
-    input wire rst_n_in,
+    input logic clk_in,
+    input logic rst_n_in,
 
-    input wire dc_in,
-    input wire byte_rdy_in,
-    input wire [7:0] byte_data_in,
+    input logic dc_in,
+    input logic byte_rdy_in,
+    input logic [7:0] byte_data_in,
 
-    output wire frame_rdy_out,
-    output wire [5:0] wr_addr_out,
-    output wire [3:0] byte_en_out,
-    output wire [7:0] layer_en_out
+    output logic frame_rdy_out,
+    output logic [5:0] wr_addr_out,
+    output logic [3:0] byte_en_out,
+    output logic [7:0] layer_en_out
 );
 
 parameter [7:0] CUBE0414_ADDR_WR = 8'hcc;
 parameter [7:0] CUBE0414_DATA_WR = 8'hda;
 
-reg addr_en;
-reg [2:0] color_en;
-reg [7:0] layer_en;
+logic addr_en;
+logic [2:0] color_en;
+logic [7:0] layer_en;
 
 assign byte_en_out = {addr_en, color_en};
 assign layer_en_out = layer_en & {byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in};
 
-reg frame_rdy;
+logic frame_rdy;
 
 edge2en frame_rdy_edge(
     .clk_in(clk_in),

@@ -6,21 +6,21 @@
  */
 
 module pulse_counter(
-    input wire clk_in,
-    input wire rst_n_in,
+    input logic clk_in,
+    input logic rst_n_in,
 
-    input wire pulse_in,
+    input logic pulse_in,
 
-    output wire [7:0] water_led_out,
-    output wire [8:0] segment_led_1_out,
-    output wire [8:0] segment_led_2_out
+    output logic [7:0] water_led_out,
+    output logic [8:0] segment_led_1_out,
+    output logic [8:0] segment_led_2_out
 );
 
 parameter [31:0] CNT_1_S = 2 * 100 * 1000 * 1000;
 
-reg [7:0] pul;
-reg [7:0] pul_cnt;
-reg [31:0] tim_cnt;
+logic [7:0] pul;
+logic [7:0] pul_cnt;
+logic [31:0] tim_cnt;
 
 assign water_led_out = rst_n_in ? ~pul_cnt : 8'hff;
 

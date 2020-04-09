@@ -6,16 +6,16 @@
  */
 
 module edge2en(
-    input wire clk_in,
-    input wire rst_n_in,
+    input logic clk_in,
+    input logic rst_n_in,
 
-    input wire edge_in,
+    input logic edge_in,
 
-    output wire rising_out,
-    output wire falling_out
+    output logic rising_out,
+    output logic falling_out
 );
 
-reg edge_cur, edge_pre;
+logic edge_cur, edge_pre;
 
 assign rising_out = edge_cur & ~edge_pre;
 assign falling_out = ~edge_cur & edge_pre;

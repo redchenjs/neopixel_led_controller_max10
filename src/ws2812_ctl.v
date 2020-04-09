@@ -6,18 +6,18 @@
  */
 
 module ws2812_ctl(
-    input wire clk_in,
-    input wire rst_n_in,
+    input logic clk_in,
+    input logic rst_n_in,
 
-    input wire bit_done_in,
-    input wire layer_en_in,
-    input wire frame_rdy_in,
-    input wire [5:0] wr_addr_in,
-    input wire [3:0] byte_en_in,
-    input wire [7:0] byte_data_in,
+    input logic bit_done_in,
+    input logic layer_en_in,
+    input logic frame_rdy_in,
+    input logic [5:0] wr_addr_in,
+    input logic [3:0] byte_en_in,
+    input logic [7:0] byte_data_in,
 
-    output wire bit_rdy_out,
-    output wire bit_data_out
+    output logic bit_rdy_out,
+    output logic bit_data_out
 );
 
 parameter [15:0] CNT_50_US = 2 * 5000;
@@ -27,19 +27,19 @@ parameter [1:0] CTL_READ_RAM = 2'b01;   // Read RAM Data
 parameter [1:0] CTL_SEND_BIT = 2'b10;   // Send Data Bit
 parameter [1:0] CTL_SEND_RST = 2'b11;   // Send Reset Code
 
-reg bit_rdy;
-reg [4:0] bit_sel;
+logic bit_rdy;
+logic [4:0] bit_sel;
 
-reg ram_rd_en;
-reg ram_rd_init;
-reg [5:0] ram_rd_addr;
-reg [31:0] ram_rd_data;
+logic ram_rd_en;
+logic ram_rd_init;
+logic [5:0] ram_rd_addr;
+logic [31:0] ram_rd_data;
 
-reg [1:0] ctl_sta;
-reg [15:0] code_cnt;
+logic [1:0] ctl_sta;
+logic [15:0] code_cnt;
 
-wire ram_rd_rdy;
-wire ram_rd_done;
+logic ram_rd_rdy;
+logic ram_rd_done;
 
 edge2en bit_rdy_edge(
     .clk_in(clk_in),

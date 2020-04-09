@@ -6,19 +6,19 @@
  */
 
 module layer_out(
-    input wire clk_in,
-    input wire rst_n_in,
+    input logic clk_in,
+    input logic rst_n_in,
 
-    input wire layer_en_in,
-    input wire frame_rdy_in,
-    input wire [5:0] wr_addr_in,
-    input wire [3:0] byte_en_in,
-    input wire [7:0] byte_data_in,
+    input logic layer_en_in,
+    input logic frame_rdy_in,
+    input logic [5:0] wr_addr_in,
+    input logic [3:0] byte_en_in,
+    input logic [7:0] byte_data_in,
 
-    output wire ws2812_data_out
+    output logic ws2812_data_out
 );
 
-wire bit_rdy, bit_data, bit_done;
+logic bit_rdy, bit_data, bit_done;
 
 ws2812_ctl ws2812_ctl(
     .clk_in(clk_in),

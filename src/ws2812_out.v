@@ -6,24 +6,24 @@
  */
 
 module ws2812_out(
-    input wire clk_in,
-    input wire rst_n_in,
+    input logic clk_in,
+    input logic rst_n_in,
 
-    input wire bit_rdy_in,
-    input wire bit_data_in,
+    input logic bit_rdy_in,
+    input logic bit_data_in,
 
-    output wire bit_done_out,
-    output wire ws2812_data_out
+    output logic bit_done_out,
+    output logic ws2812_data_out
 );
 
 parameter [15:0] CNT_0_35_US = 2 * 35;
 parameter [15:0] CNT_0_70_US = 2 * 70;
 parameter [15:0] CNT_1_25_US = 2 * 125;
 
-reg bit_bsy;
+logic bit_bsy;
 
-reg [15:0] bit_cnt;
-reg [15:0] code_cnt;
+logic [15:0] bit_cnt;
+logic [15:0] code_cnt;
 
 edge2en bit_bsy_edge(
     .clk_in(clk_in),

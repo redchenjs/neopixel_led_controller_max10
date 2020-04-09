@@ -6,31 +6,31 @@
  */
 
 module ws2812_led_controller(
-    input wire clk_in,      // clk_in = 12 MHz
-    input wire rst_n_in,    // rst_n_in, active low
+    input logic clk_in,      // clk_in = 12 MHz
+    input logic rst_n_in,    // rst_n_in, active low
 
-    input wire dc_in,
-    input wire spi_sclk_in,
-    input wire spi_mosi_in,
-    input wire spi_cs_n_in,
+    input logic dc_in,
+    input logic spi_sclk_in,
+    input logic spi_mosi_in,
+    input logic spi_cs_n_in,
 
-    output wire [7:0] ws2812_data_out,
+    output logic [7:0] ws2812_data_out,
 
-    output wire [7:0] water_led_out,        // Optional, FPS Counter
-    output wire [8:0] segment_led_1_out,    // Optional, FPS Counter
-    output wire [8:0] segment_led_2_out     // Optional, FPS Counter
+    output logic [7:0] water_led_out,        // Optional, FPS Counter
+    output logic [8:0] segment_led_1_out,    // Optional, FPS Counter
+    output logic [8:0] segment_led_2_out     // Optional, FPS Counter
 );
 
-wire byte_rdy;
-wire [7:0] byte_data;
+logic byte_rdy;
+logic [7:0] byte_data;
 
-wire frame_rdy;
-wire [5:0] wr_addr;
-wire [3:0] byte_en;
-wire [7:0] layer_en;
+logic frame_rdy;
+logic [5:0] wr_addr;
+logic [3:0] byte_en;
+logic [7:0] layer_en;
 
-wire pll_c0, pll_locked;
-wire sys_clk, sys_rst_n;
+logic pll_c0, pll_locked;
+logic sys_clk, sys_rst_n;
 assign sys_rst_n = pll_locked & rst_n_in;
 
 pll pll(
