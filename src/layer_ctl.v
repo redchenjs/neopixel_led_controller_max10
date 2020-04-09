@@ -71,6 +71,12 @@ begin
 
                         layer_en <= 8'h80;
                     end
+                    default: begin
+                        addr_en <= 1'b0;
+                        color_en <= 3'b000;
+
+                        layer_en <= 8'h00;
+                    end
                 endcase
             end else begin  // Data
                 if (addr_en) begin  // Write RAM Addr

@@ -136,6 +136,8 @@ begin
             end else begin
                 code_cnt <= code_cnt + 1'b1;
             end
+        default:
+            ctl_sta <= CTL_INIT;
         endcase
     end
 end
