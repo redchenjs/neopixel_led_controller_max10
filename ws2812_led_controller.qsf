@@ -43,15 +43,19 @@ set_global_assignment -name LAST_QUARTUS_VERSION "19.1.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name VHDL_INPUT_VERSION VHDL_2008
 set_global_assignment -name VERILOG_INPUT_VERSION SYSTEMVERILOG_2005
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "NO HEAT SINK WITH STILL AIR"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
+set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to clk_in
 set_location_assignment PIN_J5 -to clk_in
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to rst_n_in
 set_location_assignment PIN_J14 -to rst_n_in
-
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to dc_in
 set_location_assignment PIN_P15 -to dc_in
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_sclk_in
@@ -60,7 +64,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_mosi_in
 set_location_assignment PIN_P12 -to spi_mosi_in
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_cs_n_in
 set_location_assignment PIN_R11 -to spi_cs_n_in
-
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[7]
 set_location_assignment PIN_R5 -to ws2812_data_out[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[6]
@@ -77,7 +80,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[1]
 set_location_assignment PIN_P3 -to ws2812_data_out[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[0]
 set_location_assignment PIN_M4 -to ws2812_data_out[0]
-
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[7]
 set_location_assignment PIN_N15 -to water_led_out[7]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[6]
@@ -94,7 +96,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[1]
 set_location_assignment PIN_L11 -to water_led_out[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[0]
 set_location_assignment PIN_K11 -to water_led_out[0]
-
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[8]
 set_location_assignment PIN_E2 -to segment_led_1_out[8]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[7]
@@ -113,7 +114,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[1
 set_location_assignment PIN_D2 -to segment_led_1_out[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[0]
 set_location_assignment PIN_E1 -to segment_led_1_out[0]
-
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[8]
 set_location_assignment PIN_B1 -to segment_led_2_out[8]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[7]
@@ -132,7 +132,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[1
 set_location_assignment PIN_A2 -to segment_led_2_out[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[0]
 set_location_assignment PIN_A3 -to segment_led_2_out[0]
-
 set_global_assignment -name VERILOG_FILE src/top.v
 set_global_assignment -name VERILOG_FILE src/common.v
 set_global_assignment -name VERILOG_FILE src/spi_slave.v
@@ -145,5 +144,4 @@ set_global_assignment -name VERILOG_FILE src/pulse_counter.v
 set_global_assignment -name QIP_FILE ip/pll/pll.qip
 set_global_assignment -name QIP_FILE ip/ram/ram64.qip
 set_global_assignment -name QSYS_FILE ip/clk/globalclk.qsys
-
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
