@@ -6,10 +6,10 @@
  */
 
 module edge2en(
-    input logic clk_in,
-    input logic rst_n_in,
+    input wire clk_in,
+    input wire rst_n_in,
 
-    input logic edge_in,
+    input wire edge_in,
 
     output logic rising_out,
     output logic falling_out

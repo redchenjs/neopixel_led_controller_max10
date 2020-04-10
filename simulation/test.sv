@@ -1,5 +1,5 @@
 /*
- * test.v
+ * test.sv
  *
  *  Created on: 2020-04-10 22:17
  *      Author: Jack Chen <redchenjs@live.com>
@@ -9,13 +9,13 @@
 
 module test;
 
-reg clk_in;
-reg rst_n_in;
+logic clk_in;
+logic rst_n_in;
 
-reg dc_in;
-reg spi_sclk_in;
-reg spi_mosi_in;
-reg spi_cs_n_in;
+logic dc_in;
+logic spi_sclk_in;
+logic spi_mosi_in;
+logic spi_cs_n_in;
 
 wire [7:0] ws2812_data_out;
 
