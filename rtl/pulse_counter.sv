@@ -1,5 +1,5 @@
 /*
- * pulse_counter.v
+ * pulse_counter.sv
  *
  *  Created on: 2020-04-07 18:54
  *      Author: Jack Chen <redchenjs@live.com>

@@ -17,7 +17,7 @@ logic spi_sclk_in;
 logic spi_mosi_in;
 logic spi_cs_n_in;
 
-wire [7:0] ws2812_data_out;
+logic [7:0] ws2812_data_out;
 
 ws2812_led_controller test(
     .clk_in(clk_in),
@@ -40,7 +40,7 @@ always begin
     spi_mosi_in <= 0;
     spi_cs_n_in <= 1;
 
-    #1250 spi_cs_n_in <= 0;
+    #500 spi_cs_n_in <= 0;
 
         spi_mosi_in <= 1;  // 0
     #25 spi_mosi_in <= 1;  // 1
@@ -53,13 +53,7 @@ always begin
 
     #25 spi_cs_n_in <= 1;
 
-    dc_in <= 1;
-
-    #25 spi_cs_n_in <= 0;
-
-    #200 spi_cs_n_in <= 1;
-
-    $stop;
+    #500 $stop;
 end
 
 always begin

@@ -1,5 +1,5 @@
 /*
- * layer_ctl.v
+ * layer_ctl.sv
  *
  *  Created on: 2020-04-06 23:08
  *      Author: Jack Chen <redchenjs@live.com>

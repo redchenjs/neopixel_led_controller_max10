@@ -1,15 +1,15 @@
 /*
- * common.v
+ * common.sv
  *
  *  Created on: 2020-04-09 17:46
  *      Author: Jack Chen <redchenjs@live.com>
  */
 
 module edge2en(
-    input wire clk_in,
-    input wire rst_n_in,
+    input logic clk_in,
+    input logic rst_n_in,
 
-    input wire edge_in,
+    input logic edge_in,
 
     output logic rising_out,
     output logic falling_out

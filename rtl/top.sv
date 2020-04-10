@@ -1,5 +1,5 @@
 /*
- * top.v
+ * top.sv
  *
  *  Created on: 2020-04-06 23:07
  *      Author: Jack Chen <redchenjs@live.com>

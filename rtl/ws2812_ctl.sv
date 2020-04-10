@@ -1,5 +1,5 @@
 /*
- * ws2812_ctl.v
+ * ws2812_ctl.sv
  *
  *  Created on: 2020-04-06 23:09
  *      Author: Jack Chen <redchenjs@live.com>

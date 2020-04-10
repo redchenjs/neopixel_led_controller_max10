@@ -1,5 +1,5 @@
 /*
- * segment_led.v
+ * segment_led.sv
  *
  *  Created on: 2020-04-07 18:54
  *      Author: Jack Chen <redchenjs@live.com>
