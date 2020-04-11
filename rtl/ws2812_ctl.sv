@@ -22,49 +22,49 @@ module ws2812_ctl(
 
 parameter [15:0] CNT_50_US = 2 * 5000;
 
-parameter [1:0] CTL_INIT = 2'b00;       // Init
-parameter [1:0] CTL_READ_RAM = 2'b01;   // Read RAM Data
-parameter [1:0] CTL_SEND_BIT = 2'b10;   // Send Data Bit
-parameter [1:0] CTL_SEND_RST = 2'b11;   // Send Reset Code
+parameter [1:0] IDLE = 2'b00;       // Idle
+parameter [1:0] READ_RAM = 2'b01;   // Read RAM Data
+parameter [1:0] SEND_BIT = 2'b10;   // Send Data Bit
+parameter [1:0] SEND_RST = 2'b11;   // Send Reset Code
 
 logic bit_rdy;
 logic [4:0] bit_sel;
 
+logic ram_rd_st;
 logic ram_rd_en;
-logic ram_rd_init;
+logic [31:0] ram_rd_q;
+
 logic [5:0] ram_rd_addr;
-logic [31:0] ram_rd_data;
+logic [23:0] ram_rd_data;
 
 logic [1:0] ctl_sta;
-logic [15:0] code_cnt;
+logic [15:0] rst_cnt;
 
 logic ram_rd_rdy;
 logic ram_rd_done;
 
+wire bit_done = ram_rd_st | bit_done_in;
+wire ram_next = bit_done & (bit_sel == 5'd23);
+wire ram_done = (ram_rd_addr == 6'h00);
+
 edge2en bit_rdy_edge(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
-
     .edge_in(bit_rdy),
-
     .rising_out(bit_rdy_out)
 );
 
 edge2en ram_rd_en_edge(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
-
     .edge_in(ram_rd_en),
-
     .rising_out(ram_rd_rdy)
 );
 
 edge2en ram_rd_rdy_edge(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
-
     .edge_in(ram_rd_rdy),
-
     .rising_out(ram_rd_done)
 );
 
@@ -76,69 +76,54 @@ ram64 ram64(
     .rden(ram_rd_rdy),
     .wraddress(wr_addr_in),
     .wren(layer_en_in),
-    .q(ram_rd_data)
+    .q(ram_rd_q)
 );
 
 always_ff @(posedge clk_in or negedge rst_n_in)
 begin
     if (!rst_n_in) begin
-        ctl_sta <= CTL_INIT;
+        ctl_sta <= IDLE;
+
+        bit_rdy <= 1'b0;
+        bit_sel <= 5'h00;
+
+        ram_rd_st <= 1'b0;
+        ram_rd_en <= 1'b0;
+
+        ram_rd_addr <= 6'h00;
+        ram_rd_data <= 24'h000000;
+
+        rst_cnt <= 16'h0000;
+
+        bit_data_out <= 1'b0;
     end else begin
+        ram_rd_addr <= ram_rd_q[29:24];
+        ram_rd_data <= ram_rd_q[23:0];
+
+        ram_rd_st <= ((ctl_sta == IDLE) | ram_rd_st) & (ctl_sta != SEND_BIT);
+        ram_rd_en <= (ctl_sta == READ_RAM) & ~ram_rd_done;
+
         case (ctl_sta)
-        CTL_INIT:
-            if (frame_rdy_in) begin
-                ctl_sta <= CTL_READ_RAM;
-
-                bit_rdy <= 1'b0;
-                bit_sel <= 5'h00;
-
-                ram_rd_en <= 1'b0;
-                ram_rd_init <= 1'b1;
-                ram_rd_addr <= 6'h00;
-
-                code_cnt <= 16'h0000;
-            end
-        CTL_READ_RAM: begin
-            if (ram_rd_done) begin
-                ctl_sta <= CTL_SEND_BIT;
-
-                ram_rd_addr <= ram_rd_data[29:24];
-
-                ram_rd_en <= 1'b0;
-            end else begin
-                ram_rd_en <= 1'b1;
-            end
+        IDLE: begin
+            ctl_sta <= frame_rdy_in ? READ_RAM : ctl_sta;
         end
-        CTL_SEND_BIT:
-            if (ram_rd_init || bit_done_in) begin
-                ram_rd_init <= 1'b0;
-
-                bit_rdy <= 1'b1;
-                bit_data_out <= ram_rd_data[5'd23 - bit_sel];
-
-                if (bit_sel == 5'd23) begin
-                    bit_sel <= 5'h00;
-
-                    if (ram_rd_addr == 6'h00) begin
-                        ctl_sta <= CTL_SEND_RST;
-                    end else begin
-                        ctl_sta <= CTL_READ_RAM;
-                    end
-                end else begin
-                    bit_sel <= bit_sel + 1'b1;
-                end
-            end else begin
-                bit_rdy <= 1'b0;
-            end
-        CTL_SEND_RST:
-            if (code_cnt == CNT_50_US) begin
-                ctl_sta <= CTL_INIT;
-            end else begin
-                code_cnt <= code_cnt + 1'b1;
-            end
+        READ_RAM: begin
+            ctl_sta <= ram_rd_done ? SEND_BIT : ctl_sta;
+        end
+        SEND_BIT: begin
+            ctl_sta <= ram_next ? (ram_done ? SEND_RST : READ_RAM) : ctl_sta;
+        end
+        SEND_RST:
+            ctl_sta <= (rst_cnt == CNT_50_US) ? IDLE : ctl_sta;
         default:
-            ctl_sta <= CTL_INIT;
+            ctl_sta <= IDLE;
         endcase
+
+        bit_rdy <= (ctl_sta == SEND_BIT) & bit_done;
+        bit_sel <= (ctl_sta == SEND_BIT) ? (bit_sel + bit_done) : 5'h00;
+        rst_cnt <= (ctl_sta == SEND_RST) ? (rst_cnt + 1'b1) : 16'h0000;
+
+        bit_data_out <= ram_rd_data[5'd23 - bit_sel];
     end
 end
 
