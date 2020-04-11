@@ -37,6 +37,7 @@ begin
         bit_sel <= 3'h0;
 
         byte_rdy_out <= 1'b0;
+        byte_data_out <= 8'h00;
     end else begin
         byte_rdy_out <= spi_sclk_r && (bit_sel == 3'd7);
 
