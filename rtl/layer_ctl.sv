@@ -28,13 +28,13 @@ logic addr_en;
 logic [2:0] color_en;
 logic [7:0] layer_en;
 
-assign byte_en_out = {addr_en, color_en};
-assign layer_en_out = layer_en & {byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in};
-
 wire addr_done = (wr_addr_out == 6'd63);
 wire color_done = color_en[0];
 wire layer_done = layer_en[0];
 wire write_done = addr_done & color_done & layer_done;
+
+assign byte_en_out = {addr_en, color_en};
+assign layer_en_out = layer_en & {byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in};
 
 logic spi_cs_n_f, spi_rst_n;
 
@@ -50,7 +50,7 @@ begin
     if (!rst_n_in) begin
         spi_rst_n <= 1'b0;
     end else begin
-        spi_rst_n <= spi_cs_n_f | spi_rst_n;
+        spi_rst_n <= ~frame_rdy_out & (spi_cs_n_f | spi_rst_n);
     end
 end
 
@@ -80,20 +80,23 @@ begin
                         color_en <= 3'b100;
                         layer_en <= 8'h80;
                     end
+                    default: begin
+                        addr_en <= 1'b0;
+
+                        color_en <= 3'b000;
+                        layer_en <= 8'h00;
+                    end
                 endcase
 
                 wr_addr_out <= 6'h00;
             end
             2'b11: begin    // Data
-                color_en <= addr_en ? color_en : {color_en[0], color_en[2:1]};
+                color_en <= ~addr_en ? {color_en[0], color_en[2:1]} : color_en;
+                layer_en <= ~addr_en ? (addr_done & color_done & ~layer_done)
+                                     ? {layer_en[0], layer_en[7:1]} : layer_en
+                                     : ~addr_done ? layer_en : 8'h00;
 
-                layer_en <= addr_en ? (addr_done ? 8'h00 : layer_en)
-                                    : (color_done & addr_done) ? (layer_done ? 8'h00 : {layer_en[0], layer_en[7:1]})
-                                    : layer_en;
-
-                wr_addr_out <= addr_en ? (addr_done ? 6'h00 : wr_addr_out + 1'b1)
-                                       : color_done ? (addr_done ? 6'h00 : wr_addr_out + 1'b1)
-                                       : wr_addr_out;
+                wr_addr_out <= wr_addr_out + (addr_en | color_done);
             end
         endcase
 
