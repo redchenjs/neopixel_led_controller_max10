@@ -105,15 +105,12 @@ begin
         ram_rd_en <= (ctl_sta == READ_RAM) & ~ram_rd_done;
 
         case (ctl_sta)
-        IDLE: begin
+        IDLE:
             ctl_sta <= frame_rdy_in ? READ_RAM : ctl_sta;
-        end
-        READ_RAM: begin
+        READ_RAM:
             ctl_sta <= ram_rd_done ? SEND_BIT : ctl_sta;
-        end
-        SEND_BIT: begin
+        SEND_BIT:
             ctl_sta <= ram_next ? (ram_done ? SEND_RST : READ_RAM) : ctl_sta;
-        end
         SEND_RST:
             ctl_sta <= (rst_cnt == CNT_50_US) ? IDLE : ctl_sta;
         default:
