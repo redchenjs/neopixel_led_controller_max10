@@ -62,6 +62,8 @@ layer_ctl layer_ctl(
     .rst_n_in(sys_rst_n),
 
     .dc_in(dc_in),
+    .spi_cs_n_in(spi_cs_n_in),
+
     .byte_rdy_in(byte_rdy),
     .byte_data_in(byte_data),
 

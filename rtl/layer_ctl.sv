@@ -10,6 +10,8 @@ module layer_ctl(
     input logic rst_n_in,
 
     input logic dc_in,
+    input logic spi_cs_n_in,
+
     input logic byte_rdy_in,
     input logic [7:0] byte_data_in,
 
@@ -29,83 +31,73 @@ logic [7:0] layer_en;
 assign byte_en_out = {addr_en, color_en};
 assign layer_en_out = layer_en & {byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in};
 
-logic frame_rdy;
+wire addr_done = (wr_addr_out == 6'd63);
+wire color_done = color_en[0];
+wire layer_done = layer_en[0];
+wire write_done = addr_done & color_done & layer_done;
 
-edge2en frame_rdy_edge(
+logic spi_cs_n_f, spi_rst_n;
+
+edge2en spi_cs_n_edge(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
-    .edge_in(frame_rdy),
-    .rising_out(frame_rdy_out)
+    .edge_in(spi_cs_n_in),
+    .falling_out(spi_cs_n_f)
 );
 
 always_ff @(posedge clk_in or negedge rst_n_in)
 begin
     if (!rst_n_in) begin
-        wr_addr_out <= 6'h00;
-
-        frame_rdy <= 1'b0;
-
-        addr_en <= 1'b0;
-        color_en <= 3'b000;
-
-        layer_en <= 8'h00;
+        spi_rst_n <= 1'b0;
     end else begin
-        if (byte_rdy_in) begin
-            if (!dc_in) begin   // Command
-                wr_addr_out <= 6'h00;
+        spi_rst_n <= spi_cs_n_f | spi_rst_n;
+    end
+end
 
-                frame_rdy <= 1'b0;
+always_ff @(posedge clk_in or negedge spi_rst_n)
+begin
+    if (!spi_rst_n) begin
+        addr_en <= 1'b0;
 
+        color_en <= 3'b000;
+        layer_en <= 8'h00;
+
+        wr_addr_out <= 6'h00;
+        frame_rdy_out <= 1'b0;
+    end else begin
+        case ({byte_rdy_in, dc_in})
+            2'b10: begin    // Command
                 case (byte_data_in)
-                    CUBE0414_ADDR_WR: begin    // Write RAM Addr
+                    CUBE0414_ADDR_WR: begin     // Write RAM Addr
                         addr_en <= 1'b1;
-                        color_en <= 3'b000;
 
+                        color_en <= 3'b000;
                         layer_en <= 8'hff;
                     end
-                    CUBE0414_DATA_WR: begin    // Write RAM Data
+                    CUBE0414_DATA_WR: begin     // Write RAM Data
                         addr_en <= 1'b0;
-                        color_en <= 3'b100;
 
+                        color_en <= 3'b100;
                         layer_en <= 8'h80;
                     end
-                    default: begin
-                        addr_en <= 1'b0;
-                        color_en <= 3'b000;
-
-                        layer_en <= 8'h00;
-                    end
                 endcase
-            end else begin  // Data
-                if (addr_en) begin  // Write RAM Addr
-                    if (wr_addr_out == 6'd63) begin
-                        wr_addr_out <= 6'h00;
 
-                        layer_en <= 8'h00;
-                    end else begin
-                        wr_addr_out <= wr_addr_out + 1'b1;
-                    end
-                end else begin      // Write RAM Data
-                    if (color_en[0]) begin
-                        if (wr_addr_out == 6'd63) begin
-                            wr_addr_out <= 6'h00;
-
-                            if (layer_en[0]) begin
-                                layer_en <= 8'h00;
-
-                                frame_rdy <= 1'b1;
-                            end else begin
-                                layer_en <= {layer_en[0], layer_en[7:1]};
-                            end
-                        end else begin
-                            wr_addr_out <= wr_addr_out + 1'b1;
-                        end
-                    end
-
-                    color_en <= {color_en[0], color_en[2:1]};
-                end
+                wr_addr_out <= 6'h00;
             end
-        end
+            2'b11: begin    // Data
+                color_en <= addr_en ? color_en : {color_en[0], color_en[2:1]};
+
+                layer_en <= addr_en ? (addr_done ? 8'h00 : layer_en)
+                                    : (color_done & addr_done) ? (layer_done ? 8'h00 : {layer_en[0], layer_en[7:1]})
+                                    : layer_en;
+
+                wr_addr_out <= addr_en ? (addr_done ? 6'h00 : wr_addr_out + 1'b1)
+                                       : color_done ? (addr_done ? 6'h00 : wr_addr_out + 1'b1)
+                                       : wr_addr_out;
+            end
+        endcase
+
+        frame_rdy_out <= byte_rdy_in & dc_in & ~addr_en & write_done;
     end
 end
 
