@@ -35,11 +35,8 @@ initial begin
     mem[15] = 7'h71;    // F
 end
 
-logic [3:0] num_1;
-logic [3:0] num_2;
-
-assign num_1 = (count / 10) % 10;
-assign num_2 = count % 10;
+wire [3:0] num_1 = (count / 10) % 10;
+wire [3:0] num_2 = count % 10;
 
 assign segment_led_1[6:0] = mem[num_1];
 assign segment_led_1[7] = (count / 100 >= 2) ? 1'b1 : 1'b0;
