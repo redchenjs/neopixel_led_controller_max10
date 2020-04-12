@@ -19,6 +19,7 @@ module spi_slave(
 
 logic [2:0] bit_sel;
 
+logic spi_sclk_r;
 wire spi_rst_n = ~spi_cs_n_in & rst_n_in;
 
 edge2en spi_sclk_edge(
