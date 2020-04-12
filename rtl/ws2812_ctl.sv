@@ -80,6 +80,12 @@ ram64 ram64(
     .q(ram_rd_q)
 );
 
+always_ff @(posedge clk_in)
+begin
+    ram_rd_addr <= ram_rd_q[29:24];
+    ram_rd_data <= ram_rd_q[23:0];
+end
+
 always_ff @(posedge clk_in or negedge rst_n_in)
 begin
     if (!rst_n_in) begin
@@ -91,19 +97,10 @@ begin
         ram_rd_st <= 1'b0;
         ram_rd_en <= 1'b0;
 
-        ram_rd_addr <= 6'h00;
-        ram_rd_data <= 24'h000000;
-
         rst_cnt <= 16'h0000;
 
         bit_data_out <= 1'b0;
     end else begin
-        ram_rd_addr <= ram_rd_q[29:24];
-        ram_rd_data <= ram_rd_q[23:0];
-
-        ram_rd_st <= ((ctl_sta == IDLE) | ram_rd_st) & (ctl_sta != SEND_BIT);
-        ram_rd_en <= (ctl_sta == READ_RAM) & ~ram_rd_done;
-
         case (ctl_sta)
         IDLE:
             ctl_sta <= frame_rdy_in ? READ_RAM : ctl_sta;
@@ -119,6 +116,10 @@ begin
 
         bit_rdy <= (ctl_sta == SEND_BIT) & bit_done;
         bit_sel <= (ctl_sta == SEND_BIT) ? (bit_sel + bit_done) : 5'h00;
+
+        ram_rd_st <= ((ctl_sta == IDLE) | ram_rd_st) & (ctl_sta != SEND_BIT);
+        ram_rd_en <= (ctl_sta == READ_RAM) & ~ram_rd_done;
+
         rst_cnt <= (ctl_sta == SEND_RST) ? (rst_cnt + 1'b1) : 16'h0000;
 
         bit_data_out <= ram_rd_data[5'd23 - bit_sel];
