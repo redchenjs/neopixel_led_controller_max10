@@ -25,9 +25,7 @@ assign spi_rst_n = ~spi_cs_n_in & rst_n_in;
 edge2en spi_sclk_edge(
    .clk_in(clk_in),
    .rst_n_in(spi_rst_n),
-
    .edge_in(spi_sclk_in),
-
    .rising_out(spi_sclk_r)
 );
 

@@ -34,9 +34,7 @@ logic frame_rdy;
 edge2en frame_rdy_edge(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
-
     .edge_in(frame_rdy),
-
     .rising_out(frame_rdy_out)
 );
 
