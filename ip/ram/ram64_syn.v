@@ -34,7 +34,7 @@
 //https://fpgasoftware.intel.com/eula.
 
 
-//altsyncram ADDRESS_ACLR_B="NONE" ADDRESS_REG_B="CLOCK0" BYTE_SIZE=8 CLOCK_ENABLE_INPUT_A="BYPASS" CLOCK_ENABLE_INPUT_B="BYPASS" CLOCK_ENABLE_OUTPUT_B="BYPASS" DEVICE_FAMILY="MAX 10" NUMWORDS_A=64 NUMWORDS_B=64 OPERATION_MODE="DUAL_PORT" OUTDATA_ACLR_B="NONE" OUTDATA_REG_B="UNREGISTERED" POWER_UP_UNINITIALIZED="TRUE" RDCONTROL_REG_B="CLOCK0" READ_DURING_WRITE_MODE_MIXED_PORTS="DONT_CARE" WIDTH_A=32 WIDTH_B=32 WIDTH_BYTEENA_A=4 WIDTHAD_A=6 WIDTHAD_B=6 address_a address_b byteena_a clock0 data_a q_b rden_b wren_a
+//altsyncram ADDRESS_ACLR_B="NONE" ADDRESS_REG_B="CLOCK0" BYTE_SIZE=8 CLOCK_ENABLE_INPUT_A="BYPASS" CLOCK_ENABLE_INPUT_B="BYPASS" CLOCK_ENABLE_OUTPUT_B="BYPASS" DEVICE_FAMILY="MAX 10" NUMWORDS_A=64 NUMWORDS_B=64 OPERATION_MODE="DUAL_PORT" OUTDATA_ACLR_B="CLEAR0" OUTDATA_REG_B="UNREGISTERED" POWER_UP_UNINITIALIZED="TRUE" RDCONTROL_REG_B="CLOCK0" READ_DURING_WRITE_MODE_MIXED_PORTS="DONT_CARE" WIDTH_A=32 WIDTH_B=32 WIDTH_BYTEENA_A=4 WIDTHAD_A=6 WIDTHAD_B=6 aclr0 address_a address_b byteena_a clock0 data_a q_b rden_b wren_a
 //VERSION_BEGIN 19.1 cbx_altera_syncram_nd_impl 2019:09:22:08:02:34:SJ cbx_altsyncram 2019:09:22:08:02:34:SJ cbx_cycloneii 2019:09:22:08:02:34:SJ cbx_lpm_add_sub 2019:09:22:08:02:34:SJ cbx_lpm_compare 2019:09:22:08:02:34:SJ cbx_lpm_decode 2019:09:22:08:02:34:SJ cbx_lpm_mux 2019:09:22:08:02:34:SJ cbx_mgl 2019:09:22:09:26:20:SJ cbx_nadder 2019:09:22:08:02:34:SJ cbx_stratix 2019:09:22:08:02:34:SJ cbx_stratixii 2019:09:22:08:02:34:SJ cbx_stratixiii 2019:09:22:08:02:34:SJ cbx_stratixv 2019:09:22:08:02:34:SJ cbx_util_mgl 2019:09:22:08:02:34:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
@@ -47,6 +47,7 @@
 (* ALTERA_ATTRIBUTE = {"OPTIMIZE_POWER_DURING_SYNTHESIS=NORMAL_COMPILATION"} *)
 module  ram64_altsyncram
 	( 
+	aclr0,
 	address_a,
 	address_b,
 	byteena_a,
@@ -55,6 +56,7 @@ module  ram64_altsyncram
 	q_b,
 	rden_b,
 	wren_a) /* synthesis synthesis_clearbox=1 */;
+	input   aclr0;
 	input   [5:0]  address_a;
 	input   [5:0]  address_b;
 	input   [3:0]  byteena_a;
@@ -66,6 +68,7 @@ module  ram64_altsyncram
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
+	tri0   aclr0;
 	tri1   [5:0]  address_b;
 	tri1   [3:0]  byteena_a;
 	tri1   clock0;
@@ -122,6 +125,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -136,7 +140,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -176,7 +179,7 @@ module  ram64_altsyncram
 		ram_block1a_0.port_b_address_clear = "none",
 		ram_block1a_0.port_b_address_clock = "clock1",
 		ram_block1a_0.port_b_address_width = 6,
-		ram_block1a_0.port_b_data_out_clear = "none",
+		ram_block1a_0.port_b_data_out_clear = "clear0",
 		ram_block1a_0.port_b_data_width = 1,
 		ram_block1a_0.port_b_first_address = 0,
 		ram_block1a_0.port_b_first_bit_number = 0,
@@ -191,6 +194,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -205,7 +209,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -245,7 +248,7 @@ module  ram64_altsyncram
 		ram_block1a_1.port_b_address_clear = "none",
 		ram_block1a_1.port_b_address_clock = "clock1",
 		ram_block1a_1.port_b_address_width = 6,
-		ram_block1a_1.port_b_data_out_clear = "none",
+		ram_block1a_1.port_b_data_out_clear = "clear0",
 		ram_block1a_1.port_b_data_width = 1,
 		ram_block1a_1.port_b_first_address = 0,
 		ram_block1a_1.port_b_first_bit_number = 1,
@@ -260,6 +263,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -274,7 +278,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -314,7 +317,7 @@ module  ram64_altsyncram
 		ram_block1a_2.port_b_address_clear = "none",
 		ram_block1a_2.port_b_address_clock = "clock1",
 		ram_block1a_2.port_b_address_width = 6,
-		ram_block1a_2.port_b_data_out_clear = "none",
+		ram_block1a_2.port_b_data_out_clear = "clear0",
 		ram_block1a_2.port_b_data_width = 1,
 		ram_block1a_2.port_b_first_address = 0,
 		ram_block1a_2.port_b_first_bit_number = 2,
@@ -329,6 +332,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -343,7 +347,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -383,7 +386,7 @@ module  ram64_altsyncram
 		ram_block1a_3.port_b_address_clear = "none",
 		ram_block1a_3.port_b_address_clock = "clock1",
 		ram_block1a_3.port_b_address_width = 6,
-		ram_block1a_3.port_b_data_out_clear = "none",
+		ram_block1a_3.port_b_data_out_clear = "clear0",
 		ram_block1a_3.port_b_data_width = 1,
 		ram_block1a_3.port_b_first_address = 0,
 		ram_block1a_3.port_b_first_bit_number = 3,
@@ -398,6 +401,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -412,7 +416,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -452,7 +455,7 @@ module  ram64_altsyncram
 		ram_block1a_4.port_b_address_clear = "none",
 		ram_block1a_4.port_b_address_clock = "clock1",
 		ram_block1a_4.port_b_address_width = 6,
-		ram_block1a_4.port_b_data_out_clear = "none",
+		ram_block1a_4.port_b_data_out_clear = "clear0",
 		ram_block1a_4.port_b_data_width = 1,
 		ram_block1a_4.port_b_first_address = 0,
 		ram_block1a_4.port_b_first_bit_number = 4,
@@ -467,6 +470,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -481,7 +485,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -521,7 +524,7 @@ module  ram64_altsyncram
 		ram_block1a_5.port_b_address_clear = "none",
 		ram_block1a_5.port_b_address_clock = "clock1",
 		ram_block1a_5.port_b_address_width = 6,
-		ram_block1a_5.port_b_data_out_clear = "none",
+		ram_block1a_5.port_b_data_out_clear = "clear0",
 		ram_block1a_5.port_b_data_width = 1,
 		ram_block1a_5.port_b_first_address = 0,
 		ram_block1a_5.port_b_first_bit_number = 5,
@@ -536,6 +539,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -550,7 +554,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -590,7 +593,7 @@ module  ram64_altsyncram
 		ram_block1a_6.port_b_address_clear = "none",
 		ram_block1a_6.port_b_address_clock = "clock1",
 		ram_block1a_6.port_b_address_width = 6,
-		ram_block1a_6.port_b_data_out_clear = "none",
+		ram_block1a_6.port_b_data_out_clear = "clear0",
 		ram_block1a_6.port_b_data_width = 1,
 		ram_block1a_6.port_b_first_address = 0,
 		ram_block1a_6.port_b_first_bit_number = 6,
@@ -605,6 +608,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -619,7 +623,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -659,7 +662,7 @@ module  ram64_altsyncram
 		ram_block1a_7.port_b_address_clear = "none",
 		ram_block1a_7.port_b_address_clock = "clock1",
 		ram_block1a_7.port_b_address_width = 6,
-		ram_block1a_7.port_b_data_out_clear = "none",
+		ram_block1a_7.port_b_data_out_clear = "clear0",
 		ram_block1a_7.port_b_data_width = 1,
 		ram_block1a_7.port_b_first_address = 0,
 		ram_block1a_7.port_b_first_bit_number = 7,
@@ -674,6 +677,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -688,7 +692,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -728,7 +731,7 @@ module  ram64_altsyncram
 		ram_block1a_8.port_b_address_clear = "none",
 		ram_block1a_8.port_b_address_clock = "clock1",
 		ram_block1a_8.port_b_address_width = 6,
-		ram_block1a_8.port_b_data_out_clear = "none",
+		ram_block1a_8.port_b_data_out_clear = "clear0",
 		ram_block1a_8.port_b_data_width = 1,
 		ram_block1a_8.port_b_first_address = 0,
 		ram_block1a_8.port_b_first_bit_number = 8,
@@ -743,6 +746,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -757,7 +761,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -797,7 +800,7 @@ module  ram64_altsyncram
 		ram_block1a_9.port_b_address_clear = "none",
 		ram_block1a_9.port_b_address_clock = "clock1",
 		ram_block1a_9.port_b_address_width = 6,
-		ram_block1a_9.port_b_data_out_clear = "none",
+		ram_block1a_9.port_b_data_out_clear = "clear0",
 		ram_block1a_9.port_b_data_width = 1,
 		ram_block1a_9.port_b_first_address = 0,
 		ram_block1a_9.port_b_first_bit_number = 9,
@@ -812,6 +815,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -826,7 +830,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -866,7 +869,7 @@ module  ram64_altsyncram
 		ram_block1a_10.port_b_address_clear = "none",
 		ram_block1a_10.port_b_address_clock = "clock1",
 		ram_block1a_10.port_b_address_width = 6,
-		ram_block1a_10.port_b_data_out_clear = "none",
+		ram_block1a_10.port_b_data_out_clear = "clear0",
 		ram_block1a_10.port_b_data_width = 1,
 		ram_block1a_10.port_b_first_address = 0,
 		ram_block1a_10.port_b_first_bit_number = 10,
@@ -881,6 +884,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -895,7 +899,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -935,7 +938,7 @@ module  ram64_altsyncram
 		ram_block1a_11.port_b_address_clear = "none",
 		ram_block1a_11.port_b_address_clock = "clock1",
 		ram_block1a_11.port_b_address_width = 6,
-		ram_block1a_11.port_b_data_out_clear = "none",
+		ram_block1a_11.port_b_data_out_clear = "clear0",
 		ram_block1a_11.port_b_data_width = 1,
 		ram_block1a_11.port_b_first_address = 0,
 		ram_block1a_11.port_b_first_bit_number = 11,
@@ -950,6 +953,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -964,7 +968,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1004,7 +1007,7 @@ module  ram64_altsyncram
 		ram_block1a_12.port_b_address_clear = "none",
 		ram_block1a_12.port_b_address_clock = "clock1",
 		ram_block1a_12.port_b_address_width = 6,
-		ram_block1a_12.port_b_data_out_clear = "none",
+		ram_block1a_12.port_b_data_out_clear = "clear0",
 		ram_block1a_12.port_b_data_width = 1,
 		ram_block1a_12.port_b_first_address = 0,
 		ram_block1a_12.port_b_first_bit_number = 12,
@@ -1019,6 +1022,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1033,7 +1037,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1073,7 +1076,7 @@ module  ram64_altsyncram
 		ram_block1a_13.port_b_address_clear = "none",
 		ram_block1a_13.port_b_address_clock = "clock1",
 		ram_block1a_13.port_b_address_width = 6,
-		ram_block1a_13.port_b_data_out_clear = "none",
+		ram_block1a_13.port_b_data_out_clear = "clear0",
 		ram_block1a_13.port_b_data_width = 1,
 		ram_block1a_13.port_b_first_address = 0,
 		ram_block1a_13.port_b_first_bit_number = 13,
@@ -1088,6 +1091,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1102,7 +1106,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1142,7 +1145,7 @@ module  ram64_altsyncram
 		ram_block1a_14.port_b_address_clear = "none",
 		ram_block1a_14.port_b_address_clock = "clock1",
 		ram_block1a_14.port_b_address_width = 6,
-		ram_block1a_14.port_b_data_out_clear = "none",
+		ram_block1a_14.port_b_data_out_clear = "clear0",
 		ram_block1a_14.port_b_data_width = 1,
 		ram_block1a_14.port_b_first_address = 0,
 		ram_block1a_14.port_b_first_bit_number = 14,
@@ -1157,6 +1160,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1171,7 +1175,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1211,7 +1214,7 @@ module  ram64_altsyncram
 		ram_block1a_15.port_b_address_clear = "none",
 		ram_block1a_15.port_b_address_clock = "clock1",
 		ram_block1a_15.port_b_address_width = 6,
-		ram_block1a_15.port_b_data_out_clear = "none",
+		ram_block1a_15.port_b_data_out_clear = "clear0",
 		ram_block1a_15.port_b_data_width = 1,
 		ram_block1a_15.port_b_first_address = 0,
 		ram_block1a_15.port_b_first_bit_number = 15,
@@ -1226,6 +1229,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1240,7 +1244,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1280,7 +1283,7 @@ module  ram64_altsyncram
 		ram_block1a_16.port_b_address_clear = "none",
 		ram_block1a_16.port_b_address_clock = "clock1",
 		ram_block1a_16.port_b_address_width = 6,
-		ram_block1a_16.port_b_data_out_clear = "none",
+		ram_block1a_16.port_b_data_out_clear = "clear0",
 		ram_block1a_16.port_b_data_width = 1,
 		ram_block1a_16.port_b_first_address = 0,
 		ram_block1a_16.port_b_first_bit_number = 16,
@@ -1295,6 +1298,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1309,7 +1313,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1349,7 +1352,7 @@ module  ram64_altsyncram
 		ram_block1a_17.port_b_address_clear = "none",
 		ram_block1a_17.port_b_address_clock = "clock1",
 		ram_block1a_17.port_b_address_width = 6,
-		ram_block1a_17.port_b_data_out_clear = "none",
+		ram_block1a_17.port_b_data_out_clear = "clear0",
 		ram_block1a_17.port_b_data_width = 1,
 		ram_block1a_17.port_b_first_address = 0,
 		ram_block1a_17.port_b_first_bit_number = 17,
@@ -1364,6 +1367,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1378,7 +1382,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1418,7 +1421,7 @@ module  ram64_altsyncram
 		ram_block1a_18.port_b_address_clear = "none",
 		ram_block1a_18.port_b_address_clock = "clock1",
 		ram_block1a_18.port_b_address_width = 6,
-		ram_block1a_18.port_b_data_out_clear = "none",
+		ram_block1a_18.port_b_data_out_clear = "clear0",
 		ram_block1a_18.port_b_data_width = 1,
 		ram_block1a_18.port_b_first_address = 0,
 		ram_block1a_18.port_b_first_bit_number = 18,
@@ -1433,6 +1436,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1447,7 +1451,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1487,7 +1490,7 @@ module  ram64_altsyncram
 		ram_block1a_19.port_b_address_clear = "none",
 		ram_block1a_19.port_b_address_clock = "clock1",
 		ram_block1a_19.port_b_address_width = 6,
-		ram_block1a_19.port_b_data_out_clear = "none",
+		ram_block1a_19.port_b_data_out_clear = "clear0",
 		ram_block1a_19.port_b_data_width = 1,
 		ram_block1a_19.port_b_first_address = 0,
 		ram_block1a_19.port_b_first_bit_number = 19,
@@ -1502,6 +1505,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1516,7 +1520,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1556,7 +1559,7 @@ module  ram64_altsyncram
 		ram_block1a_20.port_b_address_clear = "none",
 		ram_block1a_20.port_b_address_clock = "clock1",
 		ram_block1a_20.port_b_address_width = 6,
-		ram_block1a_20.port_b_data_out_clear = "none",
+		ram_block1a_20.port_b_data_out_clear = "clear0",
 		ram_block1a_20.port_b_data_width = 1,
 		ram_block1a_20.port_b_first_address = 0,
 		ram_block1a_20.port_b_first_bit_number = 20,
@@ -1571,6 +1574,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1585,7 +1589,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1625,7 +1628,7 @@ module  ram64_altsyncram
 		ram_block1a_21.port_b_address_clear = "none",
 		ram_block1a_21.port_b_address_clock = "clock1",
 		ram_block1a_21.port_b_address_width = 6,
-		ram_block1a_21.port_b_data_out_clear = "none",
+		ram_block1a_21.port_b_data_out_clear = "clear0",
 		ram_block1a_21.port_b_data_width = 1,
 		ram_block1a_21.port_b_first_address = 0,
 		ram_block1a_21.port_b_first_bit_number = 21,
@@ -1640,6 +1643,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1654,7 +1658,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1694,7 +1697,7 @@ module  ram64_altsyncram
 		ram_block1a_22.port_b_address_clear = "none",
 		ram_block1a_22.port_b_address_clock = "clock1",
 		ram_block1a_22.port_b_address_width = 6,
-		ram_block1a_22.port_b_data_out_clear = "none",
+		ram_block1a_22.port_b_data_out_clear = "clear0",
 		ram_block1a_22.port_b_data_width = 1,
 		ram_block1a_22.port_b_first_address = 0,
 		ram_block1a_22.port_b_first_bit_number = 22,
@@ -1709,6 +1712,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1723,7 +1727,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1763,7 +1766,7 @@ module  ram64_altsyncram
 		ram_block1a_23.port_b_address_clear = "none",
 		ram_block1a_23.port_b_address_clock = "clock1",
 		ram_block1a_23.port_b_address_width = 6,
-		ram_block1a_23.port_b_data_out_clear = "none",
+		ram_block1a_23.port_b_data_out_clear = "clear0",
 		ram_block1a_23.port_b_data_width = 1,
 		ram_block1a_23.port_b_first_address = 0,
 		ram_block1a_23.port_b_first_bit_number = 23,
@@ -1778,6 +1781,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1792,7 +1796,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1832,7 +1835,7 @@ module  ram64_altsyncram
 		ram_block1a_24.port_b_address_clear = "none",
 		ram_block1a_24.port_b_address_clock = "clock1",
 		ram_block1a_24.port_b_address_width = 6,
-		ram_block1a_24.port_b_data_out_clear = "none",
+		ram_block1a_24.port_b_data_out_clear = "clear0",
 		ram_block1a_24.port_b_data_width = 1,
 		ram_block1a_24.port_b_first_address = 0,
 		ram_block1a_24.port_b_first_bit_number = 24,
@@ -1847,6 +1850,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1861,7 +1865,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1901,7 +1904,7 @@ module  ram64_altsyncram
 		ram_block1a_25.port_b_address_clear = "none",
 		ram_block1a_25.port_b_address_clock = "clock1",
 		ram_block1a_25.port_b_address_width = 6,
-		ram_block1a_25.port_b_data_out_clear = "none",
+		ram_block1a_25.port_b_data_out_clear = "clear0",
 		ram_block1a_25.port_b_data_width = 1,
 		ram_block1a_25.port_b_first_address = 0,
 		ram_block1a_25.port_b_first_bit_number = 25,
@@ -1916,6 +1919,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1930,7 +1934,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -1970,7 +1973,7 @@ module  ram64_altsyncram
 		ram_block1a_26.port_b_address_clear = "none",
 		ram_block1a_26.port_b_address_clock = "clock1",
 		ram_block1a_26.port_b_address_width = 6,
-		ram_block1a_26.port_b_data_out_clear = "none",
+		ram_block1a_26.port_b_data_out_clear = "clear0",
 		ram_block1a_26.port_b_data_width = 1,
 		ram_block1a_26.port_b_first_address = 0,
 		ram_block1a_26.port_b_first_bit_number = 26,
@@ -1985,6 +1988,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -1999,7 +2003,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -2039,7 +2042,7 @@ module  ram64_altsyncram
 		ram_block1a_27.port_b_address_clear = "none",
 		ram_block1a_27.port_b_address_clock = "clock1",
 		ram_block1a_27.port_b_address_width = 6,
-		ram_block1a_27.port_b_data_out_clear = "none",
+		ram_block1a_27.port_b_data_out_clear = "clear0",
 		ram_block1a_27.port_b_data_width = 1,
 		ram_block1a_27.port_b_first_address = 0,
 		ram_block1a_27.port_b_first_bit_number = 27,
@@ -2054,6 +2057,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -2068,7 +2072,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -2108,7 +2111,7 @@ module  ram64_altsyncram
 		ram_block1a_28.port_b_address_clear = "none",
 		ram_block1a_28.port_b_address_clock = "clock1",
 		ram_block1a_28.port_b_address_width = 6,
-		ram_block1a_28.port_b_data_out_clear = "none",
+		ram_block1a_28.port_b_data_out_clear = "clear0",
 		ram_block1a_28.port_b_data_width = 1,
 		ram_block1a_28.port_b_first_address = 0,
 		ram_block1a_28.port_b_first_bit_number = 28,
@@ -2123,6 +2126,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -2137,7 +2141,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -2177,7 +2180,7 @@ module  ram64_altsyncram
 		ram_block1a_29.port_b_address_clear = "none",
 		ram_block1a_29.port_b_address_clock = "clock1",
 		ram_block1a_29.port_b_address_width = 6,
-		ram_block1a_29.port_b_data_out_clear = "none",
+		ram_block1a_29.port_b_data_out_clear = "clear0",
 		ram_block1a_29.port_b_data_width = 1,
 		ram_block1a_29.port_b_first_address = 0,
 		ram_block1a_29.port_b_first_bit_number = 29,
@@ -2192,6 +2195,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -2206,7 +2210,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -2246,7 +2249,7 @@ module  ram64_altsyncram
 		ram_block1a_30.port_b_address_clear = "none",
 		ram_block1a_30.port_b_address_clock = "clock1",
 		ram_block1a_30.port_b_address_width = 6,
-		ram_block1a_30.port_b_data_out_clear = "none",
+		ram_block1a_30.port_b_data_out_clear = "clear0",
 		ram_block1a_30.port_b_data_width = 1,
 		ram_block1a_30.port_b_first_address = 0,
 		ram_block1a_30.port_b_first_bit_number = 30,
@@ -2261,6 +2264,7 @@ module  ram64_altsyncram
 	( 
 	.clk0(clock0),
 	.clk1(clock0),
+	.clr0(aclr0),
 	.ena0(wren_a),
 	.ena1((rden_b_store | rden_b)),
 	.portaaddr({address_a_wire[5:0]}),
@@ -2275,7 +2279,6 @@ module  ram64_altsyncram
 	// synopsys translate_off
 	`endif
 	,
-	.clr0(1'b0),
 	.clr1(1'b0),
 	.ena2(1'b1),
 	.ena3(1'b1),
@@ -2315,7 +2318,7 @@ module  ram64_altsyncram
 		ram_block1a_31.port_b_address_clear = "none",
 		ram_block1a_31.port_b_address_clock = "clock1",
 		ram_block1a_31.port_b_address_width = 6,
-		ram_block1a_31.port_b_data_out_clear = "none",
+		ram_block1a_31.port_b_data_out_clear = "clear0",
 		ram_block1a_31.port_b_data_width = 1,
 		ram_block1a_31.port_b_first_address = 0,
 		ram_block1a_31.port_b_first_bit_number = 31,
@@ -2338,6 +2341,7 @@ endmodule //ram64_altsyncram
 `timescale 1 ps / 1 ps
 // synopsys translate_on
 module ram64 (
+	aclr,
 	byteena_a,
 	clock,
 	data,
@@ -2347,6 +2351,7 @@ module ram64 (
 	wren,
 	q)/* synthesis synthesis_clearbox = 1 */;
 
+	input	  aclr;
 	input	[3:0]  byteena_a;
 	input	  clock;
 	input	[31:0]  data;
@@ -2358,6 +2363,7 @@ module ram64 (
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
+	tri0	  aclr;
 	tri1	[3:0]  byteena_a;
 	tri1	  clock;
 	tri1	  rden;
@@ -2370,6 +2376,7 @@ module ram64 (
 	wire [31:0] q = sub_wire0[31:0];
 
 	ram64_altsyncram	ram64_altsyncram_component (
+				.aclr0 (aclr),
 				.address_a (wraddress),
 				.address_b (rdaddress),
 				.byteena_a (byteena_a),
@@ -2418,7 +2425,7 @@ endmodule
 // Retrieval info: PRIVATE: MEM_IN_BITS NUMERIC "0"
 // Retrieval info: PRIVATE: MIFfilename STRING "ram64.mif"
 // Retrieval info: PRIVATE: OPERATION_MODE NUMERIC "2"
-// Retrieval info: PRIVATE: OUTDATA_ACLR_B NUMERIC "0"
+// Retrieval info: PRIVATE: OUTDATA_ACLR_B NUMERIC "1"
 // Retrieval info: PRIVATE: OUTDATA_REG_B NUMERIC "0"
 // Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
 // Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_MIXED_PORTS NUMERIC "2"
@@ -2455,7 +2462,7 @@ endmodule
 // Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "64"
 // Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "64"
 // Retrieval info: CONSTANT: OPERATION_MODE STRING "DUAL_PORT"
-// Retrieval info: CONSTANT: OUTDATA_ACLR_B STRING "NONE"
+// Retrieval info: CONSTANT: OUTDATA_ACLR_B STRING "CLEAR0"
 // Retrieval info: CONSTANT: OUTDATA_REG_B STRING "UNREGISTERED"
 // Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "TRUE"
 // Retrieval info: CONSTANT: RDCONTROL_REG_B STRING "CLOCK0"
@@ -2465,6 +2472,7 @@ endmodule
 // Retrieval info: CONSTANT: WIDTH_A NUMERIC "32"
 // Retrieval info: CONSTANT: WIDTH_B NUMERIC "32"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "4"
+// Retrieval info: USED_PORT: aclr 0 0 0 0 INPUT GND "aclr"
 // Retrieval info: USED_PORT: byteena_a 0 0 4 0 INPUT VCC "byteena_a[3..0]"
 // Retrieval info: USED_PORT: clock 0 0 0 0 INPUT VCC "clock"
 // Retrieval info: USED_PORT: data 0 0 32 0 INPUT NODEFVAL "data[31..0]"
@@ -2473,6 +2481,7 @@ endmodule
 // Retrieval info: USED_PORT: rden 0 0 0 0 INPUT VCC "rden"
 // Retrieval info: USED_PORT: wraddress 0 0 6 0 INPUT NODEFVAL "wraddress[5..0]"
 // Retrieval info: USED_PORT: wren 0 0 0 0 INPUT GND "wren"
+// Retrieval info: CONNECT: @aclr0 0 0 0 0 aclr 0 0 0 0
 // Retrieval info: CONNECT: @address_a 0 0 6 0 wraddress 0 0 6 0
 // Retrieval info: CONNECT: @address_b 0 0 6 0 rdaddress 0 0 6 0
 // Retrieval info: CONNECT: @byteena_a 0 0 4 0 byteena_a 0 0 4 0

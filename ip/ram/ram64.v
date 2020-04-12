@@ -38,6 +38,7 @@
 `timescale 1 ps / 1 ps
 // synopsys translate_on
 module ram64 (
+	aclr,
 	byteena_a,
 	clock,
 	data,
@@ -47,6 +48,7 @@ module ram64 (
 	wren,
 	q);
 
+	input	  aclr;
 	input	[3:0]  byteena_a;
 	input	  clock;
 	input	[31:0]  data;
@@ -58,6 +60,7 @@ module ram64 (
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
+	tri0	  aclr;
 	tri1	[3:0]  byteena_a;
 	tri1	  clock;
 	tri1	  rden;
@@ -70,6 +73,7 @@ module ram64 (
 	wire [31:0] q = sub_wire0[31:0];
 
 	altsyncram	altsyncram_component (
+				.aclr0 (aclr),
 				.address_a (wraddress),
 				.address_b (rdaddress),
 				.byteena_a (byteena_a),
@@ -78,7 +82,6 @@ module ram64 (
 				.rden_b (rden),
 				.wren_a (wren),
 				.q_b (sub_wire0),
-				.aclr0 (1'b0),
 				.aclr1 (1'b0),
 				.addressstall_a (1'b0),
 				.addressstall_b (1'b0),
@@ -105,7 +108,7 @@ module ram64 (
 		altsyncram_component.numwords_a = 64,
 		altsyncram_component.numwords_b = 64,
 		altsyncram_component.operation_mode = "DUAL_PORT",
-		altsyncram_component.outdata_aclr_b = "NONE",
+		altsyncram_component.outdata_aclr_b = "CLEAR0",
 		altsyncram_component.outdata_reg_b = "UNREGISTERED",
 		altsyncram_component.power_up_uninitialized = "TRUE",
 		altsyncram_component.rdcontrol_reg_b = "CLOCK0",
@@ -156,7 +159,7 @@ endmodule
 // Retrieval info: PRIVATE: MEM_IN_BITS NUMERIC "0"
 // Retrieval info: PRIVATE: MIFfilename STRING "ram64.mif"
 // Retrieval info: PRIVATE: OPERATION_MODE NUMERIC "2"
-// Retrieval info: PRIVATE: OUTDATA_ACLR_B NUMERIC "0"
+// Retrieval info: PRIVATE: OUTDATA_ACLR_B NUMERIC "1"
 // Retrieval info: PRIVATE: OUTDATA_REG_B NUMERIC "0"
 // Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
 // Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_MIXED_PORTS NUMERIC "2"
@@ -193,7 +196,7 @@ endmodule
 // Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "64"
 // Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "64"
 // Retrieval info: CONSTANT: OPERATION_MODE STRING "DUAL_PORT"
-// Retrieval info: CONSTANT: OUTDATA_ACLR_B STRING "NONE"
+// Retrieval info: CONSTANT: OUTDATA_ACLR_B STRING "CLEAR0"
 // Retrieval info: CONSTANT: OUTDATA_REG_B STRING "UNREGISTERED"
 // Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "TRUE"
 // Retrieval info: CONSTANT: RDCONTROL_REG_B STRING "CLOCK0"
@@ -203,6 +206,7 @@ endmodule
 // Retrieval info: CONSTANT: WIDTH_A NUMERIC "32"
 // Retrieval info: CONSTANT: WIDTH_B NUMERIC "32"
 // Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "4"
+// Retrieval info: USED_PORT: aclr 0 0 0 0 INPUT GND "aclr"
 // Retrieval info: USED_PORT: byteena_a 0 0 4 0 INPUT VCC "byteena_a[3..0]"
 // Retrieval info: USED_PORT: clock 0 0 0 0 INPUT VCC "clock"
 // Retrieval info: USED_PORT: data 0 0 32 0 INPUT NODEFVAL "data[31..0]"
@@ -211,6 +215,7 @@ endmodule
 // Retrieval info: USED_PORT: rden 0 0 0 0 INPUT VCC "rden"
 // Retrieval info: USED_PORT: wraddress 0 0 6 0 INPUT NODEFVAL "wraddress[5..0]"
 // Retrieval info: USED_PORT: wren 0 0 0 0 INPUT GND "wren"
+// Retrieval info: CONNECT: @aclr0 0 0 0 0 aclr 0 0 0 0
 // Retrieval info: CONNECT: @address_a 0 0 6 0 wraddress 0 0 6 0
 // Retrieval info: CONNECT: @address_b 0 0 6 0 rdaddress 0 0 6 0
 // Retrieval info: CONNECT: @byteena_a 0 0 4 0 byteena_a 0 0 4 0

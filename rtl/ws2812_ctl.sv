@@ -69,6 +69,7 @@ edge2en ram_rd_rdy_edge(
 );
 
 ram64 ram64(
+    .aclr(~rst_n_in),
     .byteena_a(byte_en_in),
     .clock(clk_in),
     .data({byte_data_in, byte_data_in, byte_data_in, byte_data_in}),
