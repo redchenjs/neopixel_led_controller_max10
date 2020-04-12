@@ -120,8 +120,8 @@ begin
         ram_rd_st <= ((ctl_sta == IDLE) | ram_rd_st) & (ctl_sta != SEND_BIT);
         ram_rd_en <= (ctl_sta == READ_RAM) & ~ram_rd_done;
 
-        bit_sel <= (ctl_sta == SEND_BIT) ? (bit_sel + bit_done) : 5'h00;
-        rst_cnt <= (ctl_sta == SEND_RST) ? (rst_cnt + 1'b1) : 16'h0000;
+        bit_sel <= (ctl_sta == SEND_BIT) ? bit_sel + bit_done : 5'h00;
+        rst_cnt <= (ctl_sta == SEND_RST) ? rst_cnt + 1'b1 : 16'h0000;
 
         bit_data_out <= ram_rd_data[5'd23 - bit_sel];
     end
