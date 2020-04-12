@@ -37,13 +37,10 @@ begin
         byte_rdy_out <= 1'b0;
         byte_data_out <= 8'h00;
     end else begin
-        byte_rdy_out <= spi_sclk_r && (bit_sel == 3'd7);
+        bit_sel <= bit_sel + spi_sclk_r;
 
-        if (spi_sclk_r) begin
-            bit_sel <= bit_sel + 3'b1;
-
-            byte_data_out <= {byte_data_out[6:0], spi_mosi_in};
-        end
+        byte_rdy_out <= spi_sclk_r & (bit_sel == 3'd7);
+        byte_data_out <= spi_sclk_r ? {byte_data_out[6:0], spi_mosi_in} : byte_data_out;
     end
 end
 
