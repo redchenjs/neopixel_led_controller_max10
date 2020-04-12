@@ -47,10 +47,7 @@ begin
             pul_cnt <= 8'h00;
             tim_cnt <= 32'h00;
         end else begin
-            if (pulse_in == 1'b1) begin
-                pul_cnt <= pul_cnt + 1'b1;
-            end
-
+            pul_cnt <= pul_cnt + pulse_in;
             tim_cnt <= tim_cnt + 1'b1;
         end
     end
