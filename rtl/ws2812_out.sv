@@ -32,18 +32,12 @@ begin
         bit_done_out <= 1'b0;
         ws2812_data_out <= 1'b0;
     end else begin
-        bit_done_out <= bit_bsy && (bit_cnt == CNT_1_25_US);
-
-        if (bit_bsy) begin
-            ws2812_data_out <= (bit_data_in && (bit_cnt < CNT_0_70_US)) ||
-                              (!bit_data_in && (bit_cnt < CNT_0_35_US));
-
-            bit_bsy <= (bit_cnt != CNT_1_25_US);
-        end else begin
-            bit_bsy <= bit_rdy_in;
-        end
-
+        bit_bsy <= bit_bsy ? (bit_cnt != CNT_1_25_US) : bit_rdy_in;
         bit_cnt <= bit_bsy ? (bit_cnt + 1'b1) : 16'h0000;
+
+        bit_done_out <= bit_bsy & (bit_cnt == CNT_1_25_US);
+        ws2812_data_out <= bit_bsy & ((bit_data_in & (bit_cnt < CNT_0_70_US))
+                                   | (!bit_data_in & (bit_cnt < CNT_0_35_US)));
     end
 end
 
