@@ -48,13 +48,6 @@ wire bit_done = ram_rd_st | bit_done_in;
 wire ram_next = bit_done & (bit_sel == 5'd23);
 wire ram_done = (ram_rd_addr == 6'h00);
 
-edge2en bit_rdy_edge(
-    .clk_in(clk_in),
-    .rst_n_in(rst_n_in),
-    .edge_in(bit_rdy),
-    .rising_out(bit_rdy_out)
-);
-
 edge2en ram_rd_en_edge(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
@@ -100,6 +93,7 @@ begin
         bit_sel <= 5'h00;
         rst_cnt <= 16'h0000;
 
+        bit_rdy_out <= 1'b0;
         bit_data_out <= 1'b0;
     end else begin
         case (ctl_sta)
@@ -123,6 +117,7 @@ begin
         bit_sel <= (ctl_sta == SEND_BIT) ? bit_sel + bit_done : 5'h00;
         rst_cnt <= (ctl_sta == SEND_RST) ? rst_cnt + 1'b1 : 16'h0000;
 
+        bit_rdy_out <= bit_rdy;
         bit_data_out <= ram_rd_data[5'd23 - bit_sel];
     end
 end
