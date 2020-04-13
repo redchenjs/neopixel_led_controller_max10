@@ -27,8 +27,6 @@ parameter [1:0] READ_RAM = 2'b01;   // Read RAM Data
 parameter [1:0] SEND_BIT = 2'b10;   // Send Data Bit
 parameter [1:0] SEND_RST = 2'b11;   // Send Reset Code
 
-logic bit_rdy;
-
 logic ram_rd_st;
 logic ram_rd_en;
 logic [31:0] ram_rd_q;
@@ -45,7 +43,7 @@ logic ram_rd_rdy;
 logic ram_rd_done;
 
 wire bit_done = ram_rd_st | bit_done_in;
-wire ram_next = bit_done & (bit_sel == 5'd23);
+wire ram_next = (bit_sel == 5'd23);
 wire ram_done = (ram_rd_addr == 6'h00);
 
 edge2en ram_rd_en_edge(
@@ -85,8 +83,6 @@ begin
     if (!rst_n_in) begin
         ctl_sta <= IDLE;
 
-        bit_rdy <= 1'b0;
-
         ram_rd_st <= 1'b0;
         ram_rd_en <= 1'b0;
 
@@ -97,28 +93,26 @@ begin
         bit_data_out <= 1'b0;
     end else begin
         case (ctl_sta)
-        IDLE:
-            ctl_sta <= frame_rdy_in ? READ_RAM : ctl_sta;
-        READ_RAM:
-            ctl_sta <= ram_rd_done ? SEND_BIT : ctl_sta;
-        SEND_BIT:
-            ctl_sta <= ram_next ? (ram_done ? SEND_RST : READ_RAM) : ctl_sta;
-        SEND_RST:
-            ctl_sta <= (rst_cnt == CNT_50_US) ? IDLE : ctl_sta;
-        default:
-            ctl_sta <= IDLE;
+            IDLE:
+                ctl_sta <= frame_rdy_in ? READ_RAM : ctl_sta;
+            READ_RAM:
+                ctl_sta <= ram_rd_done ? SEND_BIT : ctl_sta;
+            SEND_BIT:
+                ctl_sta <= (bit_done & ram_next) ? (ram_done ? SEND_RST : READ_RAM) : ctl_sta;
+            SEND_RST:
+                ctl_sta <= (rst_cnt == CNT_50_US) ? IDLE : ctl_sta;
+            default:
+                ctl_sta <= IDLE;
         endcase
 
-        bit_rdy <= (ctl_sta == SEND_BIT) & bit_done;
-
-        ram_rd_st <= ((ctl_sta == IDLE) | ram_rd_st) & (ctl_sta != SEND_BIT);
+        ram_rd_st <= (ctl_sta != SEND_BIT) & ((ctl_sta == IDLE) | ram_rd_st);
         ram_rd_en <= (ctl_sta == READ_RAM) & ~ram_rd_done;
 
-        bit_sel <= (ctl_sta == SEND_BIT) ? bit_sel + bit_done : 5'h00;
+        bit_sel <= (ctl_sta == SEND_BIT) ? bit_sel + (bit_done & ~ram_next) : 5'h00;
         rst_cnt <= (ctl_sta == SEND_RST) ? rst_cnt + 1'b1 : 16'h0000;
 
-        bit_rdy_out <= bit_rdy;
-        bit_data_out <= ram_rd_data[5'd23 - bit_sel];
+        bit_rdy_out <= (ctl_sta == SEND_BIT) & bit_done;
+        bit_data_out <= (ctl_sta == SEND_BIT) & bit_done ? ram_rd_data[5'd23 - bit_sel] : bit_data_out;
     end
 end
 
