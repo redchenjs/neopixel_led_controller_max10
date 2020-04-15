@@ -16,11 +16,11 @@ module pulse_counter(
     output logic [8:0] segment_led_2_out
 );
 
-parameter [31:0] CNT_1_S = 2 * 100 * 1000 * 1000;
+parameter [27:0] CNT_1_S = 2 * 100 * 1000 * 1000;
 
 logic [7:0] pul;
 logic [7:0] pul_cnt;
-logic [31:0] tim_cnt;
+logic [27:0] tim_cnt;
 
 wire timeout = (tim_cnt == CNT_1_S);
 
@@ -41,12 +41,12 @@ begin
         pul <= 8'h00;
 
         pul_cnt <= 8'h00;
-        tim_cnt <= 32'h00;
+        tim_cnt <= 28'h000_0000;
     end else begin
         pul <= timeout ? pul_cnt : pul;
 
         pul_cnt <= timeout ? 8'h00 : pul_cnt + pulse_in;
-        tim_cnt <= timeout ? 32'h00 : tim_cnt + 1'b1;
+        tim_cnt <= timeout ? 28'h000_0000 : tim_cnt + 1'b1;
     end
 end
 

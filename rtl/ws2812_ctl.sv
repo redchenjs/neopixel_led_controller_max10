@@ -20,7 +20,7 @@ module ws2812_ctl(
     output logic bit_data_out
 );
 
-parameter [15:0] CNT_50_US = 2 * 5000;
+parameter [13:0] CNT_50_US = 2 * 5000;
 
 parameter [1:0] IDLE = 2'b00;       // Idle
 parameter [1:0] READ_RAM = 2'b01;   // Read RAM Data
@@ -38,7 +38,7 @@ logic [23:0] ram_rd_data;
 logic [1:0] ctl_sta;
 
 logic [4:0] bit_sel;
-logic [15:0] rst_cnt;
+logic [13:0] rst_cnt;
 
 logic ram_rd_rdy;
 logic ram_rd_done;
@@ -85,10 +85,10 @@ begin
 
         ram_rd_cnt <= 6'h00;
         ram_rd_addr <= 6'h00;
-        ram_rd_data <= 24'h000000;
+        ram_rd_data <= 24'h00_0000;
 
         bit_sel <= 5'h00;
-        rst_cnt <= 16'h0000;
+        rst_cnt <= 14'h0000;
 
         bit_rdy_out <= 1'b0;
         bit_data_out <= 1'b0;
@@ -114,7 +114,7 @@ begin
         ram_rd_data <= ram_rd_done ? ram_rd_q[23:0] : ram_rd_data;
 
         bit_sel <= (ctl_sta == SEND_BIT) ? bit_sel + (bit_done & ~ram_next) : 5'h00;
-        rst_cnt <= (ctl_sta == SEND_RST) ? rst_cnt + 1'b1 : 16'h0000;
+        rst_cnt <= (ctl_sta == SEND_RST) ? rst_cnt + 1'b1 : 14'h0000;
 
         bit_rdy_out <= bit_next;
         bit_data_out <= bit_next ? ram_rd_data[5'd23 - bit_sel] : bit_data_out;
