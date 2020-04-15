@@ -31,6 +31,7 @@ logic ram_rd_st;
 logic ram_rd_en;
 logic [31:0] ram_rd_q;
 
+logic [5:0] ram_rd_cnt;
 logic [5:0] ram_rd_addr;
 logic [23:0] ram_rd_data;
 
@@ -43,8 +44,10 @@ logic ram_rd_rdy;
 logic ram_rd_done;
 
 wire bit_done = ram_rd_st | bit_done_in;
+wire bit_next = (ctl_sta == SEND_BIT) & bit_done;
+
+wire ram_done = (ram_rd_cnt == 6'h00);
 wire ram_next = (bit_sel == 5'd23);
-wire ram_done = (ram_rd_addr == 6'h00);
 
 edge2en ram_rd_en_edge(
     .clk_in(clk_in),
@@ -72,12 +75,6 @@ ram64 ram64(
     .q(ram_rd_q)
 );
 
-always_ff @(posedge clk_in)
-begin
-    ram_rd_addr <= ram_rd_q[29:24];
-    ram_rd_data <= ram_rd_q[23:0];
-end
-
 always_ff @(posedge clk_in or negedge rst_n_in)
 begin
     if (!rst_n_in) begin
@@ -85,6 +82,10 @@ begin
 
         ram_rd_st <= 1'b0;
         ram_rd_en <= 1'b0;
+
+        ram_rd_cnt <= 6'h00;
+        ram_rd_addr <= 6'h00;
+        ram_rd_data <= 24'h000000;
 
         bit_sel <= 5'h00;
         rst_cnt <= 16'h0000;
@@ -108,11 +109,15 @@ begin
         ram_rd_st <= (ctl_sta != SEND_BIT) & ((ctl_sta == IDLE) | ram_rd_st);
         ram_rd_en <= (ctl_sta == READ_RAM) & ~ram_rd_done;
 
+        ram_rd_cnt <= ~byte_en_in[3] ? ram_rd_cnt + ram_rd_done : 6'h00;
+        ram_rd_addr <= ram_rd_done ? ram_rd_q[29:24] : ram_rd_addr;
+        ram_rd_data <= ram_rd_done ? ram_rd_q[23:0] : ram_rd_data;
+
         bit_sel <= (ctl_sta == SEND_BIT) ? bit_sel + (bit_done & ~ram_next) : 5'h00;
         rst_cnt <= (ctl_sta == SEND_RST) ? rst_cnt + 1'b1 : 16'h0000;
 
-        bit_rdy_out <= (ctl_sta == SEND_BIT) & bit_done;
-        bit_data_out <= (ctl_sta == SEND_BIT) & bit_done ? ram_rd_data[5'd23 - bit_sel] : bit_data_out;
+        bit_rdy_out <= bit_next;
+        bit_data_out <= bit_next ? ram_rd_data[5'd23 - bit_sel] : bit_data_out;
     end
 end
 
