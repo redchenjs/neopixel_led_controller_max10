@@ -17,7 +17,7 @@ module ws2812_out(
 );
 
 parameter [7:0] CNT_0_35_US = 2 * 35;
-parameter [7:0] CNT_0_70_US = 2 * 70;
+parameter [7:0] CNT_0_90_US = 2 * 90;
 parameter [7:0] CNT_1_25_US = 2 * 125;
 
 logic bit_bsy;
@@ -36,7 +36,7 @@ begin
         bit_cnt <= bit_bsy ? bit_cnt + 1'b1 : 8'h00;
 
         bit_done_out <= bit_bsy & (bit_cnt == CNT_1_25_US);
-        ws2812_data_out <= bit_bsy & ((bit_data_in & (bit_cnt < CNT_0_70_US))
+        ws2812_data_out <= bit_bsy & ((bit_data_in & (bit_cnt < CNT_0_90_US))
                                    | (~bit_data_in & (bit_cnt < CNT_0_35_US)));
     end
 end
