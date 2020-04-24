@@ -16,7 +16,7 @@ module pulse_counter(
     output logic [8:0] segment_led_2_out
 );
 
-parameter [27:0] CNT_1_S = 2 * 100 * 1000 * 1000;
+parameter [27:0] CNT_1_S = 200 * 1000 * 1000;
 
 logic [7:0] pul;
 logic [7:0] pul_cnt;
