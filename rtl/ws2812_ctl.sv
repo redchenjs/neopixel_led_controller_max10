@@ -10,8 +10,9 @@ module ws2812_ctl(
     input logic rst_n_in,
 
     input logic bit_done_in,
-    input logic layer_en_in,
     input logic frame_rdy_in,
+
+    input logic wr_en_in,
     input logic [5:0] wr_addr_in,
     input logic [3:0] byte_en_in,
     input logic [7:0] byte_data_in,
@@ -71,7 +72,7 @@ ram64 ram64(
     .rdaddress(ram_rd_addr),
     .rden(ram_rd_rdy),
     .wraddress(wr_addr_in),
-    .wren(layer_en_in),
+    .wren(wr_en_in),
     .q(ram_rd_q)
 );
 

@@ -25,9 +25,9 @@ logic byte_rdy;
 logic [7:0] byte_data;
 
 logic frame_rdy;
+logic [7:0] wr_en;
 logic [5:0] wr_addr;
 logic [3:0] byte_en;
-logic [7:0] layer_en;
 
 logic pll_c0, pll_locked;
 logic sys_clk, sys_rst_n;
@@ -69,18 +69,18 @@ layer_ctl layer_ctl(
 
     .frame_rdy_out(frame_rdy),
 
+    .wr_en_out(wr_en),
     .wr_addr_out(wr_addr),
-    .byte_en_out(byte_en),
-    .layer_en_out(layer_en)
+    .byte_en_out(byte_en)
 );
 
 layer_out layer_out7(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .layer_en_in(layer_en[7]),
     .frame_rdy_in(frame_rdy),
 
+    .wr_en_in(wr_en[7]),
     .wr_addr_in(wr_addr),
     .byte_en_in(byte_en),
     .byte_data_in(byte_data),
@@ -92,9 +92,9 @@ layer_out layer_out6(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .layer_en_in(layer_en[6]),
     .frame_rdy_in(frame_rdy),
 
+    .wr_en_in(wr_en[6]),
     .wr_addr_in(wr_addr),
     .byte_en_in(byte_en),
     .byte_data_in(byte_data),
@@ -106,9 +106,9 @@ layer_out layer_out5(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .layer_en_in(layer_en[5]),
     .frame_rdy_in(frame_rdy),
 
+    .wr_en_in(wr_en[5]),
     .wr_addr_in(wr_addr),
     .byte_en_in(byte_en),
     .byte_data_in(byte_data),
@@ -120,9 +120,9 @@ layer_out layer_out4(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .layer_en_in(layer_en[4]),
     .frame_rdy_in(frame_rdy),
 
+    .wr_en_in(wr_en[4]),
     .wr_addr_in(wr_addr),
     .byte_en_in(byte_en),
     .byte_data_in(byte_data),
@@ -134,9 +134,9 @@ layer_out layer_out3(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .layer_en_in(layer_en[3]),
     .frame_rdy_in(frame_rdy),
 
+    .wr_en_in(wr_en[3]),
     .wr_addr_in(wr_addr),
     .byte_en_in(byte_en),
     .byte_data_in(byte_data),
@@ -148,9 +148,9 @@ layer_out layer_out2(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .layer_en_in(layer_en[2]),
     .frame_rdy_in(frame_rdy),
 
+    .wr_en_in(wr_en[2]),
     .wr_addr_in(wr_addr),
     .byte_en_in(byte_en),
     .byte_data_in(byte_data),
@@ -162,9 +162,9 @@ layer_out layer_out1(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .layer_en_in(layer_en[1]),
     .frame_rdy_in(frame_rdy),
 
+    .wr_en_in(wr_en[1]),
     .wr_addr_in(wr_addr),
     .byte_en_in(byte_en),
     .byte_data_in(byte_data),
@@ -176,9 +176,9 @@ layer_out layer_out0(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .layer_en_in(layer_en[0]),
     .frame_rdy_in(frame_rdy),
 
+    .wr_en_in(wr_en[0]),
     .wr_addr_in(wr_addr),
     .byte_en_in(byte_en),
     .byte_data_in(byte_data),

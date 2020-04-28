@@ -16,9 +16,9 @@ module layer_ctl(
     input logic [7:0] byte_data_in,
 
     output logic frame_rdy_out,
+    output logic [7:0] wr_en_out,
     output logic [5:0] wr_addr_out,
-    output logic [3:0] byte_en_out,
-    output logic [7:0] layer_en_out
+    output logic [3:0] byte_en_out
 );
 
 parameter [7:0] CUBE0414_ADDR_WR = 8'hcc;
@@ -33,8 +33,8 @@ wire color_done = color_en[0];
 wire layer_done = layer_en[0];
 wire write_done = addr_done & color_done & layer_done;
 
+assign wr_en_out = layer_en & {byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in};
 assign byte_en_out = {addr_en, color_en};
-assign layer_en_out = layer_en & {byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in, byte_rdy_in};
 
 logic spi_cs_n_f, spi_rst_n;
 
