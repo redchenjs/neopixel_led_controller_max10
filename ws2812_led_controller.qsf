@@ -19,7 +19,7 @@
 #
 # Quartus Prime
 # Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
-# Date created = 08:20:14  April 25, 2020
+# Date created = 21:30:13  April 28, 2020
 #
 # -------------------------------------------------------------------------- #
 #
@@ -105,6 +105,7 @@ set_location_assignment PIN_A3 -to segment_led_2_out[0]
 # ==========================
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 3.3V
 
 # Analysis & Synthesis Assignments
 # ================================
@@ -126,7 +127,8 @@ set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (SystemVerilog)
 # ============================
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "NO HEAT SINK WITH STILL AIR"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
+set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "80000000 TRANSITIONS/S"
+set_global_assignment -name VCCA_USER_VOLTAGE 3.3V
 
 # start EDA_TEST_BENCH_SETTINGS(test)
 # -----------------------------------
