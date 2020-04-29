@@ -19,7 +19,7 @@
 #
 # Quartus Prime
 # Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
-# Date created = 21:30:13  April 28, 2020
+# Date created = 20:27:41  April 29, 2020
 #
 # -------------------------------------------------------------------------- #
 #
@@ -49,6 +49,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE rtl/top.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/common.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/spi_slave.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_ctl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_cfg.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_out.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws2812_ctl.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws2812_out.sv
