@@ -27,7 +27,7 @@ logic [7:0] byte_data;
 logic frame_rdy;
 logic [7:0] wr_en;
 logic [5:0] wr_addr;
-logic [3:0] byte_en;
+logic [4:0] byte_en;
 
 logic pll_c0, pll_locked;
 logic sys_clk, sys_rst_n;
@@ -82,8 +82,8 @@ layer_out layer_out7(
 
     .wr_en_in(wr_en[7]),
     .wr_addr_in(wr_addr),
+    .wr_data_in(byte_data),
     .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
 
     .ws2812_data_out(ws2812_data_out[7])
 );
@@ -96,8 +96,8 @@ layer_out layer_out6(
 
     .wr_en_in(wr_en[6]),
     .wr_addr_in(wr_addr),
+    .wr_data_in(byte_data),
     .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
 
     .ws2812_data_out(ws2812_data_out[6])
 );
@@ -110,8 +110,8 @@ layer_out layer_out5(
 
     .wr_en_in(wr_en[5]),
     .wr_addr_in(wr_addr),
+    .wr_data_in(byte_data),
     .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
 
     .ws2812_data_out(ws2812_data_out[5])
 );
@@ -124,8 +124,8 @@ layer_out layer_out4(
 
     .wr_en_in(wr_en[4]),
     .wr_addr_in(wr_addr),
+    .wr_data_in(byte_data),
     .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
 
     .ws2812_data_out(ws2812_data_out[4])
 );
@@ -138,8 +138,8 @@ layer_out layer_out3(
 
     .wr_en_in(wr_en[3]),
     .wr_addr_in(wr_addr),
+    .wr_data_in(byte_data),
     .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
 
     .ws2812_data_out(ws2812_data_out[3])
 );
@@ -152,8 +152,8 @@ layer_out layer_out2(
 
     .wr_en_in(wr_en[2]),
     .wr_addr_in(wr_addr),
+    .wr_data_in(byte_data),
     .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
 
     .ws2812_data_out(ws2812_data_out[2])
 );
@@ -166,8 +166,8 @@ layer_out layer_out1(
 
     .wr_en_in(wr_en[1]),
     .wr_addr_in(wr_addr),
+    .wr_data_in(byte_data),
     .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
 
     .ws2812_data_out(ws2812_data_out[1])
 );
@@ -180,8 +180,8 @@ layer_out layer_out0(
 
     .wr_en_in(wr_en[0]),
     .wr_addr_in(wr_addr),
+    .wr_data_in(byte_data),
     .byte_en_in(byte_en),
-    .byte_data_in(byte_data),
 
     .ws2812_data_out(ws2812_data_out[0])
 );

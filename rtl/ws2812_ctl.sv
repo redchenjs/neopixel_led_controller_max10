@@ -14,19 +14,19 @@ module ws2812_ctl(
 
     input logic wr_en_in,
     input logic [5:0] wr_addr_in,
+    input logic [7:0] wr_data_in,
     input logic [3:0] byte_en_in,
-    input logic [7:0] byte_data_in,
+
+    input logic [7:0] rst_cnt_in,
 
     output logic bit_rdy_out,
     output logic bit_data_out
 );
 
-parameter [15:0] CNT_280_US = 200 * 280;
-
 parameter [1:0] IDLE = 2'b00;       // Idle
 parameter [1:0] READ_RAM = 2'b01;   // Read RAM Data
-parameter [1:0] SEND_BIT = 2'b10;   // Send Data Bit
-parameter [1:0] SEND_RST = 2'b11;   // Send Reset Code
+parameter [1:0] SEND_BIT = 2'b11;   // Send Data Bit
+parameter [1:0] SEND_RST = 2'b10;   // Send Reset Code
 
 logic ram_rd_st;
 logic ram_rd_en;
@@ -68,7 +68,7 @@ ram64 ram64(
     .aclr(~rst_n_in),
     .byteena_a(byte_en_in),
     .clock(clk_in),
-    .data({byte_data_in, byte_data_in, byte_data_in, byte_data_in}),
+    .data({wr_data_in, wr_data_in, wr_data_in, wr_data_in}),
     .rdaddress(ram_rd_addr),
     .rden(ram_rd_rdy),
     .wraddress(wr_addr_in),
@@ -102,7 +102,7 @@ begin
             SEND_BIT:
                 ctl_sta <= (bit_done & ram_next) ? (ram_done ? SEND_RST : READ_RAM) : ctl_sta;
             SEND_RST:
-                ctl_sta <= (rst_cnt == CNT_280_US) ? IDLE : ctl_sta;
+                ctl_sta <= (rst_cnt[15:8] == rst_cnt_in) ? IDLE : ctl_sta;
             default:
                 ctl_sta <= IDLE;
         endcase
