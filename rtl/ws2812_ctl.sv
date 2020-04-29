@@ -17,7 +17,7 @@ module ws2812_ctl(
     input logic [7:0] wr_data_in,
     input logic [3:0] byte_en_in,
 
-    input logic [7:0] rst_cnt_in,
+    input logic [15:0] rst_cnt_in,
 
     output logic bit_rdy_out,
     output logic bit_data_out
@@ -39,7 +39,7 @@ logic [23:0] ram_rd_data;
 logic [1:0] ctl_sta;
 
 logic [4:0] bit_sel;
-logic [15:0] rst_cnt;
+logic [16:0] rst_cnt;
 
 logic ram_rd_rdy;
 logic ram_rd_done;
@@ -49,6 +49,8 @@ wire bit_next = (ctl_sta == SEND_BIT) & bit_done;
 
 wire ram_done = (ram_rd_cnt == 6'h00);
 wire ram_next = (bit_sel == 5'd23);
+
+wire rst_done = (rst_cnt[16:1] == rst_cnt_in);
 
 edge2en ram_rd_en_edge(
     .clk_in(clk_in),
@@ -102,7 +104,7 @@ begin
             SEND_BIT:
                 ctl_sta <= (bit_done & ram_next) ? (ram_done ? SEND_RST : READ_RAM) : ctl_sta;
             SEND_RST:
-                ctl_sta <= (rst_cnt[15:8] == rst_cnt_in) ? IDLE : ctl_sta;
+                ctl_sta <= rst_done ? IDLE : ctl_sta;
             default:
                 ctl_sta <= IDLE;
         endcase

@@ -16,11 +16,12 @@ module layer_out(
     input logic [7:0] wr_data_in,
     input logic [3:0] byte_en_in,
 
-    input logic [7:0] rst_cnt_in,
     input logic [7:0] t1_h_cnt_in,
     input logic [7:0] t1_l_cnt_in,
     input logic [7:0] t0_h_cnt_in,
     input logic [7:0] t0_l_cnt_in,
+
+    input logic [15:0] rst_cnt_in,
 
     output logic ws2812_data_out
 );
