@@ -19,7 +19,7 @@
 #
 # Quartus Prime
 # Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
-# Date created = 20:27:41  April 29, 2020
+# Date created = 23:10:51  April 29, 2020
 #
 # -------------------------------------------------------------------------- #
 #
@@ -108,12 +108,16 @@ set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 3.3V
 
+# Compiler Assignments
+# ====================
+set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
+
 # Analysis & Synthesis Assignments
 # ================================
 set_global_assignment -name FAMILY "MAX 10"
-set_global_assignment -name TOP_LEVEL_ENTITY ws2812_led_controller
 set_global_assignment -name VHDL_INPUT_VERSION VHDL_2008
 set_global_assignment -name VERILOG_INPUT_VERSION SYSTEMVERILOG_2005
+set_global_assignment -name TOP_LEVEL_ENTITY ws2812_led_controller
 
 # Fitter Assignments
 # ==================
@@ -130,6 +134,7 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "NO HEAT SINK WITH STI
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "80000000 TRANSITIONS/S"
 set_global_assignment -name VCCA_USER_VOLTAGE 3.3V
+set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 
 # start EDA_TEST_BENCH_SETTINGS(test)
 # -----------------------------------
@@ -142,6 +147,16 @@ set_global_assignment -name VCCA_USER_VOLTAGE 3.3V
 
 # end EDA_TEST_BENCH_SETTINGS(test)
 # ---------------------------------
+
+# start EDA_TOOL_SETTINGS(eda_board_design_boundary_scan)
+# -------------------------------------------------------
+
+	# EDA Netlist Writer Assignments
+	# ==============================
+	set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
+
+# end EDA_TOOL_SETTINGS(eda_board_design_boundary_scan)
+# -----------------------------------------------------
 
 # start EDA_TOOL_SETTINGS(eda_simulation)
 # ---------------------------------------
@@ -156,16 +171,6 @@ set_global_assignment -name VCCA_USER_VOLTAGE 3.3V
 
 # end EDA_TOOL_SETTINGS(eda_simulation)
 # -------------------------------------
-
-# start EDA_TOOL_SETTINGS(eda_board_design_boundary_scan)
-# -------------------------------------------------------
-
-	# EDA Netlist Writer Assignments
-	# ==============================
-	set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
-
-# end EDA_TOOL_SETTINGS(eda_board_design_boundary_scan)
-# -----------------------------------------------------
 
 # start EDA_TOOL_SETTINGS(eda_board_design_timing)
 # ------------------------------------------------
