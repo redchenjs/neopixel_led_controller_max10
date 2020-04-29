@@ -62,7 +62,7 @@ set_global_assignment -name QSYS_FILE ip/clk/globalclk.qsys
 # Pin & Location Assignments
 # ==========================
 set_location_assignment PIN_J5 -to clk_in
-set_location_assignment PIN_J14 -to rst_n_in
+set_location_assignment PIN_R9 -to rst_n_in
 set_location_assignment PIN_P15 -to dc_in
 set_location_assignment PIN_R14 -to spi_sclk_in
 set_location_assignment PIN_P12 -to spi_mosi_in
