@@ -6,8 +6,6 @@
  */
 
 module segment_led(
-    input logic rst_n_in,
-
     input logic [7:0] count,
 
     output logic [8:0] segment_led_1,
@@ -40,10 +38,10 @@ wire [3:0] num_2 = count % 10;
 
 assign segment_led_1[6:0] = mem[num_1];
 assign segment_led_1[7] = (count / 100 >= 2) ? 1'b1 : 1'b0;
-assign segment_led_1[8] = ~rst_n_in;
+assign segment_led_1[8] = 1'b0;
 
 assign segment_led_2[6:0] = mem[num_2];
 assign segment_led_2[7] = (count / 100 >= 1) ? 1'b1 : 1'b0;
-assign segment_led_2[8] = ~rst_n_in;
+assign segment_led_2[8] = 1'b0;
 
 endmodule

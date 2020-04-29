@@ -27,8 +27,6 @@ wire timeout = (tim_cnt == CNT_1_S);
 assign water_led_out = rst_n_in ? ~pul_cnt : 8'hff;
 
 segment_led segment_led(
-    .rst_n_in(rst_n_in),
-
     .count(pul),
 
     .segment_led_1(segment_led_1_out),
