@@ -265,7 +265,7 @@ layer_out layer_out0(
 
 pulse_counter fps_counter(
     .clk_in(sys_clk),
-    .rst_n_in(sys_rst_n),
+    .rst_n_in(pll_locked),
 
     .pulse_in(frame_rdy),
 
