@@ -16,10 +16,10 @@ module layer_out(
     input logic [7:0] wr_data_in,
     input logic [3:0] byte_en_in,
 
-    input logic [7:0] t1_h_cnt_in,
-    input logic [7:0] t1_l_cnt_in,
-    input logic [7:0] t0_h_cnt_in,
-    input logic [7:0] t0_l_cnt_in,
+    input logic [7:0] t0h_cnt_in,
+    input logic [7:0] t0l_cnt_in,
+    input logic [7:0] t1h_cnt_in,
+    input logic [7:0] t1l_cnt_in,
 
     input logic [15:0] rst_cnt_in,
 
@@ -53,10 +53,10 @@ ws2812_out ws2812_out(
     .bit_rdy_in(bit_rdy),
     .bit_data_in(bit_data),
 
-    .t1_h_cnt_in(t1_h_cnt_in),
-    .t1_l_cnt_in(t1_l_cnt_in),
-    .t0_h_cnt_in(t0_h_cnt_in),
-    .t0_l_cnt_in(t0_l_cnt_in),
+    .t0h_cnt_in(t0h_cnt_in),
+    .t0l_cnt_in(t0l_cnt_in),
+    .t1h_cnt_in(t1h_cnt_in),
+    .t1l_cnt_in(t1l_cnt_in),
 
     .bit_done_out(bit_done),
     .ws2812_data_out(ws2812_data_out)

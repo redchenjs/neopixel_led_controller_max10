@@ -29,10 +29,10 @@ logic [8:0] wr_en;
 logic [5:0] wr_addr;
 logic [3:0] byte_en;
 
-logic [7:0] t1_h_cnt;
-logic [7:0] t1_l_cnt;
-logic [7:0] t0_h_cnt;
-logic [7:0] t0_l_cnt;
+logic [7:0] t0h_cnt;
+logic [7:0] t0l_cnt;
+logic [7:0] t1h_cnt;
+logic [7:0] t1l_cnt;
 logic [15:0] rst_cnt;
 
 logic pll_c0, pll_locked;
@@ -87,10 +87,10 @@ layer_cfg layer_cfg(
     .wr_addr_in(wr_addr),
     .wr_data_in(byte_data),
 
-    .t1_h_cnt_out(t1_h_cnt),
-    .t1_l_cnt_out(t1_l_cnt),
-    .t0_h_cnt_out(t0_h_cnt),
-    .t0_l_cnt_out(t0_l_cnt),
+    .t0h_cnt_out(t0h_cnt),
+    .t0l_cnt_out(t0l_cnt),
+    .t1h_cnt_out(t1h_cnt),
+    .t1l_cnt_out(t1l_cnt),
 
     .rst_cnt_out(rst_cnt)
 );
@@ -106,10 +106,10 @@ layer_out layer_out7(
     .wr_data_in(byte_data),
     .byte_en_in(byte_en),
 
-    .t1_h_cnt_in(t1_h_cnt),
-    .t1_l_cnt_in(t1_l_cnt),
-    .t0_h_cnt_in(t0_h_cnt),
-    .t0_l_cnt_in(t0_l_cnt),
+    .t0h_cnt_in(t0h_cnt),
+    .t0l_cnt_in(t0l_cnt),
+    .t1h_cnt_in(t1h_cnt),
+    .t1l_cnt_in(t1l_cnt),
 
     .rst_cnt_in(rst_cnt),
 
@@ -127,10 +127,10 @@ layer_out layer_out6(
     .wr_data_in(byte_data),
     .byte_en_in(byte_en),
 
-    .t1_h_cnt_in(t1_h_cnt),
-    .t1_l_cnt_in(t1_l_cnt),
-    .t0_h_cnt_in(t0_h_cnt),
-    .t0_l_cnt_in(t0_l_cnt),
+    .t0h_cnt_in(t0h_cnt),
+    .t0l_cnt_in(t0l_cnt),
+    .t1h_cnt_in(t1h_cnt),
+    .t1l_cnt_in(t1l_cnt),
 
     .rst_cnt_in(rst_cnt),
 
@@ -148,10 +148,10 @@ layer_out layer_out5(
     .wr_data_in(byte_data),
     .byte_en_in(byte_en),
 
-    .t1_h_cnt_in(t1_h_cnt),
-    .t1_l_cnt_in(t1_l_cnt),
-    .t0_h_cnt_in(t0_h_cnt),
-    .t0_l_cnt_in(t0_l_cnt),
+    .t0h_cnt_in(t0h_cnt),
+    .t0l_cnt_in(t0l_cnt),
+    .t1h_cnt_in(t1h_cnt),
+    .t1l_cnt_in(t1l_cnt),
 
     .rst_cnt_in(rst_cnt),
 
@@ -169,10 +169,10 @@ layer_out layer_out4(
     .wr_data_in(byte_data),
     .byte_en_in(byte_en),
 
-    .t1_h_cnt_in(t1_h_cnt),
-    .t1_l_cnt_in(t1_l_cnt),
-    .t0_h_cnt_in(t0_h_cnt),
-    .t0_l_cnt_in(t0_l_cnt),
+    .t0h_cnt_in(t0h_cnt),
+    .t0l_cnt_in(t0l_cnt),
+    .t1h_cnt_in(t1h_cnt),
+    .t1l_cnt_in(t1l_cnt),
 
     .rst_cnt_in(rst_cnt),
 
@@ -190,10 +190,10 @@ layer_out layer_out3(
     .wr_data_in(byte_data),
     .byte_en_in(byte_en),
 
-    .t1_h_cnt_in(t1_h_cnt),
-    .t1_l_cnt_in(t1_l_cnt),
-    .t0_h_cnt_in(t0_h_cnt),
-    .t0_l_cnt_in(t0_l_cnt),
+    .t0h_cnt_in(t0h_cnt),
+    .t0l_cnt_in(t0l_cnt),
+    .t1h_cnt_in(t1h_cnt),
+    .t1l_cnt_in(t1l_cnt),
 
     .rst_cnt_in(rst_cnt),
 
@@ -211,10 +211,10 @@ layer_out layer_out2(
     .wr_data_in(byte_data),
     .byte_en_in(byte_en),
 
-    .t1_h_cnt_in(t1_h_cnt),
-    .t1_l_cnt_in(t1_l_cnt),
-    .t0_h_cnt_in(t0_h_cnt),
-    .t0_l_cnt_in(t0_l_cnt),
+    .t0h_cnt_in(t0h_cnt),
+    .t0l_cnt_in(t0l_cnt),
+    .t1h_cnt_in(t1h_cnt),
+    .t1l_cnt_in(t1l_cnt),
 
     .rst_cnt_in(rst_cnt),
 
@@ -232,10 +232,10 @@ layer_out layer_out1(
     .wr_data_in(byte_data),
     .byte_en_in(byte_en),
 
-    .t1_h_cnt_in(t1_h_cnt),
-    .t1_l_cnt_in(t1_l_cnt),
-    .t0_h_cnt_in(t0_h_cnt),
-    .t0_l_cnt_in(t0_l_cnt),
+    .t0h_cnt_in(t0h_cnt),
+    .t0l_cnt_in(t0l_cnt),
+    .t1h_cnt_in(t1h_cnt),
+    .t1l_cnt_in(t1l_cnt),
 
     .rst_cnt_in(rst_cnt),
 
@@ -253,10 +253,10 @@ layer_out layer_out0(
     .wr_data_in(byte_data),
     .byte_en_in(byte_en),
 
-    .t1_h_cnt_in(t1_h_cnt),
-    .t1_l_cnt_in(t1_l_cnt),
-    .t0_h_cnt_in(t0_h_cnt),
-    .t0_l_cnt_in(t0_l_cnt),
+    .t0h_cnt_in(t0h_cnt),
+    .t0l_cnt_in(t0l_cnt),
+    .t1h_cnt_in(t1h_cnt),
+    .t1l_cnt_in(t1l_cnt),
 
     .rst_cnt_in(rst_cnt),
 
