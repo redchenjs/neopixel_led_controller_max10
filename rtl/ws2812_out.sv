@@ -37,8 +37,9 @@ begin
     end else begin
         bit_bsy <= bit_bsy ? (bit_cnt[8:1] != cnt_done) : bit_rdy_in;
         bit_cnt <= bit_bsy ? bit_cnt + 1'b1 : 9'h000;
-        cnt_done <= bit_data_in ? (t1h_cnt_in + t1l_cnt_in)
-                                : (t0h_cnt_in + t0l_cnt_in);
+        cnt_done <= bit_rdy_in ? bit_data_in ? (t1h_cnt_in + t1l_cnt_in)
+                                             : (t0h_cnt_in + t0l_cnt_in)
+                                             : cnt_done;
 
         bit_done_out <= bit_bsy & (bit_cnt[8:1] == cnt_done);
         ws2812_data_out <= bit_bsy & ((bit_data_in & (bit_cnt[8:1] < t1h_cnt_in))
