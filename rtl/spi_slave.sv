@@ -17,9 +17,10 @@ module spi_slave(
     output logic [7:0] byte_data_out
 );
 
+logic spi_sclk_r;
 logic [2:0] bit_sel;
 
-logic spi_sclk_r;
+wire byte_done = (bit_sel == 3'd7);
 wire spi_rst_n = ~spi_cs_n_in & rst_n_in;
 
 edge2en spi_sclk_edge(
@@ -39,7 +40,7 @@ begin
     end else begin
         bit_sel <= bit_sel + spi_sclk_r;
 
-        byte_rdy_out <= spi_sclk_r & (bit_sel == 3'd7);
+        byte_rdy_out <= spi_sclk_r & byte_done;
         byte_data_out <= spi_sclk_r ? {byte_data_out[6:0], spi_mosi_in} : byte_data_out;
     end
 end

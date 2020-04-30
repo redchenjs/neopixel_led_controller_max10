@@ -25,8 +25,8 @@ module ws2812_ctl(
 
 parameter [1:0] IDLE = 2'b00;       // Idle
 parameter [1:0] READ_RAM = 2'b01;   // Read RAM Data
-parameter [1:0] SEND_BIT = 2'b11;   // Send Data Bit
-parameter [1:0] SEND_RST = 2'b10;   // Send Reset Code
+parameter [1:0] SEND_BIT = 2'b10;   // Send Data Bit
+parameter [1:0] SEND_RST = 2'b11;   // Send Reset Code
 
 logic ram_rd_st;
 logic ram_rd_en;
