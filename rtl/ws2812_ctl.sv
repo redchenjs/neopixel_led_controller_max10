@@ -10,12 +10,12 @@ module ws2812_ctl(
     input logic rst_n_in,
 
     input logic bit_done_in,
-    input logic frame_rdy_in,
 
     input logic wr_en_in,
+    input logic wr_done_in,
     input logic [5:0] wr_addr_in,
     input logic [7:0] wr_data_in,
-    input logic [3:0] byte_en_in,
+    input logic [3:0] wr_byte_en_in,
 
     input logic [15:0] rst_cnt_in,
 
@@ -68,7 +68,7 @@ edge2en ram_rd_rdy_edge(
 
 ram64 ram64(
     .aclr(~rst_n_in),
-    .byteena_a(byte_en_in),
+    .byteena_a(wr_byte_en_in),
     .clock(clk_in),
     .data({wr_data_in, wr_data_in, wr_data_in, wr_data_in}),
     .rdaddress(ram_rd_addr),
@@ -98,7 +98,7 @@ begin
     end else begin
         case (ctl_sta)
             IDLE:
-                ctl_sta <= frame_rdy_in ? READ_RAM : ctl_sta;
+                ctl_sta <= wr_done_in ? READ_RAM : ctl_sta;
             READ_RAM:
                 ctl_sta <= ram_rd_done ? SEND_BIT : ctl_sta;
             SEND_BIT:
@@ -112,7 +112,7 @@ begin
         ram_rd_st <= (ctl_sta != SEND_BIT) & ((ctl_sta == IDLE) | ram_rd_st);
         ram_rd_en <= (ctl_sta == READ_RAM) & ~ram_rd_done;
 
-        ram_rd_cnt <= ~byte_en_in[3] ? ram_rd_cnt + ram_rd_done : 6'h00;
+        ram_rd_cnt <= ~wr_byte_en_in[3] ? ram_rd_cnt + ram_rd_done : 6'h00;
         ram_rd_addr <= ram_rd_done ? ram_rd_q[29:24] : ram_rd_addr;
         ram_rd_data <= ram_rd_done ? ram_rd_q[23:0] : ram_rd_data;
 

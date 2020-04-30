@@ -24,10 +24,10 @@ module ws2812_led_controller(
 logic byte_rdy;
 logic [7:0] byte_data;
 
-logic frame_rdy;
+logic wr_done;
 logic [8:0] wr_en;
 logic [5:0] wr_addr;
-logic [3:0] byte_en;
+logic [3:0] wr_byte_en;
 
 logic [7:0] t0h_cnt;
 logic [7:0] t0l_cnt;
@@ -72,11 +72,10 @@ layer_ctl layer_ctl(
     .byte_rdy_in(byte_rdy),
     .byte_data_in(byte_data),
 
-    .frame_rdy_out(frame_rdy),
-
     .wr_en_out(wr_en),
+    .wr_done_out(wr_done),
     .wr_addr_out(wr_addr),
-    .byte_en_out(byte_en)
+    .wr_byte_en_out(wr_byte_en)
 );
 
 layer_cfg layer_cfg(
@@ -91,7 +90,6 @@ layer_cfg layer_cfg(
     .t0l_cnt_out(t0l_cnt),
     .t1h_cnt_out(t1h_cnt),
     .t1l_cnt_out(t1l_cnt),
-
     .rst_cnt_out(rst_cnt)
 );
 
@@ -99,18 +97,16 @@ layer_out layer_out7(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .frame_rdy_in(frame_rdy),
-
     .wr_en_in(wr_en[7]),
+    .wr_done_in(wr_done),
     .wr_addr_in(wr_addr),
     .wr_data_in(byte_data),
-    .byte_en_in(byte_en),
+    .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-
     .rst_cnt_in(rst_cnt),
 
     .ws2812_data_out(ws2812_data_out[7])
@@ -120,18 +116,16 @@ layer_out layer_out6(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .frame_rdy_in(frame_rdy),
-
     .wr_en_in(wr_en[6]),
+    .wr_done_in(wr_done),
     .wr_addr_in(wr_addr),
     .wr_data_in(byte_data),
-    .byte_en_in(byte_en),
+    .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-
     .rst_cnt_in(rst_cnt),
 
     .ws2812_data_out(ws2812_data_out[6])
@@ -141,18 +135,16 @@ layer_out layer_out5(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .frame_rdy_in(frame_rdy),
-
     .wr_en_in(wr_en[5]),
+    .wr_done_in(wr_done),
     .wr_addr_in(wr_addr),
     .wr_data_in(byte_data),
-    .byte_en_in(byte_en),
+    .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-
     .rst_cnt_in(rst_cnt),
 
     .ws2812_data_out(ws2812_data_out[5])
@@ -162,18 +154,16 @@ layer_out layer_out4(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .frame_rdy_in(frame_rdy),
-
     .wr_en_in(wr_en[4]),
+    .wr_done_in(wr_done),
     .wr_addr_in(wr_addr),
     .wr_data_in(byte_data),
-    .byte_en_in(byte_en),
+    .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-
     .rst_cnt_in(rst_cnt),
 
     .ws2812_data_out(ws2812_data_out[4])
@@ -183,18 +173,16 @@ layer_out layer_out3(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .frame_rdy_in(frame_rdy),
-
     .wr_en_in(wr_en[3]),
+    .wr_done_in(wr_done),
     .wr_addr_in(wr_addr),
     .wr_data_in(byte_data),
-    .byte_en_in(byte_en),
+    .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-
     .rst_cnt_in(rst_cnt),
 
     .ws2812_data_out(ws2812_data_out[3])
@@ -204,18 +192,16 @@ layer_out layer_out2(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .frame_rdy_in(frame_rdy),
-
     .wr_en_in(wr_en[2]),
+    .wr_done_in(wr_done),
     .wr_addr_in(wr_addr),
     .wr_data_in(byte_data),
-    .byte_en_in(byte_en),
+    .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-
     .rst_cnt_in(rst_cnt),
 
     .ws2812_data_out(ws2812_data_out[2])
@@ -225,18 +211,16 @@ layer_out layer_out1(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .frame_rdy_in(frame_rdy),
-
     .wr_en_in(wr_en[1]),
+    .wr_done_in(wr_done),
     .wr_addr_in(wr_addr),
     .wr_data_in(byte_data),
-    .byte_en_in(byte_en),
+    .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-
     .rst_cnt_in(rst_cnt),
 
     .ws2812_data_out(ws2812_data_out[1])
@@ -246,18 +230,16 @@ layer_out layer_out0(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
-    .frame_rdy_in(frame_rdy),
-
     .wr_en_in(wr_en[0]),
+    .wr_done_in(wr_done),
     .wr_addr_in(wr_addr),
     .wr_data_in(byte_data),
-    .byte_en_in(byte_en),
+    .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-
     .rst_cnt_in(rst_cnt),
 
     .ws2812_data_out(ws2812_data_out[0])
@@ -267,7 +249,7 @@ pulse_counter fps_counter(
     .clk_in(sys_clk),
     .rst_n_in(pll_locked),
 
-    .pulse_in(frame_rdy),
+    .pulse_in(wr_done),
 
     .water_led_out(water_led_out),
     .segment_led_1_out(segment_led_1_out),

@@ -14,11 +14,10 @@ module layer_ctl(
     input logic byte_rdy_in,
     input logic [7:0] byte_data_in,
 
-    output logic frame_rdy_out,
-
+    output logic wr_done_out,
     output logic [8:0] wr_en_out,
     output logic [5:0] wr_addr_out,
-    output logic [3:0] byte_en_out
+    output logic [3:0] wr_byte_en_out
 );
 
 parameter [7:0] CUBE0414_CONF_WR = 8'h2a;
@@ -34,7 +33,7 @@ wire addr_done = (wr_addr_out == 6'd63);
 wire color_done = color_en[0];
 wire layer_done = layer_en[0];
 wire layer_next = addr_done & color_done & ~layer_done;
-wire write_done = addr_done & color_done & layer_done;
+wire frame_done = addr_done & color_done & layer_done;
 
 assign wr_en_out[8] = addr_en[1] & byte_rdy_in;
 assign wr_en_out[7] = layer_en[7] & byte_rdy_in;
@@ -46,7 +45,7 @@ assign wr_en_out[2] = layer_en[2] & byte_rdy_in;
 assign wr_en_out[1] = layer_en[1] & byte_rdy_in;
 assign wr_en_out[0] = layer_en[0] & byte_rdy_in;
 
-assign byte_en_out = {addr_en[0], color_en};
+assign wr_byte_en_out = {addr_en[0], color_en};
 
 always_ff @(posedge clk_in or negedge rst_n_in)
 begin
@@ -57,7 +56,7 @@ begin
         layer_en <= 8'h00;
 
         wr_addr_out <= 6'h00;
-        frame_rdy_out <= 1'b0;
+        wr_done_out <= 1'b0;
     end else begin
         case ({byte_rdy_in, dc_in})
             2'b10: begin    // Command
@@ -100,7 +99,7 @@ begin
             end
         endcase
 
-        frame_rdy_out <= byte_rdy_in & dc_in & ~addr_wr & write_done;
+        wr_done_out <= byte_rdy_in & dc_in & ~addr_wr & frame_done;
     end
 end
 

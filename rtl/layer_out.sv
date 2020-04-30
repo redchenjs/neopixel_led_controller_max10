@@ -9,18 +9,16 @@ module layer_out(
     input logic clk_in,
     input logic rst_n_in,
 
-    input logic frame_rdy_in,
-
     input logic wr_en_in,
+    input logic wr_done_in,
     input logic [5:0] wr_addr_in,
     input logic [7:0] wr_data_in,
-    input logic [3:0] byte_en_in,
+    input logic [3:0] wr_byte_en_in,
 
     input logic [7:0] t0h_cnt_in,
     input logic [7:0] t0l_cnt_in,
     input logic [7:0] t1h_cnt_in,
     input logic [7:0] t1l_cnt_in,
-
     input logic [15:0] rst_cnt_in,
 
     output logic ws2812_data_out
@@ -33,12 +31,12 @@ ws2812_ctl ws2812_ctl(
     .rst_n_in(rst_n_in),
 
     .bit_done_in(bit_done),
-    .frame_rdy_in(frame_rdy_in),
 
     .wr_en_in(wr_en_in),
+    .wr_done_in(wr_done_in),
     .wr_addr_in(wr_addr_in),
     .wr_data_in(wr_data_in),
-    .byte_en_in(byte_en_in),
+    .wr_byte_en_in(wr_byte_en_in),
 
     .rst_cnt_in(rst_cnt_in),
 

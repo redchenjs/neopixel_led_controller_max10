@@ -17,7 +17,6 @@ module layer_cfg(
     output logic [7:0] t0l_cnt_out,
     output logic [7:0] t1h_cnt_out,
     output logic [7:0] t1l_cnt_out,
-
     output logic [15:0] rst_cnt_out
 );
 
@@ -28,7 +27,6 @@ begin
         t0l_cnt_out <= 8'h00;
         t1h_cnt_out <= 8'h00;
         t1l_cnt_out <= 8'h00;
-
         rst_cnt_out <= 16'h0000;
     end else begin
         case ({wr_en_in, wr_addr_in[2:0]})

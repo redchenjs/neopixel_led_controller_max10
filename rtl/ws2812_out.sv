@@ -25,6 +25,9 @@ logic bit_bsy;
 logic [8:0] bit_cnt;
 logic [7:0] cnt_sum;
 
+wire [7:0] t0_sum = t0h_cnt_in + t0l_cnt_in;
+wire [7:0] t1_sum = t1h_cnt_in + t1l_cnt_in;
+
 wire t0h_time = (bit_cnt[8:1] < t0h_cnt_in);
 wire t1h_time = (bit_cnt[8:1] < t1h_cnt_in);
 
@@ -42,9 +45,7 @@ begin
     end else begin
         bit_bsy <= bit_bsy ? ~cnt_done : bit_rdy_in;
         bit_cnt <= bit_bsy ? bit_cnt + 1'b1 : 9'h000;
-        cnt_sum <= bit_rdy_in ? bit_data_in ? (t1h_cnt_in + t1l_cnt_in)
-                                            : (t0h_cnt_in + t0l_cnt_in)
-                                            : cnt_sum;
+        cnt_sum <= bit_rdy_in ? (bit_data_in ? t1_sum : t0_sum) : cnt_sum;
 
         bit_done_out <= bit_bsy & cnt_done;
         ws2812_data_out <= bit_bsy & ((bit_data_in & t1h_time) | (~bit_data_in & t0h_time));
