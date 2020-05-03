@@ -28,22 +28,25 @@ logic [1:0] addr_en;
 logic [2:0] color_en;
 logic [7:0] layer_en;
 
-wire addr_wr = addr_en[0] | addr_en[1];
+wire addr_wr = addr_en[1] | addr_en[0];
+
 wire addr_done = (wr_addr_out == 6'd63);
 wire color_done = color_en[0];
+wire plane_done = addr_done & color_done;
 wire layer_done = layer_en[0];
-wire layer_next = addr_done & color_done & ~layer_done;
-wire frame_done = addr_done & color_done & layer_done;
+wire frame_done = plane_done & layer_done;
 
-assign wr_en_out[8] = addr_en[1] & byte_rdy_in;
-assign wr_en_out[7] = layer_en[7] & byte_rdy_in;
-assign wr_en_out[6] = layer_en[6] & byte_rdy_in;
-assign wr_en_out[5] = layer_en[5] & byte_rdy_in;
-assign wr_en_out[4] = layer_en[4] & byte_rdy_in;
-assign wr_en_out[3] = layer_en[3] & byte_rdy_in;
-assign wr_en_out[2] = layer_en[2] & byte_rdy_in;
-assign wr_en_out[1] = layer_en[1] & byte_rdy_in;
-assign wr_en_out[0] = layer_en[0] & byte_rdy_in;
+assign wr_done_out = byte_rdy_in & frame_done;
+
+assign wr_en_out[8] = byte_rdy_in & addr_en[1];
+assign wr_en_out[7] = byte_rdy_in & layer_en[7];
+assign wr_en_out[6] = byte_rdy_in & layer_en[6];
+assign wr_en_out[5] = byte_rdy_in & layer_en[5];
+assign wr_en_out[4] = byte_rdy_in & layer_en[4];
+assign wr_en_out[3] = byte_rdy_in & layer_en[3];
+assign wr_en_out[2] = byte_rdy_in & layer_en[2];
+assign wr_en_out[1] = byte_rdy_in & layer_en[1];
+assign wr_en_out[0] = byte_rdy_in & layer_en[0];
 
 assign wr_byte_en_out = {addr_en[0], color_en};
 
@@ -56,10 +59,9 @@ begin
         layer_en <= 8'h00;
 
         wr_addr_out <= 6'h00;
-        wr_done_out <= 1'b0;
     end else begin
-        case ({byte_rdy_in, dc_in})
-            2'b10: begin    // Command
+        if (byte_rdy_in) begin
+            if (!dc_in) begin   // Command
                 case (byte_data_in)
                     CUBE0414_CONF_WR: begin     // Write Reg Conf
                         addr_en <= 2'b10;
@@ -88,18 +90,15 @@ begin
                 endcase
 
                 wr_addr_out <= 6'h00;
-            end
-            2'b11: begin    // Data
-                addr_en <= ~addr_done ? addr_en : 2'b00;
+            end else begin      // Data
+                addr_en <= addr_en & {~addr_done, ~addr_done};
 
-                color_en <= ~addr_wr ? {color_en[0], color_en[2:1]} : color_en;
-                layer_en <= (~addr_wr & layer_next) ? {layer_en[0], layer_en[7:1]} : layer_en;
+                color_en <= {color_en[0], color_en[2:1]};
+                layer_en <= layer_en >> (~addr_wr & plane_done);
 
                 wr_addr_out <= wr_addr_out + (addr_wr | color_done);
             end
-        endcase
-
-        wr_done_out <= byte_rdy_in & dc_in & ~addr_wr & frame_done;
+        end
     end
 end
 
