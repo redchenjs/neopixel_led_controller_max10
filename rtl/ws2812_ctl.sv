@@ -91,7 +91,7 @@ begin
         ram_rd_data <= 24'h00_0000;
 
         bit_sel <= 5'h00;
-        rst_cnt <= 16'h0000;
+        rst_cnt <= 17'h0_0000;
 
         bit_rdy_out <= 1'b0;
         bit_data_out <= 1'b0;
@@ -117,7 +117,7 @@ begin
         ram_rd_data <= ram_rd_done ? ram_rd_q[23:0] : ram_rd_data;
 
         bit_sel <= (ctl_sta == SEND_BIT) ? bit_sel + (bit_done & ~ram_next) : 5'h00;
-        rst_cnt <= (ctl_sta == SEND_RST) ? rst_cnt + 1'b1 : 16'h0000;
+        rst_cnt <= (ctl_sta == SEND_RST) ? rst_cnt + 1'b1 : 17'h0_0000;
 
         bit_rdy_out <= bit_next;
         bit_data_out <= bit_next ? ram_rd_data[5'd23 - bit_sel] : bit_data_out;
