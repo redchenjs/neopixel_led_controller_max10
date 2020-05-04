@@ -29,20 +29,22 @@ begin
         t1l_cnt_out <= 8'h00;
         rst_cnt_out <= 16'h0000;
     end else begin
-        case ({wr_en_in, wr_addr_in[2:0]})
-            4'h8 + 4'h0:
-                t0h_cnt_out <= wr_data_in;
-            4'h8 + 4'h1:
-                t0l_cnt_out <= wr_data_in;
-            4'h8 + 4'h2:
-                t1h_cnt_out <= wr_data_in;
-            4'h8 + 4'h3:
-                t1l_cnt_out <= wr_data_in;
-            4'h8 + 4'h4:
-                rst_cnt_out[15:8] <= wr_data_in;
-            4'h8 + 4'h5:
-                rst_cnt_out[7:0] <= wr_data_in;
-        endcase
+        if (wr_en_in) begin
+            case (wr_addr_in[2:0])
+                3'h0:
+                    t0h_cnt_out <= wr_data_in;
+                3'h1:
+                    t0l_cnt_out <= wr_data_in;
+                3'h2:
+                    t1h_cnt_out <= wr_data_in;
+                3'h3:
+                    t1l_cnt_out <= wr_data_in;
+                3'h4:
+                    rst_cnt_out[15:8] <= wr_data_in;
+                3'h5:
+                    rst_cnt_out[7:0] <= wr_data_in;
+            endcase
+        end
     end
 end
 
