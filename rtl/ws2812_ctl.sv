@@ -30,6 +30,7 @@ parameter [1:0] SEND_RST = 2'b11;   // Send Reset Code
 
 logic ram_rd_st;
 logic ram_rd_en;
+logic ram_rd_done;
 logic [31:0] ram_rd_q;
 
 logic [5:0] ram_rd_cnt;
@@ -40,9 +41,6 @@ logic [1:0] ctl_sta;
 
 logic [4:0] bit_sel;
 logic [16:0] rst_cnt;
-
-logic ram_rd_rdy;
-logic ram_rd_done;
 
 wire bit_done = ram_rd_st | bit_done_in;
 wire bit_next = (ctl_sta == SEND_BIT) & bit_done;
@@ -56,13 +54,6 @@ edge2en ram_rd_en_edge(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
     .edge_in(ram_rd_en),
-    .rising_out(ram_rd_rdy)
-);
-
-edge2en ram_rd_rdy_edge(
-    .clk_in(clk_in),
-    .rst_n_in(rst_n_in),
-    .edge_in(ram_rd_rdy),
     .rising_out(ram_rd_done)
 );
 
@@ -72,7 +63,7 @@ ram64 ram64(
     .clock(clk_in),
     .data({wr_data_in, wr_data_in, wr_data_in, wr_data_in}),
     .rdaddress(ram_rd_addr),
-    .rden(ram_rd_rdy),
+    .rden(ram_rd_en),
     .wraddress(wr_addr_in),
     .wren(wr_en_in),
     .q(ram_rd_q)
