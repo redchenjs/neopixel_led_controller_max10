@@ -110,7 +110,7 @@ set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 3.3V
 
 # Compiler Assignments
 # ====================
-set_global_assignment -name OPTIMIZATION_MODE "HIGH PERFORMANCE EFFORT"
+set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
 
 # Analysis & Synthesis Assignments
 # ================================
