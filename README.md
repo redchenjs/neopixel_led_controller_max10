@@ -77,3 +77,12 @@ git pull
 ## Building
 
 * Quartus Prime 19.1.0 Lite Edition
+
+## Music Light Cube
+
+<img src="docs/cube0414.png">
+
+## Videos Links
+
+* [音乐全彩光立方演示](https://www.bilibili.com/video/av25188707) ([YouTube](https://www.youtube.com/watch?v=F8nfA_mEhPg))
+* [音乐全彩光立方配套微信小程序](https://www.bilibili.com/video/av83055233) ([YouTube](https://www.youtube.com/watch?v=HlruQqkIGtc))
