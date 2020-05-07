@@ -19,15 +19,16 @@ module spi_slave(
 
 logic spi_cs;
 logic spi_sclk;
+logic spi_rst_n;
+
 logic [2:0] bit_sel;
 
 wire byte_done = (bit_sel == 3'd7);
-wire spi_rst_n = rst_n_in & spi_cs;
 
-rst_sync spi_cs_sync(
+rst_sync spi_rst_n_sync(
     .clk_in(clk_in),
-    .rst_n_in(~spi_cs_n_in),
-    .rst_n_out(spi_cs)
+    .rst_n_in(rst_n_in & ~spi_cs_n_in),
+    .rst_n_out(spi_rst_n)
 );
 
 edge_detect spi_sclk_edge(
