@@ -40,13 +40,11 @@ rst_sync sys_rst_n_sync(
 
 globalclk global_clk(
     .inclk(pll_200m),
-    .ena(1'b1),
     .outclk(sys_clk_out)
 );
 
 globalclk global_rst_n(
     .inclk(sys_rst_n),
-    .ena(1'b1),
     .outclk(sys_rst_n_out)
 );
 

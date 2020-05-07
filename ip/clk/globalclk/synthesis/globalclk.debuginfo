@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="globalclk" kind="system" version="19.1" fabric="QSYS">
  <!-- Format version 19.1 670 (Future versions may contain additional information.) -->
- <!-- 2020.04.09.22:56:33 -->
+ <!-- 2020.05.08.07:04:06 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1586444192</value>
+  <value>1588892645</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -189,7 +189,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="GUI_USE_ENA">
    <type>boolean</type>
-   <value>true</value>
+   <value>false</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -267,12 +267,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>inclk</role>
    </port>
-   <port>
-    <name>ena</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>ena</role>
-   </port>
   </interface>
   <interface name="altclkctrl_output" kind="conduit_end" version="19.1">
    <!-- The connection points exposed by a module instance for the
@@ -341,5 +335,5 @@ parameters are a RESULT of the module parameters. -->
   <version>19.1</version>
  </plugin>
  <reportVersion>19.1 670</reportVersion>
- <uniqueIdentifier>005056C00008000001715F714CC9</uniqueIdentifier>
+ <uniqueIdentifier>5CE0C587F67700000171F161BA18</uniqueIdentifier>
 </EnsembleReport>

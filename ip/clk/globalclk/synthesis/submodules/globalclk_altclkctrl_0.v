@@ -88,35 +88,28 @@ endmodule //globalclk_altclkctrl_0_sub
 `timescale 1 ps / 1 ps
 // synopsys translate_on
 module  globalclk_altclkctrl_0  (
-    ena,
     inclk,
     outclk);
 
-    input    ena;
     input    inclk;
     output   outclk;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_off
-`endif
-    tri1     ena;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_on
-`endif
 
     wire  sub_wire0;
     wire  outclk;
     wire  sub_wire1;
-    wire [3:0] sub_wire2;
-    wire [2:0] sub_wire3;
+    wire  sub_wire2;
+    wire [3:0] sub_wire3;
+    wire [2:0] sub_wire4;
 
     assign  outclk = sub_wire0;
-    assign  sub_wire1 = inclk;
-    assign sub_wire2[3:0] = {sub_wire3, sub_wire1};
-    assign sub_wire3[2:0] = 3'h0;
+    assign  sub_wire1 = 1'h1;
+    assign  sub_wire2 = inclk;
+    assign sub_wire3[3:0] = {sub_wire4, sub_wire2};
+    assign sub_wire4[2:0] = 3'h0;
 
     globalclk_altclkctrl_0_sub  globalclk_altclkctrl_0_sub_component (
-                .ena (ena),
-                .inclk (sub_wire2),
+                .ena (sub_wire1),
+                .inclk (sub_wire3),
                 .outclk (sub_wire0));
 
 endmodule
