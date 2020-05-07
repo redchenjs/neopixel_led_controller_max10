@@ -20,7 +20,7 @@ logic pll_locked;
 rst_sync pll_rst_n_sync(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
-    .rst_sync_n_out(pll_rst_n)
+    .rst_n_out(pll_rst_n)
 );
 
 pll pll(
@@ -39,7 +39,7 @@ globalclk globalclk(
 rst_sync sys_rst_n_sync(
     .clk_in(pll_200m),
     .rst_n_in(rst_n_in & pll_locked),
-    .rst_sync_n_out(sys_rst_n_out)
+    .rst_n_out(sys_rst_n_out)
 );
 
 endmodule
