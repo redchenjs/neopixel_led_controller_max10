@@ -19,7 +19,7 @@
 #
 # Quartus Prime
 # Version 19.1.0 Build 670 09/22/2019 SJ Lite Edition
-# Date created = 23:10:51  April 29, 2020
+# Date created = 18:46:17  May 07, 2020
 #
 # -------------------------------------------------------------------------- #
 #
@@ -46,7 +46,9 @@ set_global_assignment -name LAST_QUARTUS_VERSION "19.1.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/top.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/common.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/edge2en.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/rst_sync.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/sys_ctl.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/spi_slave.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_ctl.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_cfg.sv

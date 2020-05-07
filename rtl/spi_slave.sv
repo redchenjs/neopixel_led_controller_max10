@@ -17,11 +17,18 @@ module spi_slave(
     output logic [7:0] byte_data_out
 );
 
+logic spi_cs_n;
 logic spi_sclk_r;
 logic [2:0] bit_sel;
 
 wire byte_done = (bit_sel == 3'd7);
-wire spi_rst_n = ~spi_cs_n_in & rst_n_in;
+wire spi_rst_n = rst_n_in & spi_cs_n;
+
+rst_sync spi_cs_n_sync(
+    .clk_in(clk_in),
+    .rst_n_in(~spi_cs_n_in),
+    .rst_sync_n_out(spi_cs_n)
+);
 
 edge2en spi_sclk_edge(
    .clk_in(clk_in),

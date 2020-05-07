@@ -21,6 +21,9 @@ module ws2812_led_controller(
     output logic [8:0] segment_led_2_out     // Optional, FPS Counter
 );
 
+logic sys_clk;
+logic sys_rst_n;
+
 logic byte_rdy;
 logic [7:0] byte_data;
 
@@ -35,20 +38,12 @@ logic [7:0] t1h_cnt;
 logic [7:0] t1l_cnt;
 logic [15:0] rst_cnt;
 
-logic pll_c0, pll_locked;
-logic sys_clk, sys_rst_n;
-assign sys_rst_n = pll_locked & rst_n_in;
+sys_ctl sys_ctl(
+    .clk_in(clk_in),
+    .rst_n_in(rst_n_in),
 
-pll pll(
-    .inclk0(clk_in),
-    .c0(pll_c0),
-    .locked(pll_locked)
-);
-
-globalclk globalclk(
-    .inclk(pll_c0),
-    .ena(pll_locked),
-    .outclk(sys_clk)
+    .sys_clk_out(sys_clk),
+    .sys_rst_n_out(sys_rst_n)
 );
 
 spi_slave spi_slave(
@@ -247,7 +242,7 @@ layer_out layer_out0(
 
 pulse_counter fps_counter(
     .clk_in(sys_clk),
-    .rst_n_in(pll_locked),
+    .rst_n_in(sys_rst_n),
 
     .pulse_in(wr_done),
 

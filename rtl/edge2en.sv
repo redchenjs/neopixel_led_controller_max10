@@ -1,5 +1,5 @@
 /*
- * common.sv
+ * edge2en.sv
  *
  *  Created on: 2020-04-09 17:46
  *      Author: Jack Chen <redchenjs@live.com>
@@ -15,7 +15,8 @@ module edge2en(
     output logic falling_out
 );
 
-logic edge_cur, edge_pre;
+logic edge_cur;
+logic edge_pre;
 
 assign rising_out = edge_cur & ~edge_pre;
 assign falling_out = ~edge_cur & edge_pre;
