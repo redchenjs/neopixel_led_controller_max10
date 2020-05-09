@@ -30,23 +30,22 @@ parameter [1:0] SEND_RST = 2'b11;   // Send Reset Code
 
 logic [1:0] ctl_sta;
 
-logic ram_rd_st;
+logic bit_start;
+
 logic ram_rd_done;
 logic [31:0] ram_rd_q;
-
-logic [5:0] ram_rd_addr;
+logic [ 5:0] ram_rd_addr;
 logic [23:0] ram_rd_data;
 
-logic [4:0] bit_sel;
+logic [ 4:0] bit_sel;
 logic [16:0] rst_cnt;
 
 wire ram_rd_en = (ctl_sta == READ_RAM);
 
-wire bit_next = ram_rd_st | bit_done_in;
-wire bit_done = (ctl_sta == SEND_BIT) & bit_next;
-
 wire ram_next = (bit_sel == 5'd23);
 wire ram_done = (ram_rd_addr == 6'h00);
+
+wire bit_next = bit_start | bit_done_in;
 
 wire rst_done = (rst_cnt[16:1] == rst_cnt_in);
 
@@ -67,9 +66,9 @@ begin
     if (!rst_n_in) begin
         ctl_sta <= IDLE;
 
-        ram_rd_st <= 1'b0;
-        ram_rd_done <= 1'b0;
+        bit_start <= 1'b0;
 
+        ram_rd_done <= 1'b0;
         ram_rd_addr <= 6'h00;
         ram_rd_data <= 24'h00_0000;
 
@@ -92,17 +91,17 @@ begin
                 ctl_sta <= IDLE;
         endcase
 
-        ram_rd_st <= (ctl_sta != SEND_BIT) & ((ctl_sta == IDLE) | ram_rd_st);
-        ram_rd_done <= ram_rd_en;
+        bit_start <= (ctl_sta != SEND_BIT) & ((ctl_sta == IDLE) | bit_start);
 
+        ram_rd_done <= ram_rd_en;
         ram_rd_addr <= ram_rd_done ? ram_rd_q[29:24] : ram_rd_addr;
         ram_rd_data <= ram_rd_done ? ram_rd_q[23:0] : ram_rd_data;
 
         bit_sel <= (ctl_sta == SEND_BIT) ? bit_sel + bit_next : 5'h00;
         rst_cnt <= (ctl_sta == SEND_RST) ? rst_cnt + 1'b1 : 17'h0_0000;
 
-        bit_rdy_out <= bit_done;
-        bit_data_out <= bit_done ? ram_rd_data[5'd23 - bit_sel] : bit_data_out;
+        bit_rdy_out <= (ctl_sta == SEND_BIT) & bit_next;
+        bit_data_out <= (ctl_sta == SEND_BIT) & bit_next ? ram_rd_data[5'd23 - bit_sel] : bit_data_out;
     end
 end
 
