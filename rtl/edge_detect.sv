@@ -18,7 +18,7 @@ module edge_detect(
 
 logic data_a, data_b;
 
-assign pos_edge_out = data_a & ~data_b;
+assign pos_edge_out = ~data_b & data_a;
 assign neg_edge_out = ~data_a & data_b;
 assign both_edge_out = data_a ^ data_b;
 

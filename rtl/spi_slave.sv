@@ -13,7 +13,7 @@ module spi_slave(
     input logic spi_mosi_in,
     input logic spi_cs_n_in,
 
-    output logic byte_rdy_out,
+    output logic       byte_rdy_out,
     output logic [7:0] byte_data_out
 );
 
@@ -23,7 +23,11 @@ logic spi_rst_n;
 
 logic [2:0] bit_sel;
 
-wire byte_done = (bit_sel == 3'd7);
+logic       byte_rdy;
+logic [7:0] byte_data;
+
+assign byte_rdy_out  = byte_rdy;
+assign byte_data_out = byte_data;
 
 rst_sync spi_rst_n_sync(
     .clk_in(clk_in),
@@ -43,13 +47,13 @@ begin
     if (!spi_rst_n) begin
         bit_sel <= 3'h0;
 
-        byte_rdy_out <= 1'b0;
-        byte_data_out <= 8'h00;
+        byte_rdy  <= 1'b0;
+        byte_data <= 8'h00;
     end else begin
         bit_sel <= bit_sel + spi_sclk;
 
-        byte_rdy_out <= spi_sclk & byte_done;
-        byte_data_out <= spi_sclk ? {byte_data_out[6:0], spi_mosi_in} : byte_data_out;
+        byte_rdy  <= spi_sclk & (bit_sel == 3'd7);
+        byte_data <= spi_sclk ? {byte_data[6:0], spi_mosi_in} : byte_data;
     end
 end
 

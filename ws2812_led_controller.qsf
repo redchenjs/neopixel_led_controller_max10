@@ -48,13 +48,13 @@ set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/top.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/rst_sync.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/edge_detect.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/sys_ctl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/sys_ctrl.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/spi_slave.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_ctl.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_cfg.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_out.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws2812_ctl.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws2812_out.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_ctrl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_conf.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_code.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws2812_ctrl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws2812_code.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/segment_led.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/pulse_counter.sv
 set_global_assignment -name QIP_FILE ip/pll/pll.qip
@@ -69,14 +69,14 @@ set_location_assignment PIN_P15 -to dc_in
 set_location_assignment PIN_R14 -to spi_sclk_in
 set_location_assignment PIN_P12 -to spi_mosi_in
 set_location_assignment PIN_R11 -to spi_cs_n_in
-set_location_assignment PIN_R5 -to ws2812_data_out[7]
-set_location_assignment PIN_L7 -to ws2812_data_out[6]
-set_location_assignment PIN_P4 -to ws2812_data_out[5]
-set_location_assignment PIN_L6 -to ws2812_data_out[4]
-set_location_assignment PIN_R3 -to ws2812_data_out[3]
-set_location_assignment PIN_M5 -to ws2812_data_out[2]
-set_location_assignment PIN_P3 -to ws2812_data_out[1]
-set_location_assignment PIN_M4 -to ws2812_data_out[0]
+set_location_assignment PIN_R5 -to ws2812_code_out[7]
+set_location_assignment PIN_L7 -to ws2812_code_out[6]
+set_location_assignment PIN_P4 -to ws2812_code_out[5]
+set_location_assignment PIN_L6 -to ws2812_code_out[4]
+set_location_assignment PIN_R3 -to ws2812_code_out[3]
+set_location_assignment PIN_M5 -to ws2812_code_out[2]
+set_location_assignment PIN_P3 -to ws2812_code_out[1]
+set_location_assignment PIN_M4 -to ws2812_code_out[0]
 set_location_assignment PIN_N15 -to water_led_out[7]
 set_location_assignment PIN_N14 -to water_led_out[6]
 set_location_assignment PIN_M14 -to water_led_out[5]
@@ -215,14 +215,14 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_sclk_in
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_mosi_in
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_cs_n_in
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[7]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[6]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[5]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[4]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[3]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[2]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[1]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_data_out[0]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[7]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[6]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[5]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[4]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[3]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[2]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[1]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[0]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[7]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[6]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[5]

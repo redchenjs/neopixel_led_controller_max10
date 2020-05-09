@@ -14,7 +14,7 @@ module ws2812_led_controller(
     input logic spi_mosi_in,
     input logic spi_cs_n_in,
 
-    output logic [7:0] ws2812_data_out,
+    output logic [7:0] ws2812_code_out,
 
     output logic [7:0] water_led_out,        // Optional, FPS Counter
     output logic [8:0] segment_led_1_out,    // Optional, FPS Counter
@@ -24,21 +24,21 @@ module ws2812_led_controller(
 logic sys_clk;
 logic sys_rst_n;
 
-logic byte_rdy;
+logic       byte_rdy;
 logic [7:0] byte_data;
 
-logic wr_done;
 logic [8:0] wr_en;
+logic       wr_done;
 logic [5:0] wr_addr;
 logic [3:0] wr_byte_en;
 
-logic [7:0] t0h_cnt;
-logic [7:0] t0l_cnt;
-logic [7:0] t1h_cnt;
-logic [7:0] t1l_cnt;
+logic [ 7:0] t0h_cnt;
+logic [ 7:0] t0l_cnt;
+logic [ 7:0] t1h_cnt;
+logic [ 7:0] t1l_cnt;
 logic [15:0] rst_cnt;
 
-sys_ctl sys_ctl(
+sys_ctrl sys_ctrl(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
 
@@ -58,7 +58,7 @@ spi_slave spi_slave(
     .byte_data_out(byte_data)
 );
 
-layer_ctl layer_ctl(
+layer_ctrl layer_ctrl(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
@@ -73,7 +73,7 @@ layer_ctl layer_ctl(
     .wr_byte_en_out(wr_byte_en)
 );
 
-layer_cfg layer_cfg(
+layer_conf layer_conf(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
@@ -88,7 +88,7 @@ layer_cfg layer_cfg(
     .rst_cnt_out(rst_cnt)
 );
 
-layer_out layer_out7(
+layer_code layer_code7(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
@@ -104,10 +104,10 @@ layer_out layer_out7(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_data_out(ws2812_data_out[7])
+    .ws2812_code_out(ws2812_code_out[7])
 );
 
-layer_out layer_out6(
+layer_code layer_code6(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
@@ -123,10 +123,10 @@ layer_out layer_out6(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_data_out(ws2812_data_out[6])
+    .ws2812_code_out(ws2812_code_out[6])
 );
 
-layer_out layer_out5(
+layer_code layer_code5(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
@@ -142,10 +142,10 @@ layer_out layer_out5(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_data_out(ws2812_data_out[5])
+    .ws2812_code_out(ws2812_code_out[5])
 );
 
-layer_out layer_out4(
+layer_code layer_code4(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
@@ -161,10 +161,10 @@ layer_out layer_out4(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_data_out(ws2812_data_out[4])
+    .ws2812_code_out(ws2812_code_out[4])
 );
 
-layer_out layer_out3(
+layer_code layer_code3(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
@@ -180,10 +180,10 @@ layer_out layer_out3(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_data_out(ws2812_data_out[3])
+    .ws2812_code_out(ws2812_code_out[3])
 );
 
-layer_out layer_out2(
+layer_code layer_code2(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
@@ -199,10 +199,10 @@ layer_out layer_out2(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_data_out(ws2812_data_out[2])
+    .ws2812_code_out(ws2812_code_out[2])
 );
 
-layer_out layer_out1(
+layer_code layer_code1(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
@@ -218,10 +218,10 @@ layer_out layer_out1(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_data_out(ws2812_data_out[1])
+    .ws2812_code_out(ws2812_code_out[1])
 );
 
-layer_out layer_out0(
+layer_code layer_code0(
     .clk_in(sys_clk),
     .rst_n_in(sys_rst_n),
 
@@ -237,7 +237,7 @@ layer_out layer_out0(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_data_out(ws2812_data_out[0])
+    .ws2812_code_out(ws2812_code_out[0])
 );
 
 pulse_counter fps_counter(

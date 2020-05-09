@@ -1,11 +1,11 @@
 /*
- * sys_ctl.sv
+ * sys_ctrl.sv
  *
  *  Created on: 2020-05-07 09:58
  *      Author: Jack Chen <redchenjs@live.com>
  */
 
-module sys_ctl(
+module sys_ctrl(
     input logic clk_in,
     input logic rst_n_in,
 
