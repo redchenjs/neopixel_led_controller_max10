@@ -26,7 +26,7 @@
 # Notes:
 #
 # 1) The default values for assignments are stored in the file:
-#		ws2812_led_controller_assignment_defaults.qdf
+#		ws281x_cube_controller_assignment_defaults.qdf
 #    If this file doesn't exist, see file:
 #		assignment_defaults.qdf
 #
@@ -53,8 +53,8 @@ set_global_assignment -name SYSTEMVERILOG_FILE rtl/spi_slave.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_ctrl.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_conf.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_code.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws2812_ctrl.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws2812_code.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws281x_ctrl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws281x_code.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/segment_led.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/pulse_counter.sv
 set_global_assignment -name QIP_FILE ip/pll/pll.qip
@@ -69,14 +69,14 @@ set_location_assignment PIN_P15 -to dc_in
 set_location_assignment PIN_R14 -to spi_sclk_in
 set_location_assignment PIN_P12 -to spi_mosi_in
 set_location_assignment PIN_R11 -to spi_cs_n_in
-set_location_assignment PIN_R5 -to ws2812_code_out[7]
-set_location_assignment PIN_L7 -to ws2812_code_out[6]
-set_location_assignment PIN_P4 -to ws2812_code_out[5]
-set_location_assignment PIN_L6 -to ws2812_code_out[4]
-set_location_assignment PIN_R3 -to ws2812_code_out[3]
-set_location_assignment PIN_M5 -to ws2812_code_out[2]
-set_location_assignment PIN_P3 -to ws2812_code_out[1]
-set_location_assignment PIN_M4 -to ws2812_code_out[0]
+set_location_assignment PIN_R5 -to ws281x_code_out[7]
+set_location_assignment PIN_L7 -to ws281x_code_out[6]
+set_location_assignment PIN_P4 -to ws281x_code_out[5]
+set_location_assignment PIN_L6 -to ws281x_code_out[4]
+set_location_assignment PIN_R3 -to ws281x_code_out[3]
+set_location_assignment PIN_M5 -to ws281x_code_out[2]
+set_location_assignment PIN_P3 -to ws281x_code_out[1]
+set_location_assignment PIN_M4 -to ws281x_code_out[0]
 set_location_assignment PIN_N15 -to water_led_out[7]
 set_location_assignment PIN_N14 -to water_led_out[6]
 set_location_assignment PIN_M14 -to water_led_out[5]
@@ -119,7 +119,7 @@ set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
 set_global_assignment -name FAMILY "MAX 10"
 set_global_assignment -name VHDL_INPUT_VERSION VHDL_2008
 set_global_assignment -name VERILOG_INPUT_VERSION SYSTEMVERILOG_2005
-set_global_assignment -name TOP_LEVEL_ENTITY ws2812_led_controller
+set_global_assignment -name TOP_LEVEL_ENTITY ws281x_cube_controller
 
 # Fitter Assignments
 # ==================
@@ -205,7 +205,7 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 # --------------------------------------------------------
 
 # -----------------------------------
-# start ENTITY(ws2812_led_controller)
+# start ENTITY(ws281x_cube_controller)
 
 	# Fitter Assignments
 	# ==================
@@ -215,14 +215,14 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_sclk_in
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_mosi_in
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_cs_n_in
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[7]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[6]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[5]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[4]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[3]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[2]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[1]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws2812_code_out[0]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[7]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[6]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[5]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[4]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[3]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[2]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[1]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[0]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[7]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[6]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[5]
@@ -262,6 +262,6 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	# end DESIGN_PARTITION(Top)
 	# -------------------------
 
-# end ENTITY(ws2812_led_controller)
+# end ENTITY(ws281x_cube_controller)
 # ---------------------------------
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

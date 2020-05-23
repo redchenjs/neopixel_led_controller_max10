@@ -1,11 +1,11 @@
 /*
- * ws2812_ctrl.sv
+ * ws281x_ctrl.sv
  *
  *  Created on: 2020-04-06 23:09
  *      Author: Jack Chen <redchenjs@live.com>
  */
 
-module ws2812_ctrl(
+module ws281x_ctrl(
     input logic clk_in,
     input logic rst_n_in,
 

@@ -17,9 +17,9 @@ logic spi_sclk_in;
 logic spi_mosi_in;
 logic spi_cs_n_in;
 
-logic [7:0] ws2812_data_out;
+logic [7:0] ws281x_code_out;
 
-ws2812_led_controller test(
+ws281x_cube_controller test(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
 
@@ -28,32 +28,32 @@ ws2812_led_controller test(
     .spi_mosi_in(spi_mosi_in),
     .spi_cs_n_in(spi_cs_n_in),
 
-    .ws2812_data_out(ws2812_data_out)
+    .ws281x_code_out(ws281x_code_out)
 );
 
 always begin
-    clk_in <= 0;
-    rst_n_in <= 1;
+    clk_in   <= 1'b0;
+    rst_n_in <= 1'b1;
 
-    dc_in <= 0;
-    spi_sclk_in <= 0;
-    spi_mosi_in <= 0;
-    spi_cs_n_in <= 1;
+    dc_in       <= 1'b0;
+    spi_sclk_in <= 1'b0;
+    spi_mosi_in <= 1'b0;
+    spi_cs_n_in <= 1'b1;
 
-    #500 spi_cs_n_in <= 0;
+    #50 spi_cs_n_in <= 1'b0;
 
-        spi_mosi_in <= 1;  // 0
-    #25 spi_mosi_in <= 1;  // 1
-    #25 spi_mosi_in <= 0;  // 2
-    #25 spi_mosi_in <= 1;  // 3
-    #25 spi_mosi_in <= 1;  // 4
-    #25 spi_mosi_in <= 0;  // 5
-    #25 spi_mosi_in <= 1;  // 6
-    #25 spi_mosi_in <= 0;  // 7
+        spi_mosi_in <= 1'b1;  // 0
+    #25 spi_mosi_in <= 1'b1;  // 1
+    #25 spi_mosi_in <= 1'b0;  // 2
+    #25 spi_mosi_in <= 1'b1;  // 3
+    #25 spi_mosi_in <= 1'b1;  // 4
+    #25 spi_mosi_in <= 1'b0;  // 5
+    #25 spi_mosi_in <= 1'b1;  // 6
+    #25 spi_mosi_in <= 1'b0;  // 7
 
-    #25 spi_cs_n_in <= 1;
+    #25 spi_cs_n_in <= 1'b1;
 
-    #500 $stop;
+    #50 $stop;
 end
 
 always begin

@@ -21,7 +21,7 @@ module layer_code(
     input logic [ 7:0] t1l_cnt_in,
     input logic [15:0] rst_cnt_in,
 
-    output logic ws2812_code_out
+    output logic ws281x_code_out
 );
 
 logic        rd_en;
@@ -42,7 +42,7 @@ ram64 ram64(
     .q(rd_data)
 );
 
-ws2812_ctrl ws2812_ctrl(
+ws281x_ctrl ws281x_ctrl(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
 
@@ -59,7 +59,7 @@ ws2812_ctrl ws2812_ctrl(
     .rd_addr_out(rd_addr)
 );
 
-ws2812_code ws2812_code(
+ws281x_code ws281x_code(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
 
@@ -72,7 +72,7 @@ ws2812_code ws2812_code(
     .t1l_cnt_in(t1l_cnt_in),
 
     .bit_done_out(bit_done),
-    .bit_code_out(ws2812_code_out)
+    .bit_code_out(ws281x_code_out)
 );
 
 endmodule

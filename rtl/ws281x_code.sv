@@ -1,11 +1,11 @@
 /*
- * ws2812_code.sv
+ * ws281x_code.sv
  *
  *  Created on: 2020-04-06 23:09
  *      Author: Jack Chen <redchenjs@live.com>
  */
 
-module ws2812_code(
+module ws281x_code(
     input logic clk_in,
     input logic rst_n_in,
 

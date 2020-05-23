@@ -28,4 +28,4 @@ DATE = "07:48:26  April 25, 2020"
 
 # Revisions
 
-PROJECT_REVISION = "ws2812_led_controller"
+PROJECT_REVISION = "ws281x_cube_controller"

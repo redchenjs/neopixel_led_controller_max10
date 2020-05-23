@@ -1,7 +1,7 @@
-WS2812 LED Controller
-=====================
+WS281X Cube Controller
+======================
 
-Music Light Cube WS2812 LED Controller based on MAX10 FPGA.
+WS281X Cube Controller based on MAX10 FPGA.
 
 ## Main Features
 
@@ -65,7 +65,7 @@ Limits:
 ### Obtain the source
 
 ```
-git clone https://github.com/redchenjs/ws2812_led_controller_max10.git
+git clone https://github.com/redchenjs/ws281x_cube_controller_max10.git
 ```
 
 ### Update an existing repository

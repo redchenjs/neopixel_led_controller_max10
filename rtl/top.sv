@@ -5,7 +5,7 @@
  *      Author: Jack Chen <redchenjs@live.com>
  */
 
-module ws2812_led_controller(
+module ws281x_cube_controller(
     input logic clk_in,      // clk_in = 12 MHz
     input logic rst_n_in,    // rst_n_in, active low
 
@@ -14,7 +14,7 @@ module ws2812_led_controller(
     input logic spi_mosi_in,
     input logic spi_cs_n_in,
 
-    output logic [7:0] ws2812_code_out,
+    output logic [7:0] ws281x_code_out,
 
     output logic [7:0] water_led_out,        // Optional, FPS Counter
     output logic [8:0] segment_led_1_out,    // Optional, FPS Counter
@@ -104,7 +104,7 @@ layer_code layer_code7(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_code_out(ws2812_code_out[7])
+    .ws281x_code_out(ws281x_code_out[7])
 );
 
 layer_code layer_code6(
@@ -123,7 +123,7 @@ layer_code layer_code6(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_code_out(ws2812_code_out[6])
+    .ws281x_code_out(ws281x_code_out[6])
 );
 
 layer_code layer_code5(
@@ -142,7 +142,7 @@ layer_code layer_code5(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_code_out(ws2812_code_out[5])
+    .ws281x_code_out(ws281x_code_out[5])
 );
 
 layer_code layer_code4(
@@ -161,7 +161,7 @@ layer_code layer_code4(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_code_out(ws2812_code_out[4])
+    .ws281x_code_out(ws281x_code_out[4])
 );
 
 layer_code layer_code3(
@@ -180,7 +180,7 @@ layer_code layer_code3(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_code_out(ws2812_code_out[3])
+    .ws281x_code_out(ws281x_code_out[3])
 );
 
 layer_code layer_code2(
@@ -199,7 +199,7 @@ layer_code layer_code2(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_code_out(ws2812_code_out[2])
+    .ws281x_code_out(ws281x_code_out[2])
 );
 
 layer_code layer_code1(
@@ -218,7 +218,7 @@ layer_code layer_code1(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_code_out(ws2812_code_out[1])
+    .ws281x_code_out(ws281x_code_out[1])
 );
 
 layer_code layer_code0(
@@ -237,7 +237,7 @@ layer_code layer_code0(
     .t1l_cnt_in(t1l_cnt),
     .rst_cnt_in(rst_cnt),
 
-    .ws2812_code_out(ws2812_code_out[0])
+    .ws281x_code_out(ws281x_code_out[0])
 );
 
 pulse_counter fps_counter(

@@ -42,7 +42,7 @@ edge_detect spi_sclk_edge(
    .pos_edge_out(spi_sclk)
 );
 
-always @(posedge clk_in or negedge spi_rst_n)
+always_ff @(posedge clk_in or negedge spi_rst_n)
 begin
     if (!spi_rst_n) begin
         bit_sel <= 3'h0;
