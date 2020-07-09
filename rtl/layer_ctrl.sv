@@ -32,7 +32,7 @@ logic [2:0] data_en;
 
 logic [5:0] wr_addr;
 
-wire conf_done = (wr_addr == 6'd5);
+wire conf_done = (wr_addr == 6'd3);
 wire code_done = code_wr[0];
 
 wire addr_done = (wr_addr == 6'd63);

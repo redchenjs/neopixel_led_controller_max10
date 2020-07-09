@@ -31,7 +31,7 @@ logic bit_done, bit_code;
 wire [7:0] t0_sum = t0h_cnt_in + t0l_cnt_in;
 wire [7:0] t1_sum = t1h_cnt_in + t1l_cnt_in;
 
-wire cnt_done = (bit_cnt[8:1] == cnt_sum);
+wire cnt_done = (bit_cnt[8:0] == {cnt_sum, 1'b0} - 2'b11);
 
 wire t0h_time = (bit_cnt[8:1] < t0h_cnt_in);
 wire t1h_time = (bit_cnt[8:1] < t1h_cnt_in);

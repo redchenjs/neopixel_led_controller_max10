@@ -32,11 +32,10 @@ logic       wr_done;
 logic [5:0] wr_addr;
 logic [3:0] wr_byte_en;
 
-logic [ 7:0] t0h_cnt;
-logic [ 7:0] t0l_cnt;
-logic [ 7:0] t1h_cnt;
-logic [ 7:0] t1l_cnt;
-logic [15:0] rst_cnt;
+logic [7:0] t0h_cnt;
+logic [7:0] t0l_cnt;
+logic [7:0] t1h_cnt;
+logic [7:0] t1l_cnt;
 
 sys_ctrl sys_ctrl(
     .clk_in(clk_in),
@@ -84,8 +83,7 @@ layer_conf layer_conf(
     .t0h_cnt_out(t0h_cnt),
     .t0l_cnt_out(t0l_cnt),
     .t1h_cnt_out(t1h_cnt),
-    .t1l_cnt_out(t1l_cnt),
-    .rst_cnt_out(rst_cnt)
+    .t1l_cnt_out(t1l_cnt)
 );
 
 layer_code layer_code7(
@@ -102,7 +100,6 @@ layer_code layer_code7(
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-    .rst_cnt_in(rst_cnt),
 
     .ws281x_code_out(ws281x_code_out[7])
 );
@@ -121,7 +118,6 @@ layer_code layer_code6(
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-    .rst_cnt_in(rst_cnt),
 
     .ws281x_code_out(ws281x_code_out[6])
 );
@@ -140,7 +136,6 @@ layer_code layer_code5(
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-    .rst_cnt_in(rst_cnt),
 
     .ws281x_code_out(ws281x_code_out[5])
 );
@@ -159,7 +154,6 @@ layer_code layer_code4(
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-    .rst_cnt_in(rst_cnt),
 
     .ws281x_code_out(ws281x_code_out[4])
 );
@@ -178,7 +172,6 @@ layer_code layer_code3(
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-    .rst_cnt_in(rst_cnt),
 
     .ws281x_code_out(ws281x_code_out[3])
 );
@@ -197,7 +190,6 @@ layer_code layer_code2(
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-    .rst_cnt_in(rst_cnt),
 
     .ws281x_code_out(ws281x_code_out[2])
 );
@@ -216,7 +208,6 @@ layer_code layer_code1(
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-    .rst_cnt_in(rst_cnt),
 
     .ws281x_code_out(ws281x_code_out[1])
 );
@@ -235,7 +226,6 @@ layer_code layer_code0(
     .t0l_cnt_in(t0l_cnt),
     .t1h_cnt_in(t1h_cnt),
     .t1l_cnt_in(t1l_cnt),
-    .rst_cnt_in(rst_cnt),
 
     .ws281x_code_out(ws281x_code_out[0])
 );
