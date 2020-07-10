@@ -89,12 +89,12 @@ always begin
         wr_en_in <= 1'b1;
     #5  wr_en_in <= 1'b0;
 
-    #10 wr_done_in  <= 1'b1;
-    #5  wr_done_in  <= 1'b0;
+    #10 wr_done_in <= 1'b1;
+    #5  wr_done_in <= 1'b0;
 
     for (integer i=0; i<65536; i++) begin
-        #5 wr_done_in  <= 1'b1;
-        #5 wr_done_in  <= 1'b0;
+        #5 wr_done_in <= 1'b1;
+        #5 wr_done_in <= 1'b0;
     end
 
     #75 rst_n_in <= 1'b0;

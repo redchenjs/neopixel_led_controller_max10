@@ -26,6 +26,7 @@ module layer_code(
 logic        rd_en;
 logic [ 5:0] rd_addr;
 logic [31:0] rd_data;
+logic [ 7:0] tim_sum;
 
 logic bit_rdy, bit_data, bit_done;
 
@@ -49,6 +50,7 @@ ws281x_ctrl ws281x_ctrl(
 
     .wr_done_in(wr_done_in),
     .rd_data_in(rd_data),
+    .tim_sum_in(tim_sum),
 
     .bit_rdy_out(bit_rdy),
     .bit_data_out(bit_data),
@@ -57,7 +59,7 @@ ws281x_ctrl ws281x_ctrl(
     .rd_addr_out(rd_addr)
 );
 
-ws281x_code ws281x_code(
+ws281x_conf ws281x_conf(
     .clk_in(clk_in),
     .rst_n_in(rst_n_in),
 
@@ -68,6 +70,20 @@ ws281x_code ws281x_code(
     .t0l_cnt_in(t0l_cnt_in),
     .t1h_cnt_in(t1h_cnt_in),
     .t1l_cnt_in(t1l_cnt_in),
+
+    .tim_sum_out(tim_sum)
+);
+
+ws281x_code ws281x_code(
+    .clk_in(clk_in),
+    .rst_n_in(rst_n_in),
+
+    .bit_rdy_in(bit_rdy),
+    .bit_data_in(bit_data),
+
+    .t0h_cnt_in(t0h_cnt_in),
+    .t1h_cnt_in(t1h_cnt_in),
+    .tim_sum_in(tim_sum),
 
     .bit_done_out(bit_done),
     .bit_code_out(ws281x_code_out)

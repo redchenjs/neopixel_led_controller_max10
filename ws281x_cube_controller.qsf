@@ -19,7 +19,7 @@
 #
 # Quartus Prime
 # Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
-# Date created = 10:37:22  July 09, 2020
+# Date created = 16:06:46  July 10, 2020
 #
 # -------------------------------------------------------------------------- #
 #
@@ -54,6 +54,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_ctrl.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_conf.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_code.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws281x_ctrl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws281x_conf.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws281x_code.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/segment_led.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/pulse_counter.sv
@@ -233,6 +234,18 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 # end EDA_TEST_BENCH_SETTINGS(test_ws281x_ctrl)
 # ---------------------------------------------
 
+# start EDA_TEST_BENCH_SETTINGS(test_ws281x_conf)
+# -----------------------------------------------
+
+	# EDA Netlist Writer Assignments
+	# ==============================
+	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_ws281x_conf
+	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_ws281x_conf -section_id test_ws281x_conf
+	set_global_assignment -name EDA_TEST_BENCH_FILE simulation/test_ws281x_conf.sv -section_id test_ws281x_conf
+
+# end EDA_TEST_BENCH_SETTINGS(test_ws281x_conf)
+# ---------------------------------------------
+
 # start EDA_TEST_BENCH_SETTINGS(test_ws281x_code)
 # -----------------------------------------------
 
@@ -261,6 +274,7 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	set_global_assignment -name EDA_TEST_BENCH_NAME test_layer_conf -section_id eda_simulation
 	set_global_assignment -name EDA_TEST_BENCH_NAME test_layer_code -section_id eda_simulation
 	set_global_assignment -name EDA_TEST_BENCH_NAME test_ws281x_ctrl -section_id eda_simulation
+	set_global_assignment -name EDA_TEST_BENCH_NAME test_ws281x_conf -section_id eda_simulation
 	set_global_assignment -name EDA_TEST_BENCH_NAME test_ws281x_code -section_id eda_simulation
 
 # end EDA_TOOL_SETTINGS(eda_simulation)

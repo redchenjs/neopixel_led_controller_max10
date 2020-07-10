@@ -13,6 +13,7 @@ module ws281x_ctrl(
 
     input logic        wr_done_in,
     input logic [31:0] rd_data_in,
+    input logic [ 7:0] tim_sum_in,
 
     output logic bit_rdy_out,
     output logic bit_data_out,
@@ -30,7 +31,7 @@ logic [1:0] ctl_sta;
 
 logic       bit_st;
 logic [4:0] bit_sel;
-logic [8:0] bit_syn;
+logic [8:0] bit_cnt;
 
 logic bit_rdy, bit_data;
 
@@ -42,7 +43,7 @@ wire ram_next = (bit_sel == 5'd23);
 wire ram_done = (rd_addr == 6'h00);
 
 wire bit_next = bit_st | bit_done_in;
-wire syn_done = (bit_syn[8:1] == 8'hfe);
+wire cnt_done = (bit_cnt[8:0] == {tim_sum_in, 1'b0} - 3'b110);
 
 assign bit_rdy_out  = bit_rdy;
 assign bit_data_out = bit_data;
@@ -73,14 +74,14 @@ begin
             SEND_BIT:
                 ctl_sta <= (bit_next & ram_next) ? (ram_done ? SYNC_BIT : READ_RAM) : ctl_sta;
             SYNC_BIT:
-                ctl_sta <= syn_done ? IDLE : ctl_sta;
+                ctl_sta <= cnt_done ? IDLE : ctl_sta;
             default:
                 ctl_sta <= IDLE;
         endcase
 
         bit_st  <= (ctl_sta != SEND_BIT) & ((ctl_sta == IDLE) | bit_st);
         bit_sel <= (ctl_sta == SEND_BIT) ? bit_sel + bit_next : 5'h00;
-        bit_syn <= (ctl_sta == SYNC_BIT) ? bit_syn + 1'b1 : 9'h000;
+        bit_cnt <= (ctl_sta == SYNC_BIT) ? bit_cnt + 1'b1 : 9'h000;
 
         bit_rdy  <= (ctl_sta == SEND_BIT) & bit_next;
         bit_data <= (ctl_sta == SEND_BIT) & bit_next ? rd_data[5'd23 - bit_sel] : bit_data;
