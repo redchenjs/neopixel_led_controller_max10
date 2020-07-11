@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<EnsembleReport name="globalclk" kind="system" version="19.1" fabric="QSYS">
- <!-- Format version 19.1 670 (Future versions may contain additional information.) -->
- <!-- 2020.05.08.07:04:06 -->
+<EnsembleReport name="globalclk" kind="system" version="20.1" fabric="QSYS">
+ <!-- Format version 20.1 711 (Future versions may contain additional information.) -->
+ <!-- 2020.07.11.18:44:05 -->
  <!-- A collection of modules and connections -->
  <parameter name="clockCrossingAdapter">
   <type>com.altera.sopcmodel.ensemble.EClockAdapter</type>
@@ -53,7 +53,7 @@
  </parameter>
  <parameter name="generationId">
   <type>int</type>
-  <value>1588892645</value>
+  <value>1594464244</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>true</visible>
@@ -150,7 +150,7 @@
  <module
    name="altclkctrl_0"
    kind="altclkctrl"
-   version="19.1"
+   version="20.1"
    path="altclkctrl_0">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -219,7 +219,7 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="altclkctrl_input" kind="conduit_end" version="19.1">
+  <interface name="altclkctrl_input" kind="conduit_end" version="20.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -268,7 +268,7 @@ parameters are a RESULT of the module parameters. -->
     <role>inclk</role>
    </port>
   </interface>
-  <interface name="altclkctrl_output" kind="conduit_end" version="19.1">
+  <interface name="altclkctrl_output" kind="conduit_end" version="20.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -324,7 +324,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>ALTCLKCTRL Intel FPGA IP</displayName>
-  <version>19.1</version>
+  <version>20.1</version>
  </plugin>
  <plugin>
   <instanceCount>2</instanceCount>
@@ -332,8 +332,8 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Conduit</displayName>
-  <version>19.1</version>
+  <version>20.1</version>
  </plugin>
- <reportVersion>19.1 670</reportVersion>
- <uniqueIdentifier>5CE0C587F67700000171F161BA18</uniqueIdentifier>
+ <reportVersion>20.1 711</reportVersion>
+ <uniqueIdentifier>B8975A199DE2000001733D7995C8</uniqueIdentifier>
 </EnsembleReport>
