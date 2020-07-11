@@ -19,7 +19,7 @@
 #
 # Quartus Prime
 # Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
-# Date created = 16:06:46  July 10, 2020
+# Date created = 14:52:32  July 11, 2020
 #
 # -------------------------------------------------------------------------- #
 #
@@ -61,6 +61,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE rtl/pulse_counter.sv
 set_global_assignment -name QIP_FILE ip/pll/pll.qip
 set_global_assignment -name QIP_FILE ip/ram/ram64.qip
 set_global_assignment -name QSYS_FILE ip/clk/globalclk.qsys
+set_global_assignment -name SMART_RECOMPILE ON
 
 # Pin & Location Assignments
 # ==========================
@@ -110,6 +111,7 @@ set_location_assignment PIN_A3 -to segment_led_2_out[0]
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 3.3V
+set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 
 # Compiler Assignments
 # ====================
@@ -120,12 +122,29 @@ set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
 set_global_assignment -name FAMILY "MAX 10"
 set_global_assignment -name VHDL_INPUT_VERSION VHDL_2008
 set_global_assignment -name VERILOG_INPUT_VERSION SYSTEMVERILOG_2005
+set_global_assignment -name CYCLONEII_OPTIMIZATION_TECHNIQUE SPEED
+set_global_assignment -name STATE_MACHINE_PROCESSING "ONE-HOT"
+set_global_assignment -name ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP ON
+set_global_assignment -name MUX_RESTRUCTURE OFF
 set_global_assignment -name TOP_LEVEL_ENTITY ws281x_cube_controller
 
 # Fitter Assignments
 # ==================
 set_global_assignment -name DEVICE 10M08SCM153C8G
 set_global_assignment -name SYNCHRONIZER_IDENTIFICATION AUTO
+set_global_assignment -name PHYSICAL_SYNTHESIS_ASYNCHRONOUS_SIGNAL_PIPELINING ON
+set_global_assignment -name ROUTER_CLOCKING_TOPOLOGY_ANALYSIS ON
+set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
+set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
+set_global_assignment -name PHYSICAL_SYNTHESIS_COMBO_LOGIC ON
+set_global_assignment -name PHYSICAL_SYNTHESIS_REGISTER_DUPLICATION ON
+set_global_assignment -name PHYSICAL_SYNTHESIS_REGISTER_RETIMING ON
+set_global_assignment -name ROUTER_LCELL_INSERTION_AND_LOGIC_DUPLICATION ON
+set_global_assignment -name ROUTER_TIMING_OPTIMIZATION_LEVEL MAXIMUM
+set_global_assignment -name QII_AUTO_PACKED_REGISTERS NORMAL
+set_global_assignment -name PHYSICAL_SYNTHESIS_EFFORT NORMAL
+set_global_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION ON
+set_global_assignment -name AUTO_GLOBAL_CLOCK ON
 
 # EDA Netlist Writer Assignments
 # ==============================
