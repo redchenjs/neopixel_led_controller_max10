@@ -19,7 +19,7 @@
 #
 # Quartus Prime
 # Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
-# Date created = 14:52:32  July 11, 2020
+# Date created = 17:15:17  July 11, 2020
 #
 # -------------------------------------------------------------------------- #
 #
@@ -341,6 +341,49 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 
 # ------------------------------------
 # start ENTITY(ws281x_cube_controller)
+
+	# Pin & Location Assignments
+	# ==========================
+	set_instance_assignment -name FAST_INPUT_REGISTER ON -to clk_in
+	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to rst_n_in
+	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to dc_in
+	set_instance_assignment -name FAST_INPUT_REGISTER ON -to spi_sclk_in
+	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to spi_mosi_in
+	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to spi_cs_n_in
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[7]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[6]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[5]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[4]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[3]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[2]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[1]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[0]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[7]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[6]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[5]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[4]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[3]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[2]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[1]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[0]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[8]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[7]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[6]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[5]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[4]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[3]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[2]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[1]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[0]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[8]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[7]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[6]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[5]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[4]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[3]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[2]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[1]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[0]
 
 	# Fitter Assignments
 	# ==================
