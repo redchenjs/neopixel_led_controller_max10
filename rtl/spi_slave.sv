@@ -19,6 +19,7 @@ module spi_slave(
 
 logic spi_cs;
 logic spi_sclk;
+logic spi_mosi;
 logic spi_rst_n;
 
 logic [2:0] bit_sel;
@@ -45,15 +46,19 @@ edge_detect spi_sclk_edge(
 always_ff @(posedge clk_in or negedge spi_rst_n)
 begin
     if (!spi_rst_n) begin
+        spi_mosi <= 1'b0;
+
         bit_sel <= 3'h0;
 
         byte_rdy  <= 1'b0;
         byte_data <= 8'h00;
     end else begin
+        spi_mosi <= spi_mosi_in;
+
         bit_sel <= bit_sel + spi_sclk;
 
         byte_rdy  <= spi_sclk & (bit_sel == 3'd7);
-        byte_data <= spi_sclk ? {byte_data[6:0], spi_mosi_in} : byte_data;
+        byte_data <= spi_sclk ? {byte_data[6:0], spi_mosi} : byte_data;
     end
 end
 
