@@ -58,6 +58,7 @@ begin
 
         bit_st  <= 1'b0;
         bit_sel <= 5'h00;
+        bit_cnt <= 9'h000;
 
         bit_rdy  <= 1'b0;
         bit_data <= 1'b0;
