@@ -17,9 +17,9 @@ logic [5:0] wr_addr_in;
 logic [7:0] wr_data_in;
 
 logic [7:0] t0h_cnt_out;
-logic [7:0] t0l_cnt_out;
+logic [7:0] t0s_cnt_out;
 logic [7:0] t1h_cnt_out;
-logic [7:0] t1l_cnt_out;
+logic [7:0] t1s_cnt_out;
 
 layer_conf test_layer_conf(
     .clk_in(clk_in),
@@ -30,9 +30,9 @@ layer_conf test_layer_conf(
     .wr_data_in(wr_data_in),
 
     .t0h_cnt_out(t0h_cnt_out),
-    .t0l_cnt_out(t0l_cnt_out),
+    .t0s_cnt_out(t0s_cnt_out),
     .t1h_cnt_out(t1h_cnt_out),
-    .t1l_cnt_out(t1l_cnt_out)
+    .t1s_cnt_out(t1s_cnt_out)
 );
 
 initial begin

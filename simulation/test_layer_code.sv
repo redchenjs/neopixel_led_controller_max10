@@ -19,9 +19,9 @@ logic [7:0] wr_data_in;
 logic [3:0] wr_byte_en_in;
 
 logic [7:0] t0h_cnt_in;
-logic [7:0] t0l_cnt_in;
+logic [7:0] t0s_cnt_in;
 logic [7:0] t1h_cnt_in;
-logic [7:0] t1l_cnt_in;
+logic [7:0] t1s_cnt_in;
 
 logic ws281x_code_out;
 
@@ -36,9 +36,9 @@ layer_code test_layer_code(
     .wr_byte_en_in(wr_byte_en_in),
 
     .t0h_cnt_in(t0h_cnt_in),
-    .t0l_cnt_in(t0l_cnt_in),
+    .t0s_cnt_in(t0s_cnt_in),
     .t1h_cnt_in(t1h_cnt_in),
-    .t1l_cnt_in(t1l_cnt_in),
+    .t1s_cnt_in(t1s_cnt_in),
 
     .ws281x_code_out(ws281x_code_out)
 );
@@ -55,9 +55,9 @@ initial begin
 
     // Unit: 10 ns (2 clk)
     t0h_cnt_in <= 8'h01;
-    t0l_cnt_in <= 8'h7f;
+    t0s_cnt_in <= 8'h80;
     t1h_cnt_in <= 8'h7f;
-    t1l_cnt_in <= 8'h01;
+    t1s_cnt_in <= 8'h80;
 
     #2 rst_n_in <= 1'b1;
 end

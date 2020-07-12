@@ -14,9 +14,9 @@ module layer_conf(
     input logic [7:0] wr_data_in,
 
     output logic [7:0] t0h_cnt_out,
-    output logic [7:0] t0l_cnt_out,
+    output logic [7:0] t0s_cnt_out,
     output logic [7:0] t1h_cnt_out,
-    output logic [7:0] t1l_cnt_out
+    output logic [7:0] t1s_cnt_out
 );
 
 logic [7:0] t0h_cnt;
@@ -25,9 +25,9 @@ logic [7:0] t1h_cnt;
 logic [7:0] t1l_cnt;
 
 assign t0h_cnt_out = t0h_cnt;
-assign t0l_cnt_out = t0l_cnt;
+assign t0s_cnt_out = t0h_cnt + t0l_cnt;
 assign t1h_cnt_out = t1h_cnt;
-assign t1l_cnt_out = t1l_cnt;
+assign t1s_cnt_out = t1h_cnt + t1l_cnt;
 
 always_ff @(posedge clk_in or negedge rst_n_in)
 begin

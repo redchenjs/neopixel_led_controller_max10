@@ -16,9 +16,9 @@ module layer_code(
     input logic [3:0] wr_byte_en_in,
 
     input logic [7:0] t0h_cnt_in,
-    input logic [7:0] t0l_cnt_in,
+    input logic [7:0] t0s_cnt_in,
     input logic [7:0] t1h_cnt_in,
-    input logic [7:0] t1l_cnt_in,
+    input logic [7:0] t1s_cnt_in,
 
     output logic ws281x_code_out
 );
@@ -67,9 +67,9 @@ ws281x_conf ws281x_conf(
     .bit_data_in(bit_data),
 
     .t0h_cnt_in(t0h_cnt_in),
-    .t0l_cnt_in(t0l_cnt_in),
+    .t0s_cnt_in(t0s_cnt_in),
     .t1h_cnt_in(t1h_cnt_in),
-    .t1l_cnt_in(t1l_cnt_in),
+    .t1s_cnt_in(t1s_cnt_in),
 
     .tim_sum_out(tim_sum)
 );

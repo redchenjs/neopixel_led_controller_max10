@@ -16,9 +16,9 @@ logic bit_rdy_in;
 logic bit_data_in;
 
 logic [7:0] t0h_cnt_in;
-logic [7:0] t0l_cnt_in;
+logic [7:0] t0s_cnt_in;
 logic [7:0] t1h_cnt_in;
-logic [7:0] t1l_cnt_in;
+logic [7:0] t1s_cnt_in;
 
 logic [7:0] tim_sum_out;
 
@@ -30,9 +30,9 @@ ws281x_conf test_ws281x_conf(
     .bit_data_in(bit_data_in),
 
     .t0h_cnt_in(t0h_cnt_in),
-    .t0l_cnt_in(t0l_cnt_in),
+    .t0s_cnt_in(t0s_cnt_in),
     .t1h_cnt_in(t1h_cnt_in),
-    .t1l_cnt_in(t1l_cnt_in),
+    .t1s_cnt_in(t1s_cnt_in),
 
     .tim_sum_out(tim_sum_out)
 );
@@ -46,9 +46,9 @@ initial begin
 
     // Unit: 10 ns (2 clk)
     t0h_cnt_in <= 8'h01;
-    t0l_cnt_in <= 8'h7f;
+    t0s_cnt_in <= 8'h80;
     t1h_cnt_in <= 8'hfe;
-    t1l_cnt_in <= 8'h01;
+    t1s_cnt_in <= 8'hff;
 
     #2 rst_n_in <= 1'b1;
 end

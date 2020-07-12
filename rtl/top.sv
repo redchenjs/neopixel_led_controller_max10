@@ -33,9 +33,9 @@ logic [5:0] wr_addr;
 logic [3:0] wr_byte_en;
 
 logic [7:0] t0h_cnt;
-logic [7:0] t0l_cnt;
+logic [7:0] t0s_cnt;
 logic [7:0] t1h_cnt;
-logic [7:0] t1l_cnt;
+logic [7:0] t1s_cnt;
 
 sys_ctrl sys_ctrl(
     .clk_in(clk_in),
@@ -81,9 +81,9 @@ layer_conf layer_conf(
     .wr_data_in(byte_data),
 
     .t0h_cnt_out(t0h_cnt),
-    .t0l_cnt_out(t0l_cnt),
+    .t0s_cnt_out(t0s_cnt),
     .t1h_cnt_out(t1h_cnt),
-    .t1l_cnt_out(t1l_cnt)
+    .t1s_cnt_out(t1s_cnt)
 );
 
 layer_code layer_code7(
@@ -97,9 +97,9 @@ layer_code layer_code7(
     .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
-    .t0l_cnt_in(t0l_cnt),
+    .t0s_cnt_in(t0s_cnt),
     .t1h_cnt_in(t1h_cnt),
-    .t1l_cnt_in(t1l_cnt),
+    .t1s_cnt_in(t1s_cnt),
 
     .ws281x_code_out(ws281x_code_out[7])
 );
@@ -115,9 +115,9 @@ layer_code layer_code6(
     .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
-    .t0l_cnt_in(t0l_cnt),
+    .t0s_cnt_in(t0s_cnt),
     .t1h_cnt_in(t1h_cnt),
-    .t1l_cnt_in(t1l_cnt),
+    .t1s_cnt_in(t1s_cnt),
 
     .ws281x_code_out(ws281x_code_out[6])
 );
@@ -133,9 +133,9 @@ layer_code layer_code5(
     .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
-    .t0l_cnt_in(t0l_cnt),
+    .t0s_cnt_in(t0s_cnt),
     .t1h_cnt_in(t1h_cnt),
-    .t1l_cnt_in(t1l_cnt),
+    .t1s_cnt_in(t1s_cnt),
 
     .ws281x_code_out(ws281x_code_out[5])
 );
@@ -151,9 +151,9 @@ layer_code layer_code4(
     .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
-    .t0l_cnt_in(t0l_cnt),
+    .t0s_cnt_in(t0s_cnt),
     .t1h_cnt_in(t1h_cnt),
-    .t1l_cnt_in(t1l_cnt),
+    .t1s_cnt_in(t1s_cnt),
 
     .ws281x_code_out(ws281x_code_out[4])
 );
@@ -169,9 +169,9 @@ layer_code layer_code3(
     .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
-    .t0l_cnt_in(t0l_cnt),
+    .t0s_cnt_in(t0s_cnt),
     .t1h_cnt_in(t1h_cnt),
-    .t1l_cnt_in(t1l_cnt),
+    .t1s_cnt_in(t1s_cnt),
 
     .ws281x_code_out(ws281x_code_out[3])
 );
@@ -187,9 +187,9 @@ layer_code layer_code2(
     .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
-    .t0l_cnt_in(t0l_cnt),
+    .t0s_cnt_in(t0s_cnt),
     .t1h_cnt_in(t1h_cnt),
-    .t1l_cnt_in(t1l_cnt),
+    .t1s_cnt_in(t1s_cnt),
 
     .ws281x_code_out(ws281x_code_out[2])
 );
@@ -205,9 +205,9 @@ layer_code layer_code1(
     .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
-    .t0l_cnt_in(t0l_cnt),
+    .t0s_cnt_in(t0s_cnt),
     .t1h_cnt_in(t1h_cnt),
-    .t1l_cnt_in(t1l_cnt),
+    .t1s_cnt_in(t1s_cnt),
 
     .ws281x_code_out(ws281x_code_out[1])
 );
@@ -223,9 +223,9 @@ layer_code layer_code0(
     .wr_byte_en_in(wr_byte_en),
 
     .t0h_cnt_in(t0h_cnt),
-    .t0l_cnt_in(t0l_cnt),
+    .t0s_cnt_in(t0s_cnt),
     .t1h_cnt_in(t1h_cnt),
-    .t1l_cnt_in(t1l_cnt),
+    .t1s_cnt_in(t1s_cnt),
 
     .ws281x_code_out(ws281x_code_out[0])
 );
