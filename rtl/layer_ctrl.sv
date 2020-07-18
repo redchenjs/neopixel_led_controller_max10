@@ -6,23 +6,25 @@
  */
 
 module layer_ctrl(
-    input logic clk_in,
-    input logic rst_n_in,
+    input logic clk_i,
+    input logic rst_n_i,
 
-    input logic dc_in,
+    input logic dc_i,
 
-    input logic       byte_rdy_in,
-    input logic [7:0] byte_data_in,
+    input logic       byte_vld_i,
+    input logic [7:0] byte_data_i,
 
-    output logic [8:0] wr_en_out,
-    output logic       wr_done_out,
-    output logic [5:0] wr_addr_out,
-    output logic [3:0] wr_byte_en_out
+    output logic [8:0] wr_en_o,
+    output logic       wr_done_o,
+    output logic [5:0] wr_addr_o,
+    output logic [3:0] wr_byte_en_o
 );
 
-parameter [7:0] CUBE0414_CONF_WR = 8'h2a;
-parameter [7:0] CUBE0414_ADDR_WR = 8'h2b;
-parameter [7:0] CUBE0414_DATA_WR = 8'h2c;
+typedef enum logic [7:0] {
+    CUBE0414_CONF_WR = 8'h2a,
+    CUBE0414_ADDR_WR = 8'h2b,
+    CUBE0414_DATA_WR = 8'h2c
+} cmd_t;
 
 logic       conf_wr;
 logic [7:0] code_wr;
@@ -33,7 +35,7 @@ logic [2:0] data_en;
 logic [5:0] wr_addr;
 
 wire conf_done = (wr_addr == 6'd3);
-wire code_done = code_wr[0];
+wire code_done = code_wr[7];
 
 wire addr_done = (wr_addr == 6'd63);
 wire data_done = data_en[0];
@@ -41,24 +43,24 @@ wire data_done = data_en[0];
 wire layer_done = addr_done & data_done;
 wire frame_done = code_done & layer_done;
 
-assign wr_en_out[8] = byte_rdy_in & conf_wr;
-assign wr_en_out[7] = byte_rdy_in & code_wr[7];
-assign wr_en_out[6] = byte_rdy_in & code_wr[6];
-assign wr_en_out[5] = byte_rdy_in & code_wr[5];
-assign wr_en_out[4] = byte_rdy_in & code_wr[4];
-assign wr_en_out[3] = byte_rdy_in & code_wr[3];
-assign wr_en_out[2] = byte_rdy_in & code_wr[2];
-assign wr_en_out[1] = byte_rdy_in & code_wr[1];
-assign wr_en_out[0] = byte_rdy_in & code_wr[0];
+assign wr_en_o[8] = byte_vld_i & conf_wr;
+assign wr_en_o[7] = byte_vld_i & code_wr[7];
+assign wr_en_o[6] = byte_vld_i & code_wr[6];
+assign wr_en_o[5] = byte_vld_i & code_wr[5];
+assign wr_en_o[4] = byte_vld_i & code_wr[4];
+assign wr_en_o[3] = byte_vld_i & code_wr[3];
+assign wr_en_o[2] = byte_vld_i & code_wr[2];
+assign wr_en_o[1] = byte_vld_i & code_wr[1];
+assign wr_en_o[0] = byte_vld_i & code_wr[0];
 
-assign wr_done_out = byte_rdy_in & frame_done;
-assign wr_addr_out = wr_addr;
+assign wr_done_o = byte_vld_i & frame_done;
+assign wr_addr_o = wr_addr;
 
-assign wr_byte_en_out = {addr_en, data_en};
+assign wr_byte_en_o = {addr_en, data_en};
 
-always_ff @(posedge clk_in or negedge rst_n_in)
+always_ff @(posedge clk_i or negedge rst_n_i)
 begin
-    if (!rst_n_in) begin
+    if (!rst_n_i) begin
         conf_wr <= 1'b0;
         code_wr <= 8'h00;
 
@@ -67,9 +69,9 @@ begin
 
         wr_addr <= 6'h00;
     end else begin
-        if (byte_rdy_in) begin
-            if (!dc_in) begin   // Command
-                case (byte_data_in)
+        if (byte_vld_i) begin
+            if (!dc_i) begin  // Command
+                case (byte_data_i)
                     CUBE0414_CONF_WR: begin     // Write Reg Conf
                         conf_wr <= 1'b1;
                         code_wr <= 8'h00;
@@ -86,7 +88,7 @@ begin
                     end
                     CUBE0414_DATA_WR: begin     // Write RAM Data
                         conf_wr <= 1'b0;
-                        code_wr <= 8'h80;
+                        code_wr <= 8'h01;
 
                         addr_en <= 1'b0;
                         data_en <= 3'b100;
@@ -101,9 +103,9 @@ begin
                 endcase
 
                 wr_addr <= 6'h00;
-            end else begin      // Data
+            end else begin    // Data
                 conf_wr <= conf_wr & ~conf_done;
-                code_wr <= code_wr >> (~(conf_wr | addr_en) & layer_done);
+                code_wr <= code_wr << (~(conf_wr | addr_en) & layer_done);
 
                 addr_en <= addr_en & ~addr_done;
                 data_en <= {data_en[0], data_en[2:1]};

@@ -6,29 +6,29 @@
  */
 
 module edge_detect(
-    input logic clk_in,
-    input logic rst_n_in,
+    input logic clk_i,
+    input logic rst_n_i,
 
-    input logic data_in,
+    input logic data_i,
 
-    output logic pos_edge_out,
-    output logic neg_edge_out,
-    output logic both_edge_out
+    output logic pos_edge_o,
+    output logic neg_edge_o,
+    output logic both_edge_o
 );
 
 logic data_a, data_b;
 
-assign pos_edge_out = ~data_b & data_a;
-assign neg_edge_out = ~data_a & data_b;
-assign both_edge_out = data_a ^ data_b;
+assign pos_edge_o  = ~data_b & data_a;
+assign neg_edge_o  = ~data_a & data_b;
+assign both_edge_o =  data_a ^ data_b;
 
-always_ff @(posedge clk_in or negedge rst_n_in)
+always_ff @(posedge clk_i or negedge rst_n_i)
 begin
-    if (!rst_n_in) begin
+    if (!rst_n_i) begin
         data_a <= 1'b0;
         data_b <= 1'b0;
     end else begin
-        data_a <= data_in;
+        data_a <= data_i;
         data_b <= data_a;
     end
 end

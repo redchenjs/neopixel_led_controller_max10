@@ -6,47 +6,47 @@
  */
 
 module layer_conf(
-    input logic clk_in,
-    input logic rst_n_in,
+    input logic clk_i,
+    input logic rst_n_i,
 
-    input logic       wr_en_in,
-    input logic [5:0] wr_addr_in,
-    input logic [7:0] wr_data_in,
+    input logic       wr_en_i,
+    input logic [5:0] wr_addr_i,
+    input logic [7:0] wr_data_i,
 
-    output logic [7:0] t0h_cnt_out,
-    output logic [7:0] t0s_cnt_out,
-    output logic [7:0] t1h_cnt_out,
-    output logic [7:0] t1s_cnt_out
+    output logic [7:0] t0h_cnt_o,
+    output logic [7:0] t0s_cnt_o,
+    output logic [7:0] t1h_cnt_o,
+    output logic [7:0] t1s_cnt_o
 );
 
 logic [7:0] t0h_cnt;
-logic [7:0] t0l_cnt;
+logic [7:0] t0s_cnt;
 logic [7:0] t1h_cnt;
-logic [7:0] t1l_cnt;
+logic [7:0] t1s_cnt;
 
-assign t0h_cnt_out = t0h_cnt;
-assign t0s_cnt_out = t0h_cnt + t0l_cnt;
-assign t1h_cnt_out = t1h_cnt;
-assign t1s_cnt_out = t1h_cnt + t1l_cnt;
+assign t0h_cnt_o = t0h_cnt;
+assign t0s_cnt_o = t0s_cnt;
+assign t1h_cnt_o = t1h_cnt;
+assign t1s_cnt_o = t1s_cnt;
 
-always_ff @(posedge clk_in or negedge rst_n_in)
+always_ff @(posedge clk_i or negedge rst_n_i)
 begin
-    if (!rst_n_in) begin
+    if (!rst_n_i) begin
         t0h_cnt <= 8'h00;
-        t0l_cnt <= 8'h00;
+        t0s_cnt <= 8'h00;
         t1h_cnt <= 8'h00;
-        t1l_cnt <= 8'h00;
+        t1s_cnt <= 8'h00;
     end else begin
-        if (wr_en_in) begin
-            case (wr_addr_in[1:0])
+        if (wr_en_i) begin
+            case (wr_addr_i[1:0])
                 2'b00:
-                    t0h_cnt <= wr_data_in;
+                    t0h_cnt <= wr_data_i;
                 2'b01:
-                    t0l_cnt <= wr_data_in;
+                    t0s_cnt <= wr_data_i + t0h_cnt;
                 2'b10:
-                    t1h_cnt <= wr_data_in;
+                    t1h_cnt <= wr_data_i;
                 2'b11:
-                    t1l_cnt <= wr_data_in;
+                    t1s_cnt <= wr_data_i + t1h_cnt;
             endcase
         end
     end

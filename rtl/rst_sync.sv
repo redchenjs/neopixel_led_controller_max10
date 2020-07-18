@@ -6,19 +6,19 @@
  */
 
 module rst_sync(
-    input logic clk_in,
-    input logic rst_n_in,
+    input logic clk_i,
+    input logic rst_n_i,
 
-    output logic rst_n_out
+    output logic rst_n_o
 );
 
 logic rst_n_a, rst_n_b;
 
-assign rst_n_out = rst_n_b;
+assign rst_n_o = rst_n_b;
 
-always_ff @(posedge clk_in or negedge rst_n_in)
+always_ff @(posedge clk_i or negedge rst_n_i)
 begin
-    if (!rst_n_in) begin
+    if (!rst_n_i) begin
         rst_n_a <= 1'b0;
         rst_n_b <= 1'b0;
     end else begin

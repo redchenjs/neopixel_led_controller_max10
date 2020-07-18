@@ -6,40 +6,40 @@
  */
 
 module pulse_counter(
-    input logic clk_in,
-    input logic rst_n_in,
+    input logic clk_i,
+    input logic rst_n_i,
 
-    input logic pulse_in,
+    input logic pulse_i,
 
-    output logic [7:0] water_led_out,
-    output logic [8:0] segment_led_1_out,
-    output logic [8:0] segment_led_2_out
+    output logic [7:0] water_led_o,
+    output logic [8:0] segment_led_1_o,
+    output logic [8:0] segment_led_2_o
 );
 
-parameter [27:0] CNT_1_S = 200 * 1000 * 1000;
+localparam [27:0] CNT_1_S = 200 * 1000 * 1000;
 
 logic [ 7:0] pulse;
 logic [ 7:0] pul_cnt;
 logic [27:0] tim_cnt;
 
-assign water_led_out = rst_n_in ? ~pul_cnt : 8'hff;
+assign water_led_o = rst_n_i ? ~pul_cnt : 8'hff;
 
 segment_led segment_led(
-    .rst_n_in(rst_n_in),
-    .count_in(pulse),
-    .segment_led_1_out(segment_led_1_out),
-    .segment_led_2_out(segment_led_2_out)
+    .rst_n_i(rst_n_i),
+    .count_i(pulse),
+    .segment_led_1_o(segment_led_1_o),
+    .segment_led_2_o(segment_led_2_o)
 );
 
-always_ff @(posedge clk_in or negedge rst_n_in)
+always_ff @(posedge clk_i or negedge rst_n_i)
 begin
-    if (!rst_n_in) begin
+    if (!rst_n_i) begin
         pulse   <= 8'h00;
         pul_cnt <= 8'h00;
         tim_cnt <= 28'h000_0000;
     end else begin
         pulse   <= (tim_cnt == CNT_1_S) ? pul_cnt : pulse;
-        pul_cnt <= (tim_cnt == CNT_1_S) ? 8'h00 : pul_cnt + pulse_in;
+        pul_cnt <= (tim_cnt == CNT_1_S) ? 8'h00 : pul_cnt + pulse_i;
         tim_cnt <= (tim_cnt == CNT_1_S) ? 28'h000_0000 : tim_cnt + 1'b1;
     end
 end

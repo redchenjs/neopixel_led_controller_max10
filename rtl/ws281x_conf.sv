@@ -6,30 +6,30 @@
  */
 
 module ws281x_conf(
-    input logic clk_in,
-    input logic rst_n_in,
+    input logic clk_i,
+    input logic rst_n_i,
 
-    input logic bit_rdy_in,
-    input logic bit_data_in,
+    input logic bit_vld_i,
+    input logic bit_data_i,
 
-    input logic [7:0] t0h_cnt_in,
-    input logic [7:0] t0s_cnt_in,
-    input logic [7:0] t1h_cnt_in,
-    input logic [7:0] t1s_cnt_in,
+    input logic [7:0] t0h_cnt_i,
+    input logic [7:0] t0s_cnt_i,
+    input logic [7:0] t1h_cnt_i,
+    input logic [7:0] t1s_cnt_i,
 
-    output logic [7:0] tim_sum_out
+    output logic [7:0] tim_cnt_o
 );
 
-logic [7:0] tim_sum;
+logic [7:0] tim_cnt;
 
-assign tim_sum_out = tim_sum;
+assign tim_cnt_o = tim_cnt;
 
-always_ff @(posedge clk_in or negedge rst_n_in)
+always_ff @(posedge clk_i or negedge rst_n_i)
 begin
-    if (!rst_n_in) begin
-        tim_sum <= 8'h00;
+    if (!rst_n_i) begin
+        tim_cnt <= 8'h00;
     end else begin
-        tim_sum <= bit_rdy_in ? (bit_data_in ? t1s_cnt_in : t0s_cnt_in) : tim_sum;
+        tim_cnt <= bit_vld_i ? (bit_data_i ? t1s_cnt_i : t0s_cnt_i) : tim_cnt;
     end
 end
 

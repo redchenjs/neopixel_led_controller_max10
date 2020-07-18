@@ -6,87 +6,87 @@
  */
 
 module layer_code(
-    input logic clk_in,
-    input logic rst_n_in,
+    input logic clk_i,
+    input logic rst_n_i,
 
-    input logic       wr_en_in,
-    input logic       wr_done_in,
-    input logic [5:0] wr_addr_in,
-    input logic [7:0] wr_data_in,
-    input logic [3:0] wr_byte_en_in,
+    input logic       wr_en_i,
+    input logic       wr_done_i,
+    input logic [5:0] wr_addr_i,
+    input logic [7:0] wr_data_i,
+    input logic [3:0] wr_byte_en_i,
 
-    input logic [7:0] t0h_cnt_in,
-    input logic [7:0] t0s_cnt_in,
-    input logic [7:0] t1h_cnt_in,
-    input logic [7:0] t1s_cnt_in,
+    input logic [7:0] t0h_cnt_i,
+    input logic [7:0] t0s_cnt_i,
+    input logic [7:0] t1h_cnt_i,
+    input logic [7:0] t1s_cnt_i,
 
-    output logic ws281x_code_out
+    output logic ws281x_code_o
 );
 
 logic        rd_en;
 logic [ 5:0] rd_addr;
 logic [31:0] rd_data;
-logic [ 7:0] tim_sum;
+logic [ 7:0] tim_cnt;
 
-logic bit_rdy, bit_data, bit_done;
+logic bit_vld, bit_rdy, bit_data;
 
 ram64 ram64(
-    .aclr(~rst_n_in),
-    .byteena_a(wr_byte_en_in),
-    .clock(clk_in),
-    .data({wr_data_in, wr_data_in, wr_data_in, wr_data_in}),
+    .aclr(~rst_n_i),
+    .byteena_a(wr_byte_en_i),
+    .clock(clk_i),
+    .data({wr_data_i, wr_data_i, wr_data_i, wr_data_i}),
     .rdaddress(rd_addr),
     .rden(rd_en),
-    .wraddress(wr_addr_in),
-    .wren(wr_en_in),
+    .wraddress(wr_addr_i),
+    .wren(wr_en_i),
     .q(rd_data)
 );
 
 ws281x_ctrl ws281x_ctrl(
-    .clk_in(clk_in),
-    .rst_n_in(rst_n_in),
+    .clk_i(clk_i),
+    .rst_n_i(rst_n_i),
 
-    .bit_done_in(bit_done),
+    .bit_rdy_i(bit_rdy),
 
-    .wr_done_in(wr_done_in),
-    .rd_data_in(rd_data),
-    .tim_sum_in(tim_sum),
+    .wr_done_i(wr_done_i),
+    .rd_data_i(rd_data),
+    .tim_cnt_i(tim_cnt),
 
-    .bit_rdy_out(bit_rdy),
-    .bit_data_out(bit_data),
+    .bit_vld_o(bit_vld),
+    .bit_data_o(bit_data),
 
-    .rd_en_out(rd_en),
-    .rd_addr_out(rd_addr)
+    .rd_en_o(rd_en),
+    .rd_addr_o(rd_addr)
 );
 
 ws281x_conf ws281x_conf(
-    .clk_in(clk_in),
-    .rst_n_in(rst_n_in),
+    .clk_i(clk_i),
+    .rst_n_i(rst_n_i),
 
-    .bit_rdy_in(bit_rdy),
-    .bit_data_in(bit_data),
+    .bit_vld_i(bit_vld),
+    .bit_data_i(bit_data),
 
-    .t0h_cnt_in(t0h_cnt_in),
-    .t0s_cnt_in(t0s_cnt_in),
-    .t1h_cnt_in(t1h_cnt_in),
-    .t1s_cnt_in(t1s_cnt_in),
+    .t0h_cnt_i(t0h_cnt_i),
+    .t0s_cnt_i(t0s_cnt_i),
+    .t1h_cnt_i(t1h_cnt_i),
+    .t1s_cnt_i(t1s_cnt_i),
 
-    .tim_sum_out(tim_sum)
+    .tim_cnt_o(tim_cnt)
 );
 
 ws281x_code ws281x_code(
-    .clk_in(clk_in),
-    .rst_n_in(rst_n_in),
+    .clk_i(clk_i),
+    .rst_n_i(rst_n_i),
 
-    .bit_rdy_in(bit_rdy),
-    .bit_data_in(bit_data),
+    .bit_vld_i(bit_vld),
+    .bit_data_i(bit_data),
 
-    .t0h_cnt_in(t0h_cnt_in),
-    .t1h_cnt_in(t1h_cnt_in),
-    .tim_sum_in(tim_sum),
+    .t0h_cnt_i(t0h_cnt_i),
+    .t1h_cnt_i(t1h_cnt_i),
+    .tim_cnt_i(tim_cnt),
 
-    .bit_done_out(bit_done),
-    .bit_code_out(ws281x_code_out)
+    .bit_rdy_o(bit_rdy),
+    .bit_code_o(ws281x_code_o)
 );
 
 endmodule

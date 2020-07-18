@@ -6,12 +6,12 @@
  */
 
 module segment_led(
-    input logic rst_n_in,
+    input logic rst_n_i,
 
-    input logic [7:0] count_in,
+    input logic [7:0] count_i,
 
-    output logic [8:0] segment_led_1_out,
-    output logic [8:0] segment_led_2_out
+    output logic [8:0] segment_led_1_o,
+    output logic [8:0] segment_led_2_o
 );
 
 logic [6:0] mem[16];
@@ -35,15 +35,15 @@ initial begin
     mem[15] = 7'h71;    // F
 end
 
-wire [3:0] num_1 = (count_in / 10) % 10;
-wire [3:0] num_2 = count_in % 10;
+wire [3:0] num_1 = (count_i / 10) % 10;
+wire [3:0] num_2 = count_i % 10;
 
-assign segment_led_1_out[6:0] = mem[num_1];
-assign segment_led_1_out[7]   = (count_in / 100 >= 2) ? 1'b1 : 1'b0;
-assign segment_led_1_out[8]   = ~rst_n_in;
+assign segment_led_1_o[6:0] = mem[num_1];
+assign segment_led_1_o[7]   = (count_i / 100 >= 2) ? 1'b1 : 1'b0;
+assign segment_led_1_o[8]   = ~rst_n_i;
 
-assign segment_led_2_out[6:0] = mem[num_2];
-assign segment_led_2_out[7]   = (count_in / 100 >= 1) ? 1'b1 : 1'b0;
-assign segment_led_2_out[8]   = ~rst_n_in;
+assign segment_led_2_o[6:0] = mem[num_2];
+assign segment_led_2_o[7]   = (count_i / 100 >= 1) ? 1'b1 : 1'b0;
+assign segment_led_2_o[8]   = ~rst_n_i;
 
 endmodule

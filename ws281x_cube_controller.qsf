@@ -19,7 +19,7 @@
 #
 # Quartus Prime
 # Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
-# Date created = 17:15:17  July 11, 2020
+# Date created = 18:52:25  July 18, 2020
 #
 # -------------------------------------------------------------------------- #
 #
@@ -61,50 +61,49 @@ set_global_assignment -name SYSTEMVERILOG_FILE rtl/pulse_counter.sv
 set_global_assignment -name QIP_FILE ip/pll/pll.qip
 set_global_assignment -name QIP_FILE ip/ram/ram64.qip
 set_global_assignment -name QSYS_FILE ip/clk/globalclk.qsys
-set_global_assignment -name SMART_RECOMPILE ON
 
 # Pin & Location Assignments
 # ==========================
-set_location_assignment PIN_J5 -to clk_in
-set_location_assignment PIN_R9 -to rst_n_in
-set_location_assignment PIN_P15 -to dc_in
-set_location_assignment PIN_R14 -to spi_sclk_in
-set_location_assignment PIN_P12 -to spi_mosi_in
-set_location_assignment PIN_R11 -to spi_cs_n_in
-set_location_assignment PIN_R5 -to ws281x_code_out[7]
-set_location_assignment PIN_L7 -to ws281x_code_out[6]
-set_location_assignment PIN_P4 -to ws281x_code_out[5]
-set_location_assignment PIN_L6 -to ws281x_code_out[4]
-set_location_assignment PIN_R3 -to ws281x_code_out[3]
-set_location_assignment PIN_M5 -to ws281x_code_out[2]
-set_location_assignment PIN_P3 -to ws281x_code_out[1]
-set_location_assignment PIN_M4 -to ws281x_code_out[0]
-set_location_assignment PIN_N15 -to water_led_out[7]
-set_location_assignment PIN_N14 -to water_led_out[6]
-set_location_assignment PIN_M14 -to water_led_out[5]
-set_location_assignment PIN_M12 -to water_led_out[4]
-set_location_assignment PIN_L15 -to water_led_out[3]
-set_location_assignment PIN_K12 -to water_led_out[2]
-set_location_assignment PIN_L11 -to water_led_out[1]
-set_location_assignment PIN_K11 -to water_led_out[0]
-set_location_assignment PIN_E2 -to segment_led_1_out[8]
-set_location_assignment PIN_L1 -to segment_led_1_out[7]
-set_location_assignment PIN_G5 -to segment_led_1_out[6]
-set_location_assignment PIN_F5 -to segment_led_1_out[5]
-set_location_assignment PIN_G2 -to segment_led_1_out[4]
-set_location_assignment PIN_J2 -to segment_led_1_out[3]
-set_location_assignment PIN_K2 -to segment_led_1_out[2]
-set_location_assignment PIN_D2 -to segment_led_1_out[1]
-set_location_assignment PIN_E1 -to segment_led_1_out[0]
-set_location_assignment PIN_B1 -to segment_led_2_out[8]
-set_location_assignment PIN_R2 -to segment_led_2_out[7]
-set_location_assignment PIN_C2 -to segment_led_2_out[6]
-set_location_assignment PIN_C1 -to segment_led_2_out[5]
-set_location_assignment PIN_N1 -to segment_led_2_out[4]
-set_location_assignment PIN_P1 -to segment_led_2_out[3]
-set_location_assignment PIN_P2 -to segment_led_2_out[2]
-set_location_assignment PIN_A2 -to segment_led_2_out[1]
-set_location_assignment PIN_A3 -to segment_led_2_out[0]
+set_location_assignment PIN_J5 -to clk_i
+set_location_assignment PIN_R9 -to rst_n_i
+set_location_assignment PIN_P15 -to dc_i
+set_location_assignment PIN_R14 -to spi_sclk_i
+set_location_assignment PIN_P12 -to spi_mosi_i
+set_location_assignment PIN_R11 -to spi_cs_n_i
+set_location_assignment PIN_R5 -to ws281x_code_o[7]
+set_location_assignment PIN_L7 -to ws281x_code_o[6]
+set_location_assignment PIN_P4 -to ws281x_code_o[5]
+set_location_assignment PIN_L6 -to ws281x_code_o[4]
+set_location_assignment PIN_R3 -to ws281x_code_o[3]
+set_location_assignment PIN_M5 -to ws281x_code_o[2]
+set_location_assignment PIN_P3 -to ws281x_code_o[1]
+set_location_assignment PIN_M4 -to ws281x_code_o[0]
+set_location_assignment PIN_N15 -to water_led_o[7]
+set_location_assignment PIN_N14 -to water_led_o[6]
+set_location_assignment PIN_M14 -to water_led_o[5]
+set_location_assignment PIN_M12 -to water_led_o[4]
+set_location_assignment PIN_L15 -to water_led_o[3]
+set_location_assignment PIN_K12 -to water_led_o[2]
+set_location_assignment PIN_L11 -to water_led_o[1]
+set_location_assignment PIN_K11 -to water_led_o[0]
+set_location_assignment PIN_E2 -to segment_led_1_o[8]
+set_location_assignment PIN_L1 -to segment_led_1_o[7]
+set_location_assignment PIN_G5 -to segment_led_1_o[6]
+set_location_assignment PIN_F5 -to segment_led_1_o[5]
+set_location_assignment PIN_G2 -to segment_led_1_o[4]
+set_location_assignment PIN_J2 -to segment_led_1_o[3]
+set_location_assignment PIN_K2 -to segment_led_1_o[2]
+set_location_assignment PIN_D2 -to segment_led_1_o[1]
+set_location_assignment PIN_E1 -to segment_led_1_o[0]
+set_location_assignment PIN_B1 -to segment_led_2_o[8]
+set_location_assignment PIN_R2 -to segment_led_2_o[7]
+set_location_assignment PIN_C2 -to segment_led_2_o[6]
+set_location_assignment PIN_C1 -to segment_led_2_o[5]
+set_location_assignment PIN_N1 -to segment_led_2_o[4]
+set_location_assignment PIN_P1 -to segment_led_2_o[3]
+set_location_assignment PIN_P2 -to segment_led_2_o[2]
+set_location_assignment PIN_A2 -to segment_led_2_o[1]
+set_location_assignment PIN_A3 -to segment_led_2_o[0]
 
 # Classic Timing Assignments
 # ==========================
@@ -176,7 +175,7 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	# ==============================
 	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_rst_sync
 	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_rst_sync -section_id test_rst_sync
-	set_global_assignment -name EDA_TEST_BENCH_FILE simulation/test_rst_sync.sv -section_id test_rst_sync
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_rst_sync.sv -section_id test_rst_sync
 
 # end EDA_TEST_BENCH_SETTINGS(test_rst_sync)
 # ------------------------------------------
@@ -188,7 +187,7 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	# ==============================
 	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_edge_detect
 	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_edge_detect -section_id test_edge_detect
-	set_global_assignment -name EDA_TEST_BENCH_FILE simulation/test_edge_detect.sv -section_id test_edge_detect
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_edge_detect.sv -section_id test_edge_detect
 
 # end EDA_TEST_BENCH_SETTINGS(test_edge_detect)
 # ---------------------------------------------
@@ -200,7 +199,7 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	# ==============================
 	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_spi_slave
 	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_spi_slave -section_id test_spi_slave
-	set_global_assignment -name EDA_TEST_BENCH_FILE simulation/test_spi_slave.sv -section_id test_spi_slave
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_spi_slave.sv -section_id test_spi_slave
 
 # end EDA_TEST_BENCH_SETTINGS(test_spi_slave)
 # -------------------------------------------
@@ -212,7 +211,7 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	# ==============================
 	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_layer_ctrl
 	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_layer_ctrl -section_id test_layer_ctrl
-	set_global_assignment -name EDA_TEST_BENCH_FILE simulation/test_layer_ctrl.sv -section_id test_layer_ctrl
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_layer_ctrl.sv -section_id test_layer_ctrl
 
 # end EDA_TEST_BENCH_SETTINGS(test_layer_ctrl)
 # --------------------------------------------
@@ -224,7 +223,7 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	# ==============================
 	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_layer_conf
 	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_layer_conf -section_id test_layer_conf
-	set_global_assignment -name EDA_TEST_BENCH_FILE simulation/test_layer_conf.sv -section_id test_layer_conf
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_layer_conf.sv -section_id test_layer_conf
 
 # end EDA_TEST_BENCH_SETTINGS(test_layer_conf)
 # --------------------------------------------
@@ -236,7 +235,7 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	# ==============================
 	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_layer_code
 	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_layer_code -section_id test_layer_code
-	set_global_assignment -name EDA_TEST_BENCH_FILE simulation/test_layer_code.sv -section_id test_layer_code
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_layer_code.sv -section_id test_layer_code
 
 # end EDA_TEST_BENCH_SETTINGS(test_layer_code)
 # --------------------------------------------
@@ -248,7 +247,7 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	# ==============================
 	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_ws281x_ctrl
 	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_ws281x_ctrl -section_id test_ws281x_ctrl
-	set_global_assignment -name EDA_TEST_BENCH_FILE simulation/test_ws281x_ctrl.sv -section_id test_ws281x_ctrl
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_ws281x_ctrl.sv -section_id test_ws281x_ctrl
 
 # end EDA_TEST_BENCH_SETTINGS(test_ws281x_ctrl)
 # ---------------------------------------------
@@ -260,7 +259,7 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	# ==============================
 	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_ws281x_conf
 	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_ws281x_conf -section_id test_ws281x_conf
-	set_global_assignment -name EDA_TEST_BENCH_FILE simulation/test_ws281x_conf.sv -section_id test_ws281x_conf
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_ws281x_conf.sv -section_id test_ws281x_conf
 
 # end EDA_TEST_BENCH_SETTINGS(test_ws281x_conf)
 # ---------------------------------------------
@@ -272,7 +271,7 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	# ==============================
 	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_ws281x_code
 	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_ws281x_code -section_id test_ws281x_code
-	set_global_assignment -name EDA_TEST_BENCH_FILE simulation/test_ws281x_code.sv -section_id test_ws281x_code
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_ws281x_code.sv -section_id test_ws281x_code
 
 # end EDA_TEST_BENCH_SETTINGS(test_ws281x_code)
 # ---------------------------------------------
@@ -295,6 +294,7 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	set_global_assignment -name EDA_TEST_BENCH_NAME test_ws281x_ctrl -section_id eda_simulation
 	set_global_assignment -name EDA_TEST_BENCH_NAME test_ws281x_conf -section_id eda_simulation
 	set_global_assignment -name EDA_TEST_BENCH_NAME test_ws281x_code -section_id eda_simulation
+	set_global_assignment -name EDA_NETLIST_WRITER_OUTPUT_DIR sim/modelsim -section_id eda_simulation
 
 # end EDA_TOOL_SETTINGS(eda_simulation)
 # -------------------------------------
@@ -344,89 +344,89 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 
 	# Pin & Location Assignments
 	# ==========================
-	set_instance_assignment -name FAST_INPUT_REGISTER ON -to clk_in
-	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to rst_n_in
-	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to dc_in
-	set_instance_assignment -name FAST_INPUT_REGISTER ON -to spi_sclk_in
-	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to spi_mosi_in
-	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to spi_cs_n_in
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[7]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[6]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[5]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[4]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[3]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[2]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[1]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_out[0]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[7]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[6]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[5]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[4]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[3]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[2]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[1]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_out[0]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[8]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[7]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[6]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[5]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[4]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[3]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[2]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[1]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_out[0]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[8]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[7]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[6]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[5]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[4]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[3]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[2]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[1]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_out[0]
+	set_instance_assignment -name FAST_INPUT_REGISTER ON -to clk_i
+	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to rst_n_i
+	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to dc_i
+	set_instance_assignment -name FAST_INPUT_REGISTER ON -to spi_sclk_i
+	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to spi_mosi_i
+	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to spi_cs_n_i
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[7]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[6]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[5]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[4]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[3]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[2]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[1]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[0]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[7]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[6]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[5]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[4]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[3]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[2]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[1]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[0]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[8]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[7]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[6]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[5]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[4]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[3]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[2]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[1]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[0]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_o[8]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_o[7]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_o[6]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_o[5]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_o[4]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_o[3]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_o[2]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_o[1]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_o[0]
 
 	# Fitter Assignments
 	# ==================
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to clk_in
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to rst_n_in
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to dc_in
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_sclk_in
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_mosi_in
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_cs_n_in
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[7]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[6]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[5]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[4]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[3]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[2]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[1]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_out[0]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[7]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[6]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[5]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[4]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[3]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[2]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[1]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_out[0]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[8]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[7]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[6]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[5]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[4]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[3]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[2]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[1]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_out[0]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[8]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[7]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[6]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[5]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[4]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[3]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[2]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[1]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_out[0]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to clk_i
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to rst_n_i
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to dc_i
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_sclk_i
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_mosi_i
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_cs_n_i
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[7]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[6]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[5]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[4]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[3]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[2]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[1]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[0]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[7]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[6]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[5]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[4]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[3]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[2]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[1]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[0]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[8]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[7]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[6]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[5]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[4]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[3]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[2]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[1]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[0]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_o[8]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_o[7]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_o[6]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_o[5]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_o[4]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_o[3]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_o[2]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_o[1]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_o[0]
 
 	# start DESIGN_PARTITION(Top)
 	# ---------------------------

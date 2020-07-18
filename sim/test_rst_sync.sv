@@ -9,32 +9,32 @@
 
 module test_rst_sync;
 
-logic clk_in;
-logic rst_n_in;
+logic clk_i;
+logic rst_n_i;
 
-logic rst_n_out;
+logic rst_n_o;
 
 rst_sync test_rst_sync(
-    .clk_in(clk_in),
-    .rst_n_in(rst_n_in),
+    .clk_i(clk_i),
+    .rst_n_i(rst_n_i),
 
-    .rst_n_out(rst_n_out)
+    .rst_n_o(rst_n_o)
 );
 
 initial begin
-    clk_in   <= 1'b1;
-    rst_n_in <= 1'b0;
+    clk_i   <= 1'b1;
+    rst_n_i <= 1'b0;
 
-    #2 rst_n_in <= 1'b1;
+    #2 rst_n_i <= 1'b1;
 end
 
 always begin
-    #2.5 clk_in <= ~clk_in;
+    #2.5 clk_i <= ~clk_i;
 end
 
 always begin
-    #13 rst_n_in <= 1'b0;
-    #13 rst_n_in <= 1'b1;
+    #13 rst_n_i <= 1'b0;
+    #13 rst_n_i <= 1'b1;
 
     #25 $stop;
 end
