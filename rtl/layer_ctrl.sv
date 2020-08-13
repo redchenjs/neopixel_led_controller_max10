@@ -35,7 +35,7 @@ logic [2:0] data_en;
 logic [5:0] wr_addr;
 
 wire conf_done = (wr_addr == 6'd3);
-wire code_done = code_wr[7];
+wire code_done = code_wr[0];
 
 wire addr_done = (wr_addr == 6'd63);
 wire data_done = data_en[0];
@@ -88,7 +88,7 @@ begin
                     end
                     CUBE0414_DATA_WR: begin     // Write RAM Data
                         conf_wr <= 1'b0;
-                        code_wr <= 8'h01;
+                        code_wr <= 8'h80;
 
                         addr_en <= 1'b0;
                         data_en <= 3'b100;
@@ -105,7 +105,7 @@ begin
                 wr_addr <= 6'h00;
             end else begin    // Data
                 conf_wr <= conf_wr & ~conf_done;
-                code_wr <= code_wr << (~(conf_wr | addr_en) & layer_done);
+                code_wr <= code_wr >> (~(conf_wr | addr_en) & layer_done);
 
                 addr_en <= addr_en & ~addr_done;
                 data_en <= {data_en[0], data_en[2:1]};
