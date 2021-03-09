@@ -1,11 +1,11 @@
 /*
- * rst_sync.sv
+ * rst_syn.sv
  *
  *  Created on: 2020-05-07 18:57
  *      Author: Jack Chen <redchenjs@live.com>
  */
 
-module rst_sync(
+module rst_syn(
     input logic clk_i,
     input logic rst_n_i,
 

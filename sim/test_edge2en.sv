@@ -1,5 +1,5 @@
 /*
- * test_edge_detect.sv
+ * test_edge2en.sv
  *
  *  Created on: 2020-07-08 17:16
  *      Author: Jack Chen <redchenjs@live.com>
@@ -7,7 +7,7 @@
 
 `timescale 1ns / 1ps
 
-module test_edge_detect;
+module test_edge2en;
 
 logic clk_i;
 logic rst_n_i;
@@ -16,9 +16,9 @@ logic data_i;
 
 logic pos_edge_o;
 logic neg_edge_o;
-logic both_edge_o;
+logic any_edge_o;
 
-edge_detect test_edge_detect(
+edge2en test_edge2en(
     .clk_i(clk_i),
     .rst_n_i(rst_n_i),
 
@@ -26,7 +26,7 @@ edge_detect test_edge_detect(
 
     .pos_edge_o(pos_edge_o),
     .neg_edge_o(neg_edge_o),
-    .both_edge_o(both_edge_o)
+    .any_edge_o(any_edge_o)
 );
 
 initial begin

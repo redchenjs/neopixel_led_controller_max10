@@ -1,30 +1,30 @@
-WS281X Cube Controller
-======================
+NeoPixel LED Controller
+=======================
 
-WS281X Cube Controller based on MAX10 FPGA.
+NeoPixel LED Controller based on MAX10 FPGA.
 
 ## Main Features
 
-* 4-wire SPI interface
-* High refresh rate (up to 500fps@8x8x8)
-* 8 parallel output data lines (64 LEDs per line)
-* Configurable waveform generator (T0H, T0L, T1H, T1L)
-* Configurable LED serial connection sequence (address linked list)
+* 4-wire SPI interface (SCLK, MOSI, CS, DC)
+* High refresh rate (500fps@8x8x8, 125fps@16x16x16)
+* 16 parallel output channels (up to 256 LEDs per channel)
+* Each output channel has a programmable circular linked list
+* Each output channel has a programmable waveform generator (T0H, T0L, T1H, T1L)
 
 ## Pinout
 
-| Input Port | FPGA Pin |    Output Port   | FPGA Pin |
-| ---------: | :------- | :--------------: | :------: |
-|      clk_i | PIN_J5   | ws281x_code_o[7] |  PIN_R5  |
-|    rst_n_i | PIN_R9   | ws281x_code_o[6] |  PIN_L7  |
-|       dc_i | PIN_P15  | ws281x_code_o[5] |  PIN_P4  |
-| spi_sclk_i | PIN_R14  | ws281x_code_o[4] |  PIN_L6  |
-| spi_mosi_i | PIN_P12  | ws281x_code_o[3] |  PIN_R3  |
-| spi_cs_n_i | PIN_R11  | ws281x_code_o[2] |  PIN_M5  |
-|          - |          | ws281x_code_o[1] |  PIN_P3  |
-|          - |          | ws281x_code_o[0] |  PIN_M4  |
+| Input Port | FPGA Pin |     Output Port    | FPGA Pin |     Output Port     | FPGA Pin |
+| ---------: | :------- | :----------------: | :------: | :-----------------: | :------: |
+|      clk_i | PIN_J5   | neopixel_code_o[7] |  PIN_R5  | neopixel_code_o[15] |  PIN_C8  |
+|    rst_n_i | PIN_R9   | neopixel_code_o[6] |  PIN_L7  | neopixel_code_o[14] |  PIN_B7  |
+|       dc_i | PIN_P15  | neopixel_code_o[5] |  PIN_P4  | neopixel_code_o[13] |  PIN_D7  |
+| spi_sclk_i | PIN_R14  | neopixel_code_o[4] |  PIN_L6  | neopixel_code_o[12] |  PIN_E7  |
+| spi_mosi_i | PIN_P12  | neopixel_code_o[3] |  PIN_R3  | neopixel_code_o[11] |  PIN_B6  |
+| spi_cs_n_i | PIN_R11  | neopixel_code_o[2] |  PIN_M5  | neopixel_code_o[10] |  PIN_A7  |
+|          - |          | neopixel_code_o[1] |  PIN_P3  | neopixel_code_o[9]  |  PIN_A5  |
+|          - |          | neopixel_code_o[0] |  PIN_M4  | neopixel_code_o[8]  |  PIN_B4  |
 
-* SPI slave mode: MODE 0, CPOL=0, CPHA=0, MSB first
+* SPI slave mode: F_MAX=33MHz, CPOL=0, CPHA=0, MSB first
 
 ## Commands
 
@@ -37,16 +37,15 @@ WS281X Cube Controller based on MAX10 FPGA.
 |  2nd Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 |  3rd Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 |  4th Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  5th Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  6th Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 
-* 1st Param: T0H time, range: 1-255, unit: 10 ns
-* 2nd Param: T0L time, range: 1-255, unit: 10 ns
-* 3rd Param: T1H time, range: 1-255, unit: 10 ns
-* 4th Param: T1L time, range: 1-255, unit: 10 ns
-
-Limits:
-
-* T0H + T0L <= 257 = 2570 ns = 2.57 us
-* T1H + T1L <= 257 = 2570 ns = 2.57 us
+* 1st Param: T0H time (10 ns), range: 0 - 255
+* 2nd Param: T0L time (10 ns), range: 0 - 255
+* 3rd Param: T1H time (10 ns), range: 0 - 255
+* 4th Param: T1L time (10 ns), range: 0 - 255
+* 5th Param: channel length, range: 0 - 255
+* 6th Param: channel count, range: 0 - 15
 
 ### ADDR_WR
 
@@ -57,15 +56,12 @@ Limits:
 |     ...     |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 |  Nth Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 
-* 1st Param: 2nd LED address, range: 0-63
-* 2nd Param: 3rd LED address, range: 0-63
-* 3rd Param: 4th LED address, range: 0-63
+* 1st Param: channel 0, the next pointer of the 1st color data, range: 0 - 255
+* 2nd Param: channel 0, the next pointer of the 2nd color data, range: 0 - 255
 * ...
-* Nth Param: 1st LED address, range: 0-63
+* Nth Param: ...
 
-* N = 64
-
-* These configurations will be applied to all 8 layers
+* N_MAX = 256 x 16 = 4096
 
 ### DATA_WR
 
@@ -76,26 +72,21 @@ Limits:
 |     ...     |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 |  Nth Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 
-* 1st Param: 1st LED color byte 2, range: 0-255
-* 2nd Param: 1st LED color byte 1, range: 0-255
-* 3rd Param: 1st LED color byte 0, range: 0-255
-* 4th Param: 2nd LED color byte 2, range: 0-255
-* 5th Param: 2nd LED color byte 1, range: 0-255
-* 6th Param: 2nd LED color byte 0, range: 0-255
+* 1st Param: channel 0, the 1st color data, byte 2, range: 0 - 255
+* 2nd Param: channel 0, the 1st color data, byte 1, range: 0 - 255
+* 3rd Param: channel 0, the 1st color data, byte 0, range: 0 - 255
+* 4th Param: channel 0, the 2nd color data, byte 2, range: 0 - 255
 * ...
 * Nth Param: ...
 
-* N = 8 x 8 x 8 x 3 = 1536
-
-* Layer data order: layer 7 first (layer 7 - layer 0)
-* Color byte order: high byte first (byte 2 - byte 0)
+* N_MAX = 256 x 16 x 3 = 12288
 
 ## Preparing
 
 ### Obtain the source
 
 ```
-git clone https://github.com/redchenjs/ws281x_cube_controller_max10.git
+git clone https://github.com/redchenjs/neopixel_led_controller_max10.git
 ```
 
 ### Update an existing repository

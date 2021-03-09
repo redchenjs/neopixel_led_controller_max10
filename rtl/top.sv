@@ -5,7 +5,7 @@
  *      Author: Jack Chen <redchenjs@live.com>
  */
 
-module ws281x_cube_controller(
+module neopixel_led_controller(
     input logic clk_i,          // clk_i = 12 MHz
     input logic rst_n_i,        // rst_n_i, active low
 
@@ -14,30 +14,35 @@ module ws281x_cube_controller(
     input logic spi_mosi_i,
     input logic spi_cs_n_i,
 
-    output logic [7:0] ws281x_code_o,
+    output logic [15:0] neopixel_code_o,
 
-    output logic [7:0] water_led_o,        // Optional, FPS Counter
-    output logic [8:0] segment_led_1_o,    // Optional, FPS Counter
-    output logic [8:0] segment_led_2_o     // Optional, FPS Counter
+    output logic [8:0] segment_led_1_o,    // FPS Counter
+    output logic [8:0] segment_led_2_o     // FPS Counter
 );
 
 logic sys_clk;
 logic sys_rst_n;
 
-logic       byte_vld;
-logic [7:0] byte_data;
+logic       spi_byte_vld;
+logic [7:0] spi_byte_data;
 
-logic [8:0] wr_en;
-logic       wr_done;
-logic [5:0] wr_addr;
-logic [3:0] wr_byte_en;
+logic [7:0] reg_t0h_time;
+logic [7:0] reg_t0l_time;
+logic [7:0] reg_t1h_time;
+logic [7:0] reg_t1l_time;
 
-logic [7:0] t0h_cnt;
-logic [7:0] t0s_cnt;
-logic [7:0] t1h_cnt;
-logic [7:0] t1s_cnt;
+logic [7:0] reg_chan_len;
+logic [3:0] reg_chan_cnt;
 
-sys_ctrl sys_ctrl(
+logic       reg_wr_en;
+logic [2:0] reg_wr_addr;
+
+logic [15:0] ram_wr_en;
+logic        ram_wr_done;
+logic [ 7:0] ram_wr_addr;
+logic [ 3:0] ram_wr_byte_en;
+
+sys_ctl sys_ctl(
     .clk_i(clk_i),
     .rst_n_i(rst_n_i),
 
@@ -53,190 +58,77 @@ spi_slave spi_slave(
     .spi_mosi_i(spi_mosi_i),
     .spi_cs_n_i(spi_cs_n_i),
 
-    .byte_vld_o(byte_vld),
-    .byte_data_o(byte_data)
+    .spi_byte_vld_o(spi_byte_vld),
+    .spi_byte_data_o(spi_byte_data)
 );
 
-layer_ctrl layer_ctrl(
+channel_ctl channel_ctl(
     .clk_i(sys_clk),
     .rst_n_i(sys_rst_n),
 
     .dc_i(dc_i),
 
-    .byte_vld_i(byte_vld),
-    .byte_data_i(byte_data),
+    .spi_byte_vld_i(spi_byte_vld),
+    .spi_byte_data_i(spi_byte_data),
 
-    .wr_en_o(wr_en),
-    .wr_done_o(wr_done),
-    .wr_addr_o(wr_addr),
-    .wr_byte_en_o(wr_byte_en)
+    .reg_chan_len_i(reg_chan_len),
+    .reg_chan_cnt_i(reg_chan_cnt),
+
+    .reg_wr_en_o(reg_wr_en),
+    .reg_wr_addr_o(reg_wr_addr),
+
+    .ram_wr_en_o(ram_wr_en),
+    .ram_wr_done_o(ram_wr_done),
+    .ram_wr_addr_o(ram_wr_addr),
+    .ram_wr_byte_en_o(ram_wr_byte_en)
 );
 
-layer_conf layer_conf(
+genvar i;
+generate
+    for (i = 0; i < 16; i++) begin: channel
+        channel_out out(
+            .clk_i(sys_clk),
+            .rst_n_i(sys_rst_n),
+
+            .reg_t0h_time_i(reg_t0h_time),
+            .reg_t0l_time_i(reg_t0l_time),
+            .reg_t1h_time_i(reg_t1h_time),
+            .reg_t1l_time_i(reg_t1l_time),
+
+            .ram_wr_en_i(ram_wr_en[i]),
+            .ram_wr_done_i(ram_wr_done),
+            .ram_wr_addr_i(ram_wr_addr),
+            .ram_wr_data_i(spi_byte_data),
+            .ram_wr_byte_en_i(ram_wr_byte_en),
+
+            .bit_code_o(neopixel_code_o[i])
+        );
+    end
+endgenerate
+
+regfile regfile(
     .clk_i(sys_clk),
     .rst_n_i(sys_rst_n),
 
-    .wr_en_i(wr_en[8]),
-    .wr_addr_i(wr_addr),
-    .wr_data_i(byte_data),
+    .reg_wr_en_i(reg_wr_en),
+    .reg_wr_addr_i(reg_wr_addr),
+    .reg_wr_data_i(spi_byte_data),
 
-    .t0h_cnt_o(t0h_cnt),
-    .t0s_cnt_o(t0s_cnt),
-    .t1h_cnt_o(t1h_cnt),
-    .t1s_cnt_o(t1s_cnt)
+    .reg_t0h_time_o(reg_t0h_time),
+    .reg_t0l_time_o(reg_t0l_time),
+    .reg_t1h_time_o(reg_t1h_time),
+    .reg_t1l_time_o(reg_t1l_time),
+
+    .reg_chan_len_o(reg_chan_len),
+    .reg_chan_cnt_o(reg_chan_cnt)
 );
 
-layer_code layer_code7(
+fps_counter fps_counter(
     .clk_i(sys_clk),
     .rst_n_i(sys_rst_n),
 
-    .wr_en_i(wr_en[7]),
-    .wr_done_i(wr_done),
-    .wr_addr_i(wr_addr),
-    .wr_data_i(byte_data),
-    .wr_byte_en_i(wr_byte_en),
+    .pulse_i(ram_wr_done),
 
-    .t0h_cnt_i(t0h_cnt),
-    .t0s_cnt_i(t0s_cnt),
-    .t1h_cnt_i(t1h_cnt),
-    .t1s_cnt_i(t1s_cnt),
-
-    .ws281x_code_o(ws281x_code_o[7])
-);
-
-layer_code layer_code6(
-    .clk_i(sys_clk),
-    .rst_n_i(sys_rst_n),
-
-    .wr_en_i(wr_en[6]),
-    .wr_done_i(wr_done),
-    .wr_addr_i(wr_addr),
-    .wr_data_i(byte_data),
-    .wr_byte_en_i(wr_byte_en),
-
-    .t0h_cnt_i(t0h_cnt),
-    .t0s_cnt_i(t0s_cnt),
-    .t1h_cnt_i(t1h_cnt),
-    .t1s_cnt_i(t1s_cnt),
-
-    .ws281x_code_o(ws281x_code_o[6])
-);
-
-layer_code layer_code5(
-    .clk_i(sys_clk),
-    .rst_n_i(sys_rst_n),
-
-    .wr_en_i(wr_en[5]),
-    .wr_done_i(wr_done),
-    .wr_addr_i(wr_addr),
-    .wr_data_i(byte_data),
-    .wr_byte_en_i(wr_byte_en),
-
-    .t0h_cnt_i(t0h_cnt),
-    .t0s_cnt_i(t0s_cnt),
-    .t1h_cnt_i(t1h_cnt),
-    .t1s_cnt_i(t1s_cnt),
-
-    .ws281x_code_o(ws281x_code_o[5])
-);
-
-layer_code layer_code4(
-    .clk_i(sys_clk),
-    .rst_n_i(sys_rst_n),
-
-    .wr_en_i(wr_en[4]),
-    .wr_done_i(wr_done),
-    .wr_addr_i(wr_addr),
-    .wr_data_i(byte_data),
-    .wr_byte_en_i(wr_byte_en),
-
-    .t0h_cnt_i(t0h_cnt),
-    .t0s_cnt_i(t0s_cnt),
-    .t1h_cnt_i(t1h_cnt),
-    .t1s_cnt_i(t1s_cnt),
-
-    .ws281x_code_o(ws281x_code_o[4])
-);
-
-layer_code layer_code3(
-    .clk_i(sys_clk),
-    .rst_n_i(sys_rst_n),
-
-    .wr_en_i(wr_en[3]),
-    .wr_done_i(wr_done),
-    .wr_addr_i(wr_addr),
-    .wr_data_i(byte_data),
-    .wr_byte_en_i(wr_byte_en),
-
-    .t0h_cnt_i(t0h_cnt),
-    .t0s_cnt_i(t0s_cnt),
-    .t1h_cnt_i(t1h_cnt),
-    .t1s_cnt_i(t1s_cnt),
-
-    .ws281x_code_o(ws281x_code_o[3])
-);
-
-layer_code layer_code2(
-    .clk_i(sys_clk),
-    .rst_n_i(sys_rst_n),
-
-    .wr_en_i(wr_en[2]),
-    .wr_done_i(wr_done),
-    .wr_addr_i(wr_addr),
-    .wr_data_i(byte_data),
-    .wr_byte_en_i(wr_byte_en),
-
-    .t0h_cnt_i(t0h_cnt),
-    .t0s_cnt_i(t0s_cnt),
-    .t1h_cnt_i(t1h_cnt),
-    .t1s_cnt_i(t1s_cnt),
-
-    .ws281x_code_o(ws281x_code_o[2])
-);
-
-layer_code layer_code1(
-    .clk_i(sys_clk),
-    .rst_n_i(sys_rst_n),
-
-    .wr_en_i(wr_en[1]),
-    .wr_done_i(wr_done),
-    .wr_addr_i(wr_addr),
-    .wr_data_i(byte_data),
-    .wr_byte_en_i(wr_byte_en),
-
-    .t0h_cnt_i(t0h_cnt),
-    .t0s_cnt_i(t0s_cnt),
-    .t1h_cnt_i(t1h_cnt),
-    .t1s_cnt_i(t1s_cnt),
-
-    .ws281x_code_o(ws281x_code_o[1])
-);
-
-layer_code layer_code0(
-    .clk_i(sys_clk),
-    .rst_n_i(sys_rst_n),
-
-    .wr_en_i(wr_en[0]),
-    .wr_done_i(wr_done),
-    .wr_addr_i(wr_addr),
-    .wr_data_i(byte_data),
-    .wr_byte_en_i(wr_byte_en),
-
-    .t0h_cnt_i(t0h_cnt),
-    .t0s_cnt_i(t0s_cnt),
-    .t1h_cnt_i(t1h_cnt),
-    .t1s_cnt_i(t1s_cnt),
-
-    .ws281x_code_o(ws281x_code_o[0])
-);
-
-pulse_counter fps_counter(
-    .clk_i(sys_clk),
-    .rst_n_i(sys_rst_n),
-
-    .pulse_i(wr_done),
-
-    .water_led_o(water_led_o),
     .segment_led_1_o(segment_led_1_o),
     .segment_led_2_o(segment_led_2_o)
 );

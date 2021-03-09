@@ -26,7 +26,7 @@
 # Notes:
 #
 # 1) The default values for assignments are stored in the file:
-#		ws281x_cube_controller_assignment_defaults.qdf
+#		neopixel_led_controller_assignment_defaults.qdf
 #    If this file doesn't exist, see file:
 #		assignment_defaults.qdf
 #
@@ -46,20 +46,19 @@ set_global_assignment -name LAST_QUARTUS_VERSION "20.1.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name FLOW_ENABLE_POWER_ANALYZER ON
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/top.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/rst_sync.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/edge_detect.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/sys_ctrl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/regfile.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/rst_syn.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/sys_ctl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/edge2en.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/spi_slave.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_ctrl.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_conf.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/layer_code.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws281x_ctrl.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws281x_conf.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/ws281x_code.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/channel_ctl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/channel_out.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/waveform_ctl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/waveform_gen.sv
 set_global_assignment -name SYSTEMVERILOG_FILE rtl/segment_led.sv
-set_global_assignment -name SYSTEMVERILOG_FILE rtl/pulse_counter.sv
+set_global_assignment -name SYSTEMVERILOG_FILE rtl/fps_counter.sv
 set_global_assignment -name QIP_FILE ip/pll/pll.qip
-set_global_assignment -name QIP_FILE ip/ram/ram64.qip
+set_global_assignment -name QIP_FILE ip/ram/ram256.qip
 set_global_assignment -name QSYS_FILE ip/clk/globalclk.qsys
 
 # Pin & Location Assignments
@@ -70,22 +69,22 @@ set_location_assignment PIN_P15 -to dc_i
 set_location_assignment PIN_R14 -to spi_sclk_i
 set_location_assignment PIN_P12 -to spi_mosi_i
 set_location_assignment PIN_R11 -to spi_cs_n_i
-set_location_assignment PIN_R5 -to ws281x_code_o[7]
-set_location_assignment PIN_L7 -to ws281x_code_o[6]
-set_location_assignment PIN_P4 -to ws281x_code_o[5]
-set_location_assignment PIN_L6 -to ws281x_code_o[4]
-set_location_assignment PIN_R3 -to ws281x_code_o[3]
-set_location_assignment PIN_M5 -to ws281x_code_o[2]
-set_location_assignment PIN_P3 -to ws281x_code_o[1]
-set_location_assignment PIN_M4 -to ws281x_code_o[0]
-set_location_assignment PIN_N15 -to water_led_o[7]
-set_location_assignment PIN_N14 -to water_led_o[6]
-set_location_assignment PIN_M14 -to water_led_o[5]
-set_location_assignment PIN_M12 -to water_led_o[4]
-set_location_assignment PIN_L15 -to water_led_o[3]
-set_location_assignment PIN_K12 -to water_led_o[2]
-set_location_assignment PIN_L11 -to water_led_o[1]
-set_location_assignment PIN_K11 -to water_led_o[0]
+set_location_assignment PIN_C8 -to neopixel_code_o[15]
+set_location_assignment PIN_B7 -to neopixel_code_o[14]
+set_location_assignment PIN_D7 -to neopixel_code_o[13]
+set_location_assignment PIN_E7 -to neopixel_code_o[12]
+set_location_assignment PIN_B6 -to neopixel_code_o[11]
+set_location_assignment PIN_A7 -to neopixel_code_o[10]
+set_location_assignment PIN_A5 -to neopixel_code_o[9]
+set_location_assignment PIN_B4 -to neopixel_code_o[8]
+set_location_assignment PIN_R5 -to neopixel_code_o[7]
+set_location_assignment PIN_L7 -to neopixel_code_o[6]
+set_location_assignment PIN_P4 -to neopixel_code_o[5]
+set_location_assignment PIN_L6 -to neopixel_code_o[4]
+set_location_assignment PIN_R3 -to neopixel_code_o[3]
+set_location_assignment PIN_M5 -to neopixel_code_o[2]
+set_location_assignment PIN_P3 -to neopixel_code_o[1]
+set_location_assignment PIN_M4 -to neopixel_code_o[0]
 set_location_assignment PIN_E2 -to segment_led_1_o[8]
 set_location_assignment PIN_L1 -to segment_led_1_o[7]
 set_location_assignment PIN_G5 -to segment_led_1_o[6]
@@ -109,7 +108,6 @@ set_location_assignment PIN_A3 -to segment_led_2_o[0]
 # ==========================
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
-set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 3.3V
 set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 
 # Compiler Assignments
@@ -125,7 +123,7 @@ set_global_assignment -name CYCLONEII_OPTIMIZATION_TECHNIQUE SPEED
 set_global_assignment -name STATE_MACHINE_PROCESSING "ONE-HOT"
 set_global_assignment -name ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP ON
 set_global_assignment -name MUX_RESTRUCTURE OFF
-set_global_assignment -name TOP_LEVEL_ENTITY ws281x_cube_controller
+set_global_assignment -name TOP_LEVEL_ENTITY neopixel_led_controller
 
 # Fitter Assignments
 # ==================
@@ -153,9 +151,7 @@ set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (SystemVerilog)
 # ============================
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "NO HEAT SINK WITH STILL AIR"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "100000000 TRANSITIONS/S"
-set_global_assignment -name VCCA_USER_VOLTAGE 3.3V
-set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
+set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
 
 # start EDA_TEST_BENCH_SETTINGS(test)
 # -----------------------------------
@@ -168,29 +164,41 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 # end EDA_TEST_BENCH_SETTINGS(test)
 # ---------------------------------
 
-# start EDA_TEST_BENCH_SETTINGS(test_rst_sync)
-# --------------------------------------------
+# start EDA_TEST_BENCH_SETTINGS(test_regfile)
+# -------------------------------------------
 
 	# EDA Netlist Writer Assignments
 	# ==============================
-	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_rst_sync
-	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_rst_sync -section_id test_rst_sync
-	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_rst_sync.sv -section_id test_rst_sync
+	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_regfile
+	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_regfile -section_id test_regfile
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_regfile.sv -section_id test_regfile
 
-# end EDA_TEST_BENCH_SETTINGS(test_rst_sync)
-# ------------------------------------------
+# end EDA_TEST_BENCH_SETTINGS(test_regfile)
+# -----------------------------------------
 
-# start EDA_TEST_BENCH_SETTINGS(test_edge_detect)
-# -----------------------------------------------
+# start EDA_TEST_BENCH_SETTINGS(test_rst_syn)
+# -------------------------------------------
 
 	# EDA Netlist Writer Assignments
 	# ==============================
-	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_edge_detect
-	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_edge_detect -section_id test_edge_detect
-	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_edge_detect.sv -section_id test_edge_detect
+	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_rst_syn
+	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_rst_syn -section_id test_rst_syn
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_rst_syn.sv -section_id test_rst_syn
 
-# end EDA_TEST_BENCH_SETTINGS(test_edge_detect)
-# ---------------------------------------------
+# end EDA_TEST_BENCH_SETTINGS(test_rst_syn)
+# -----------------------------------------
+
+# start EDA_TEST_BENCH_SETTINGS(test_edge2en)
+# -------------------------------------------
+
+	# EDA Netlist Writer Assignments
+	# ==============================
+	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_edge2en
+	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_edge2en -section_id test_edge2en
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_edge2en.sv -section_id test_edge2en
+
+# end EDA_TEST_BENCH_SETTINGS(test_edge2en)
+# -----------------------------------------
 
 # start EDA_TEST_BENCH_SETTINGS(test_spi_slave)
 # ---------------------------------------------
@@ -204,77 +212,53 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 # end EDA_TEST_BENCH_SETTINGS(test_spi_slave)
 # -------------------------------------------
 
-# start EDA_TEST_BENCH_SETTINGS(test_layer_ctrl)
-# ----------------------------------------------
-
-	# EDA Netlist Writer Assignments
-	# ==============================
-	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_layer_ctrl
-	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_layer_ctrl -section_id test_layer_ctrl
-	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_layer_ctrl.sv -section_id test_layer_ctrl
-
-# end EDA_TEST_BENCH_SETTINGS(test_layer_ctrl)
-# --------------------------------------------
-
-# start EDA_TEST_BENCH_SETTINGS(test_layer_conf)
-# ----------------------------------------------
-
-	# EDA Netlist Writer Assignments
-	# ==============================
-	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_layer_conf
-	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_layer_conf -section_id test_layer_conf
-	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_layer_conf.sv -section_id test_layer_conf
-
-# end EDA_TEST_BENCH_SETTINGS(test_layer_conf)
-# --------------------------------------------
-
-# start EDA_TEST_BENCH_SETTINGS(test_layer_code)
-# ----------------------------------------------
-
-	# EDA Netlist Writer Assignments
-	# ==============================
-	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_layer_code
-	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_layer_code -section_id test_layer_code
-	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_layer_code.sv -section_id test_layer_code
-
-# end EDA_TEST_BENCH_SETTINGS(test_layer_code)
-# --------------------------------------------
-
-# start EDA_TEST_BENCH_SETTINGS(test_ws281x_ctrl)
+# start EDA_TEST_BENCH_SETTINGS(test_channel_ctl)
 # -----------------------------------------------
 
 	# EDA Netlist Writer Assignments
 	# ==============================
-	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_ws281x_ctrl
-	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_ws281x_ctrl -section_id test_ws281x_ctrl
-	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_ws281x_ctrl.sv -section_id test_ws281x_ctrl
+	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_channel_ctl
+	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_channel_ctl -section_id test_channel_ctl
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_channel_ctl.sv -section_id test_channel_ctl
 
-# end EDA_TEST_BENCH_SETTINGS(test_ws281x_ctrl)
+# end EDA_TEST_BENCH_SETTINGS(test_channel_ctl)
 # ---------------------------------------------
 
-# start EDA_TEST_BENCH_SETTINGS(test_ws281x_conf)
+# start EDA_TEST_BENCH_SETTINGS(test_channel_out)
 # -----------------------------------------------
 
 	# EDA Netlist Writer Assignments
 	# ==============================
-	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_ws281x_conf
-	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_ws281x_conf -section_id test_ws281x_conf
-	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_ws281x_conf.sv -section_id test_ws281x_conf
+	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_channel_out
+	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_channel_out -section_id test_channel_out
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_channel_out.sv -section_id test_channel_out
 
-# end EDA_TEST_BENCH_SETTINGS(test_ws281x_conf)
+# end EDA_TEST_BENCH_SETTINGS(test_channel_out)
 # ---------------------------------------------
 
-# start EDA_TEST_BENCH_SETTINGS(test_ws281x_code)
-# -----------------------------------------------
+# start EDA_TEST_BENCH_SETTINGS(test_waveform_ctl)
+# ------------------------------------------------
 
 	# EDA Netlist Writer Assignments
 	# ==============================
-	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_ws281x_code
-	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_ws281x_code -section_id test_ws281x_code
-	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_ws281x_code.sv -section_id test_ws281x_code
+	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_waveform_ctl
+	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_waveform_ctl -section_id test_waveform_ctl
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_waveform_ctl.sv -section_id test_waveform_ctl
 
-# end EDA_TEST_BENCH_SETTINGS(test_ws281x_code)
-# ---------------------------------------------
+# end EDA_TEST_BENCH_SETTINGS(test_waveform_ctl)
+# ----------------------------------------------
+
+# start EDA_TEST_BENCH_SETTINGS(test_waveform_gen)
+# ------------------------------------------------
+
+	# EDA Netlist Writer Assignments
+	# ==============================
+	set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id test_waveform_gen
+	set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME test_waveform_gen -section_id test_waveform_gen
+	set_global_assignment -name EDA_TEST_BENCH_FILE sim/test_waveform_gen.sv -section_id test_waveform_gen
+
+# end EDA_TEST_BENCH_SETTINGS(test_waveform_gen)
+# ----------------------------------------------
 
 # start EDA_TOOL_SETTINGS(eda_simulation)
 # ---------------------------------------
@@ -284,16 +268,15 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
 	set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
 	set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
-	set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH test_layer_code -section_id eda_simulation
-	set_global_assignment -name EDA_TEST_BENCH_NAME test_rst_sync -section_id eda_simulation
-	set_global_assignment -name EDA_TEST_BENCH_NAME test_edge_detect -section_id eda_simulation
+	set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH test_channel_out -section_id eda_simulation
+	set_global_assignment -name EDA_TEST_BENCH_NAME test_regfile -section_id eda_simulation
+	set_global_assignment -name EDA_TEST_BENCH_NAME test_rst_syn -section_id eda_simulation
+	set_global_assignment -name EDA_TEST_BENCH_NAME test_edge2en -section_id eda_simulation
 	set_global_assignment -name EDA_TEST_BENCH_NAME test_spi_slave -section_id eda_simulation
-	set_global_assignment -name EDA_TEST_BENCH_NAME test_layer_ctrl -section_id eda_simulation
-	set_global_assignment -name EDA_TEST_BENCH_NAME test_layer_conf -section_id eda_simulation
-	set_global_assignment -name EDA_TEST_BENCH_NAME test_layer_code -section_id eda_simulation
-	set_global_assignment -name EDA_TEST_BENCH_NAME test_ws281x_ctrl -section_id eda_simulation
-	set_global_assignment -name EDA_TEST_BENCH_NAME test_ws281x_conf -section_id eda_simulation
-	set_global_assignment -name EDA_TEST_BENCH_NAME test_ws281x_code -section_id eda_simulation
+	set_global_assignment -name EDA_TEST_BENCH_NAME test_channel_ctl -section_id eda_simulation
+	set_global_assignment -name EDA_TEST_BENCH_NAME test_channel_out -section_id eda_simulation
+	set_global_assignment -name EDA_TEST_BENCH_NAME test_waveform_ctl -section_id eda_simulation
+	set_global_assignment -name EDA_TEST_BENCH_NAME test_waveform_gen -section_id eda_simulation
 	set_global_assignment -name EDA_NETLIST_WRITER_OUTPUT_DIR sim/modelsim -section_id eda_simulation
 
 # end EDA_TOOL_SETTINGS(eda_simulation)
@@ -339,8 +322,8 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 # end EDA_TOOL_SETTINGS(eda_board_design_signal_integrity)
 # --------------------------------------------------------
 
-# ------------------------------------
-# start ENTITY(ws281x_cube_controller)
+# -------------------------------------
+# start ENTITY(neopixel_led_controller)
 
 	# Pin & Location Assignments
 	# ==========================
@@ -350,22 +333,22 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	set_instance_assignment -name FAST_INPUT_REGISTER ON -to spi_sclk_i
 	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to spi_mosi_i
 	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to spi_cs_n_i
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[7]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[6]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[5]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[4]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[3]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[2]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[1]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to ws281x_code_o[0]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[7]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[6]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[5]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[4]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[3]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[2]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[1]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to water_led_o[0]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[15]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[14]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[13]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[12]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[11]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[10]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[9]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[8]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[7]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[6]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[5]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[4]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[3]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[2]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[1]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[0]
 	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[8]
 	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[7]
 	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[6]
@@ -393,22 +376,22 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_sclk_i
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_mosi_i
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_cs_n_i
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[7]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[6]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[5]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[4]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[3]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[2]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[1]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to ws281x_code_o[0]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[7]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[6]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[5]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[4]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[3]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[2]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[1]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to water_led_o[0]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[15]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[14]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[13]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[12]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[11]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[10]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[9]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[8]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[7]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[6]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[5]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[4]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[3]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[2]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[1]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[0]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[8]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[7]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[6]
@@ -440,6 +423,6 @@ set_global_assignment -name POWER_USE_DEVICE_CHARACTERISTICS MAXIMUM
 	# end DESIGN_PARTITION(Top)
 	# -------------------------
 
-# end ENTITY(ws281x_cube_controller)
-# ----------------------------------
+# end ENTITY(neopixel_led_controller)
+# -----------------------------------
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
