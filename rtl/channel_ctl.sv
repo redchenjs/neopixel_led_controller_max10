@@ -17,6 +17,8 @@ module channel_ctl(
     input logic [7:0] reg_chan_len_i,
     input logic [3:0] reg_chan_cnt_i,
 
+    output logic [2:0] reg_rd_addr_o,
+
     output logic       reg_wr_en_o,
     output logic [2:0] reg_wr_addr_o,
 
@@ -29,14 +31,17 @@ module channel_ctl(
 typedef enum logic [7:0] {
     CUBE0414_CONF_WR = 8'h2a,
     CUBE0414_ADDR_WR = 8'h2b,
-    CUBE0414_DATA_WR = 8'h2c
+    CUBE0414_DATA_WR = 8'h2c,
+    CUBE0414_CONF_RD = 8'h2d
 } cmd_t;
 
+logic [2:0] rd_addr;
 logic [7:0] wr_addr;
 
 logic       addr_en;
 logic [2:0] data_en;
 
+logic        conf_rd;
 logic        conf_wr;
 logic [15:0] code_wr;
 
@@ -50,6 +55,8 @@ generate
     end
 endgenerate
 
+assign reg_rd_addr_o = rd_addr;
+
 assign reg_wr_en_o   = spi_byte_vld_i & conf_wr;
 assign reg_wr_addr_o = wr_addr;
 
@@ -61,16 +68,19 @@ assign ram_wr_byte_en_o = {addr_en, data_en};
 always_ff @(posedge clk_i or negedge rst_n_i)
 begin
     if (!rst_n_i) begin
+        rd_addr <= 3'h0;
         wr_addr <= 8'h00;
 
         addr_en <= 1'b0;
         data_en <= 3'b000;
 
+        conf_rd <= 1'b0;
         conf_wr <= 1'b0;
         code_wr <= 16'h0000;
     end else begin
         if (spi_byte_vld_i) begin
             if (!dc_i) begin  // Command
+                rd_addr <= 3'h0;
                 wr_addr <= 8'h00;
 
                 case (spi_byte_data_i)
@@ -78,6 +88,7 @@ begin
                         addr_en <= 1'b0;
                         data_en <= 3'b000;
 
+                        conf_rd <= 1'b0;
                         conf_wr <= 1'b1;
                         code_wr <= 16'h0000;
                     end
@@ -85,6 +96,7 @@ begin
                         addr_en <= 1'b1;
                         data_en <= 3'b000;
 
+                        conf_rd <= 1'b0;
                         conf_wr <= 1'b0;
                         code_wr <= 16'h0001;
                     end
@@ -92,23 +104,35 @@ begin
                         addr_en <= 1'b0;
                         data_en <= 3'b100;
 
+                        conf_rd <= 1'b0;
                         conf_wr <= 1'b0;
                         code_wr <= 16'h0001;
+                    end
+                    CUBE0414_CONF_RD: begin     // Read Reg Conf
+                        addr_en <= 1'b0;
+                        data_en <= 3'b000;
+
+                        conf_rd <= 1'b1;
+                        conf_wr <= 1'b0;
+                        code_wr <= 16'h0000;
                     end
                     default: begin
                         addr_en <= 1'b0;
                         data_en <= 3'b000;
 
+                        conf_rd <= 1'b0;
                         conf_wr <= 1'b0;
                         code_wr <= 16'h0000;
                     end
                 endcase
             end else begin    // Data
+                rd_addr <= rd_addr + conf_rd;
                 wr_addr <= (addr_done | data_done) ? 8'h00 : wr_addr + (conf_wr | addr_en | data_en[0]);
 
                 addr_en <= addr_en & ~(addr_done & code_wr[reg_chan_cnt_i]);
                 data_en <= {data_en[0], data_en[2:1]};
 
+                conf_rd <= conf_rd;
                 conf_wr <= conf_wr;
                 code_wr <= code_wr << (addr_done | data_done);
             end

@@ -9,12 +9,14 @@ module spi_slave(
     input logic clk_i,
     input logic rst_n_i,
 
-    input logic       spi_sclk_i,
-    input logic       spi_mosi_i,
-    input logic       spi_cs_n_i,
     input logic [7:0] spi_byte_data_i,
 
-    output logic       spi_miso_o,
+    input logic spi_sclk_i,
+    input logic spi_mosi_i,
+    input logic spi_cs_n_i,
+
+    output logic spi_miso_o,
+
     output logic       spi_byte_vld_o,
     output logic [7:0] spi_byte_data_o
 );

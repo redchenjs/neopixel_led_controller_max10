@@ -64,27 +64,12 @@ set_global_assignment -name QSYS_FILE ip/clk/globalclk.qsys
 # Pin & Location Assignments
 # ==========================
 set_location_assignment PIN_J5 -to clk_i
-set_location_assignment PIN_R9 -to rst_n_i
-set_location_assignment PIN_P15 -to dc_i
-set_location_assignment PIN_R14 -to spi_sclk_i
-set_location_assignment PIN_P12 -to spi_mosi_i
-set_location_assignment PIN_R11 -to spi_cs_n_i
-set_location_assignment PIN_C8 -to neopixel_code_o[15]
-set_location_assignment PIN_B7 -to neopixel_code_o[14]
-set_location_assignment PIN_D7 -to neopixel_code_o[13]
-set_location_assignment PIN_E7 -to neopixel_code_o[12]
-set_location_assignment PIN_B6 -to neopixel_code_o[11]
-set_location_assignment PIN_A7 -to neopixel_code_o[10]
-set_location_assignment PIN_A5 -to neopixel_code_o[9]
-set_location_assignment PIN_B4 -to neopixel_code_o[8]
-set_location_assignment PIN_R5 -to neopixel_code_o[7]
-set_location_assignment PIN_L7 -to neopixel_code_o[6]
-set_location_assignment PIN_P4 -to neopixel_code_o[5]
-set_location_assignment PIN_L6 -to neopixel_code_o[4]
-set_location_assignment PIN_R3 -to neopixel_code_o[3]
-set_location_assignment PIN_M5 -to neopixel_code_o[2]
-set_location_assignment PIN_P3 -to neopixel_code_o[1]
-set_location_assignment PIN_M4 -to neopixel_code_o[0]
+set_location_assignment PIN_P15 -to rst_n_i
+set_location_assignment PIN_R14 -to dc_i
+set_location_assignment PIN_P12 -to spi_sclk_i
+set_location_assignment PIN_R11 -to spi_mosi_i
+set_location_assignment PIN_R9 -to spi_cs_n_i
+set_location_assignment PIN_P9 -to spi_miso_o
 set_location_assignment PIN_E2 -to segment_led_1_o[8]
 set_location_assignment PIN_L1 -to segment_led_1_o[7]
 set_location_assignment PIN_G5 -to segment_led_1_o[6]
@@ -103,6 +88,22 @@ set_location_assignment PIN_P1 -to segment_led_2_o[3]
 set_location_assignment PIN_P2 -to segment_led_2_o[2]
 set_location_assignment PIN_A2 -to segment_led_2_o[1]
 set_location_assignment PIN_A3 -to segment_led_2_o[0]
+set_location_assignment PIN_C8 -to neopixel_code_o[15]
+set_location_assignment PIN_B7 -to neopixel_code_o[14]
+set_location_assignment PIN_D7 -to neopixel_code_o[13]
+set_location_assignment PIN_E7 -to neopixel_code_o[12]
+set_location_assignment PIN_B6 -to neopixel_code_o[11]
+set_location_assignment PIN_A7 -to neopixel_code_o[10]
+set_location_assignment PIN_A5 -to neopixel_code_o[9]
+set_location_assignment PIN_B4 -to neopixel_code_o[8]
+set_location_assignment PIN_R5 -to neopixel_code_o[7]
+set_location_assignment PIN_L7 -to neopixel_code_o[6]
+set_location_assignment PIN_P4 -to neopixel_code_o[5]
+set_location_assignment PIN_L6 -to neopixel_code_o[4]
+set_location_assignment PIN_R3 -to neopixel_code_o[3]
+set_location_assignment PIN_M5 -to neopixel_code_o[2]
+set_location_assignment PIN_P3 -to neopixel_code_o[1]
+set_location_assignment PIN_M4 -to neopixel_code_o[0]
 
 # Classic Timing Assignments
 # ==========================
@@ -333,22 +334,7 @@ set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
 	set_instance_assignment -name FAST_INPUT_REGISTER ON -to spi_sclk_i
 	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to spi_mosi_i
 	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to spi_cs_n_i
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[15]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[14]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[13]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[12]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[11]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[10]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[9]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[8]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[7]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[6]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[5]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[4]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[3]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[2]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[1]
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[0]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to spi_miso_o
 	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[8]
 	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[7]
 	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[6]
@@ -367,6 +353,22 @@ set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
 	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_o[2]
 	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_o[1]
 	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_2_o[0]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[15]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[14]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[13]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[12]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[11]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[10]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[9]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[8]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[7]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[6]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[5]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[4]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[3]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[2]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[1]
+	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to neopixel_code_o[0]
 
 	# Fitter Assignments
 	# ==================
@@ -376,22 +378,7 @@ set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_sclk_i
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_mosi_i
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_cs_n_i
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[15]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[14]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[13]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[12]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[11]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[10]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[9]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[8]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[7]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[6]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[5]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[4]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[3]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[2]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[1]
-	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[0]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to spi_miso_o
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[8]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[7]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_1_o[6]
@@ -410,6 +397,22 @@ set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_o[2]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_o[1]
 	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to segment_led_2_o[0]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[15]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[14]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[13]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[12]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[11]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[10]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[9]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[8]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[7]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[6]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[5]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[4]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[3]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[2]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[1]
+	set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to neopixel_code_o[0]
 
 	# start DESIGN_PARTITION(Top)
 	# ---------------------------

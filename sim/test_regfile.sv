@@ -12,6 +12,8 @@ module test_regfile;
 logic clk_i;
 logic rst_n_i;
 
+logic [2:0] reg_rd_addr_i;
+
 logic       reg_wr_en_i;
 logic [2:0] reg_wr_addr_i;
 logic [7:0] reg_wr_data_i;
@@ -24,9 +26,13 @@ logic [8:0] reg_t1s_time_o;
 logic [7:0] reg_chan_len_o;
 logic [3:0] reg_chan_cnt_o;
 
+logic [7:0] reg_rd_data_o;
+
 regfile test_regfile(
     .clk_i(clk_i),
     .rst_n_i(rst_n_i),
+
+    .reg_rd_addr_i(reg_rd_addr_i),
 
     .reg_wr_en_i(reg_wr_en_i),
     .reg_wr_addr_i(reg_wr_addr_i),
@@ -38,12 +44,16 @@ regfile test_regfile(
     .reg_t1s_time_o(reg_t1s_time_o),
 
     .reg_chan_len_o(reg_chan_len_o),
-    .reg_chan_cnt_o(reg_chan_cnt_o)
+    .reg_chan_cnt_o(reg_chan_cnt_o),
+
+    .reg_rd_data_o(reg_rd_data_o)
 );
 
 initial begin
     clk_i   <= 1'b1;
     rst_n_i <= 1'b0;
+
+    reg_rd_addr_i <= 3'h0;
 
     reg_wr_en_i   <= 1'b0;
     reg_wr_addr_i <= 3'h0;
@@ -54,6 +64,10 @@ end
 
 always begin
     #2.5 clk_i <= ~clk_i;
+end
+
+always begin
+    #6 reg_rd_addr_i <= reg_rd_addr_i + 1'b1;
 end
 
 always begin

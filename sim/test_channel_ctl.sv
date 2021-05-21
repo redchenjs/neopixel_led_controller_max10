@@ -20,13 +20,16 @@ logic [7:0] spi_byte_data_i;
 logic [7:0] reg_chan_len_i;
 logic [3:0] reg_chan_cnt_i;
 
+logic [2:0] reg_rd_addr_o;
+logic [7:0] reg_rd_data_o;
+
 logic       reg_wr_en_o;
 logic [2:0] reg_wr_addr_o;
 
 logic [15:0] ram_wr_en_o;
 logic        ram_wr_done_o;
-logic [ 7:0] ram_wr_addr_o;
-logic [ 3:0] ram_wr_byte_en_o;
+logic  [7:0] ram_wr_addr_o;
+logic  [3:0] ram_wr_byte_en_o;
 
 channel_ctl test_channel_ctl(
     .clk_i(clk_i),
@@ -40,6 +43,8 @@ channel_ctl test_channel_ctl(
     .reg_chan_len_i(reg_chan_len_i),
     .reg_chan_cnt_i(reg_chan_cnt_i),
 
+    .reg_rd_addr_o(reg_rd_addr_o),
+
     .reg_wr_en_o(reg_wr_en_o),
     .reg_wr_addr_o(reg_wr_addr_o),
 
@@ -47,6 +52,19 @@ channel_ctl test_channel_ctl(
     .ram_wr_done_o(ram_wr_done_o),
     .ram_wr_addr_o(ram_wr_addr_o),
     .ram_wr_byte_en_o(ram_wr_byte_en_o)
+);
+
+regfile regfile(
+    .clk_i(clk_i),
+    .rst_n_i(rst_n_i),
+
+    .reg_rd_addr_i(reg_rd_addr_o),
+
+    .reg_wr_en_i(reg_wr_en_o),
+    .reg_wr_addr_i(reg_wr_addr_o),
+    .reg_wr_data_i(spi_byte_data_i),
+
+    .reg_rd_data_o(reg_rd_data_o)
 );
 
 initial begin
@@ -110,6 +128,20 @@ always begin
        spi_byte_vld_i  <= 1'b1;
        spi_byte_data_i <= 8'h07;
     #5 spi_byte_vld_i  <= 1'b0;
+
+    // CONF_RD
+    #6 dc_i <= 1'b0;
+       spi_byte_vld_i  <= 1'b1;
+       spi_byte_data_i <= 8'h2d;
+    #5 spi_byte_vld_i  <= 1'b0;
+
+    // DUMMY DATA
+    for (integer i = 0; i < 16; i++) begin
+        #5 dc_i <= 1'b1;
+           spi_byte_vld_i  <= 1'b1;
+           spi_byte_data_i <= 1'b0;
+        #5 spi_byte_vld_i  <= 1'b0;
+    end
 
     // ADDR_WR
     #5 dc_i <= 1'b0;

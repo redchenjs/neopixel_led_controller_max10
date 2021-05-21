@@ -13,16 +13,16 @@ NeoPixel LED Controller based on MAX10 FPGA.
 
 ## Pinout
 
-| Input Port | FPGA Pin |     Output Port    | FPGA Pin |     Output Port     | FPGA Pin |
-| ---------: | :------- | :----------------: | :------: | :-----------------: | :------: |
-|      clk_i | PIN_J5   | neopixel_code_o[7] |  PIN_R5  | neopixel_code_o[15] |  PIN_C8  |
-|    rst_n_i | PIN_R9   | neopixel_code_o[6] |  PIN_L7  | neopixel_code_o[14] |  PIN_B7  |
-|       dc_i | PIN_P15  | neopixel_code_o[5] |  PIN_P4  | neopixel_code_o[13] |  PIN_D7  |
-| spi_sclk_i | PIN_R14  | neopixel_code_o[4] |  PIN_L6  | neopixel_code_o[12] |  PIN_E7  |
-| spi_mosi_i | PIN_P12  | neopixel_code_o[3] |  PIN_R3  | neopixel_code_o[11] |  PIN_B6  |
-| spi_cs_n_i | PIN_R11  | neopixel_code_o[2] |  PIN_M5  | neopixel_code_o[10] |  PIN_A7  |
-|          - |          | neopixel_code_o[1] |  PIN_P3  | neopixel_code_o[9]  |  PIN_A5  |
-|          - |          | neopixel_code_o[0] |  PIN_M4  | neopixel_code_o[8]  |  PIN_B4  |
+| Control I/O | FPGA Pin |      Data I/O      | FPGA Pin |      Data I/O       | FPGA Pin |
+| ----------: | :------- | :----------------: | :------: | :-----------------: | :------: |
+|       clk_i | PIN_J5   | neopixel_code_o[7] |  PIN_R5  | neopixel_code_o[15] |  PIN_C8  |
+|     rst_n_i | PIN_P15  | neopixel_code_o[6] |  PIN_L7  | neopixel_code_o[14] |  PIN_B7  |
+|        dc_i | PIN_R14  | neopixel_code_o[5] |  PIN_P4  | neopixel_code_o[13] |  PIN_D7  |
+|  spi_sclk_i | PIN_P12  | neopixel_code_o[4] |  PIN_L6  | neopixel_code_o[12] |  PIN_E7  |
+|  spi_mosi_i | PIN_R11  | neopixel_code_o[3] |  PIN_R3  | neopixel_code_o[11] |  PIN_B6  |
+|  spi_cs_n_i | PIN_R9   | neopixel_code_o[2] |  PIN_M5  | neopixel_code_o[10] |  PIN_A7  |
+|  spi_miso_o | PIN_P9   | neopixel_code_o[1] |  PIN_P3  | neopixel_code_o[9]  |  PIN_A5  |
+|           - |          | neopixel_code_o[0] |  PIN_M4  | neopixel_code_o[8]  |  PIN_B4  |
 
 * SPI slave mode: F_MAX=33MHz, CPOL=0, CPHA=0, MSB first
 
@@ -80,6 +80,27 @@ NeoPixel LED Controller based on MAX10 FPGA.
 * Nth Param: ...
 
 * N_MAX = 256 x 16 x 3 = 12288
+
+### CONF_RD
+
+| Inst / Para | D/C | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
+| :---------: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
+|   CONF_RD   |   0 |  0 |  0 |  1 |  0 |  1 |  1 |  0 |  1 | 2Dh |
+|  1st Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  2nd Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  3rd Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  4th Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  5th Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  6th Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  7th Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+
+* 1st Data: RTL revision, major: {BIT7..BIT4}, minor: {BIT3..BIT0}
+* 2nd Data: T0H time (10 ns), range: 0 - 255
+* 3rd Data: T0L time (10 ns), range: 0 - 255
+* 4th Data: T1H time (10 ns), range: 0 - 255
+* 5th Data: T1L time (10 ns), range: 0 - 255
+* 6th Data: channel length, range: 0 - 255
+* 7th Data: channel count, range: 0 - 15
 
 ## Preparing
 

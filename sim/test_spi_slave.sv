@@ -12,12 +12,14 @@ module test_spi_slave;
 logic clk_i;
 logic rst_n_i;
 
-logic       spi_sclk_i;
-logic       spi_mosi_i;
-logic       spi_cs_n_i;
 logic [7:0] spi_byte_data_i;
 
-logic       spi_miso_o;
+logic spi_sclk_i;
+logic spi_mosi_i;
+logic spi_cs_n_i;
+
+logic spi_miso_o;
+
 logic       spi_byte_vld_o;
 logic [7:0] spi_byte_data_o;
 
@@ -25,12 +27,14 @@ spi_slave test_spi_slave(
     .clk_i(clk_i),
     .rst_n_i(rst_n_i),
 
+    .spi_byte_data_i(spi_byte_data_i),
+
     .spi_sclk_i(spi_sclk_i),
     .spi_mosi_i(spi_mosi_i),
     .spi_cs_n_i(spi_cs_n_i),
-    .spi_byte_data_i(spi_byte_data_i),
 
     .spi_miso_o(spi_miso_o),
+
     .spi_byte_vld_o(spi_byte_vld_o),
     .spi_byte_data_o(spi_byte_data_o)
 );
@@ -39,11 +43,11 @@ initial begin
     clk_i   <= 1'b1;
     rst_n_i <= 1'b0;
 
+    spi_byte_data_i <= 8'h7e;
+
     spi_cs_n_i <= 1'b1;
     spi_sclk_i <= 1'b0;
     spi_mosi_i <= 1'b0;
-
-    spi_byte_data_i <= 8'h7e;
 
     #2 rst_n_i <= 1'b1;
 end
