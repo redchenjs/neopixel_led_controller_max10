@@ -23,19 +23,16 @@ module channel_out(
     output logic bit_code_o
 );
 
-logic        ram_rd_en;
 logic [ 7:0] ram_rd_addr;
 logic [31:0] ram_rd_data;
 
 logic bit_vld, bit_rdy, bit_data;
 
 ram256 ram256(
-    .aclr(~rst_n_i),
     .byteena_a(ram_wr_byte_en_i),
     .clock(clk_i),
     .data({ram_wr_data_i, ram_wr_data_i, ram_wr_data_i, ram_wr_data_i}),
     .rdaddress(ram_rd_addr),
-    .rden(ram_rd_en),
     .wraddress(ram_wr_addr_i),
     .wren(ram_wr_en_i),
     .q(ram_rd_data)
@@ -53,7 +50,6 @@ waveform_ctl waveform_ctl(
     .bit_vld_o(bit_vld),
     .bit_data_o(bit_data),
 
-    .ram_rd_en_o(ram_rd_en),
     .ram_rd_addr_o(ram_rd_addr)
 );
 

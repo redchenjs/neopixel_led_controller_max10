@@ -20,7 +20,6 @@ logic [31:0] ram_rd_data_i;
 logic bit_vld_o;
 logic bit_data_o;
 
-logic       ram_rd_en_o;
 logic [7:0] ram_rd_addr_o;
 
 waveform_ctl test_waveform_ctl(
@@ -35,7 +34,6 @@ waveform_ctl test_waveform_ctl(
     .bit_vld_o(bit_vld_o),
     .bit_data_o(bit_data_o),
 
-    .ram_rd_en_o(ram_rd_en_o),
     .ram_rd_addr_o(ram_rd_addr_o)
 );
 

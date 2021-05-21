@@ -17,7 +17,6 @@ module waveform_ctl(
     output logic bit_vld_o,
     output logic bit_data_o,
 
-    output logic       ram_rd_en_o,
     output logic [7:0] ram_rd_addr_o
 );
 
@@ -35,7 +34,6 @@ logic [4:0] bit_sel;
 
 logic bit_vld, bit_data;
 
-logic        rd_done;
 logic [ 7:0] rd_addr;
 logic [23:0] rd_data;
 
@@ -44,12 +42,9 @@ wire bit_next = bit_st | bit_rdy_i;
 wire data_next = (bit_sel == 5'd23);
 wire data_done = (rd_addr == 8'h00);
 
-wire rd_en = (ctl_sta == READ_RAM);
-
 assign bit_vld_o  = bit_vld;
 assign bit_data_o = bit_data;
 
-assign ram_rd_en_o   = rd_en;
 assign ram_rd_addr_o = rd_addr;
 
 always_ff @(posedge clk_i or negedge rst_n_i)
@@ -63,7 +58,6 @@ begin
         bit_vld  <= 1'b0;
         bit_data <= 1'b0;
 
-        rd_done <= 1'b0;
         rd_addr <= 8'h00;
         rd_data <= 24'h00_0000;
     end else begin
@@ -86,9 +80,8 @@ begin
         bit_vld  <= (ctl_sta == SEND_BIT) & bit_next;
         bit_data <= (ctl_sta == SEND_BIT) & bit_vld ? rd_data[5'd23 - bit_sel] : bit_data;
 
-        rd_done <= rd_en;
-        rd_addr <= rd_done ? ram_rd_data_i[31:24] : rd_addr;
-        rd_data <= rd_done ? ram_rd_data_i[23:0] : rd_data;
+        rd_addr <= (ctl_sta == READ_RAM) ? ram_rd_data_i[31:24] : rd_addr;
+        rd_data <= (ctl_sta == READ_RAM) ? ram_rd_data_i[23:0] : rd_data;
     end
 end
 
