@@ -27,9 +27,9 @@ logic       spi_byte_vld;
 logic [7:0] spi_byte_data;
 
 logic [7:0] reg_t0h_time;
-logic [7:0] reg_t0l_time;
+logic [8:0] reg_t0s_time;
 logic [7:0] reg_t1h_time;
-logic [7:0] reg_t1l_time;
+logic [8:0] reg_t1s_time;
 
 logic [7:0] reg_chan_len;
 logic [3:0] reg_chan_cnt;
@@ -39,8 +39,8 @@ logic [2:0] reg_wr_addr;
 
 logic [15:0] ram_wr_en;
 logic        ram_wr_done;
-logic [ 7:0] ram_wr_addr;
-logic [ 3:0] ram_wr_byte_en;
+logic  [7:0] ram_wr_addr;
+logic  [3:0] ram_wr_byte_en;
 
 sys_ctl sys_ctl(
     .clk_i(clk_i),
@@ -91,9 +91,9 @@ generate
             .rst_n_i(sys_rst_n),
 
             .reg_t0h_time_i(reg_t0h_time),
-            .reg_t0l_time_i(reg_t0l_time),
+            .reg_t0s_time_i(reg_t0s_time),
             .reg_t1h_time_i(reg_t1h_time),
-            .reg_t1l_time_i(reg_t1l_time),
+            .reg_t1s_time_i(reg_t1s_time),
 
             .ram_wr_en_i(ram_wr_en[i]),
             .ram_wr_done_i(ram_wr_done),
@@ -115,9 +115,9 @@ regfile regfile(
     .reg_wr_data_i(spi_byte_data),
 
     .reg_t0h_time_o(reg_t0h_time),
-    .reg_t0l_time_o(reg_t0l_time),
+    .reg_t0s_time_o(reg_t0s_time),
     .reg_t1h_time_o(reg_t1h_time),
-    .reg_t1l_time_o(reg_t1l_time),
+    .reg_t1s_time_o(reg_t1s_time),
 
     .reg_chan_len_o(reg_chan_len),
     .reg_chan_cnt_o(reg_chan_cnt)

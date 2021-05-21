@@ -13,7 +13,7 @@ module sys_ctl(
     output logic sys_rst_n_o
 );
 
-logic pll_100m;
+logic pll_c0;
 logic pll_locked;
 
 logic pll_rst_n;
@@ -28,18 +28,18 @@ rst_syn pll_rst_n_syn(
 pll pll(
     .areset(~pll_rst_n),
     .inclk0(clk_i),
-    .c0(pll_100m),
+    .c0(pll_c0),
     .locked(pll_locked)
 );
 
 rst_syn sys_rst_n_syn(
-    .clk_i(pll_100m),
+    .clk_i(pll_c0),
     .rst_n_i(rst_n_i & pll_locked),
     .rst_n_o(sys_rst_n)
 );
 
 globalclk global_clk(
-    .inclk(pll_100m),
+    .inclk(pll_c0),
     .outclk(sys_clk_o)
 );
 

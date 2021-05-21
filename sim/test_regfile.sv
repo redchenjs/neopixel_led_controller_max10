@@ -17,9 +17,9 @@ logic [2:0] reg_wr_addr_i;
 logic [7:0] reg_wr_data_i;
 
 logic [7:0] reg_t0h_time_o;
-logic [7:0] reg_t0l_time_o;
+logic [8:0] reg_t0s_time_o;
 logic [7:0] reg_t1h_time_o;
-logic [7:0] reg_t1l_time_o;
+logic [8:0] reg_t1s_time_o;
 
 logic [7:0] reg_chan_len_o;
 logic [3:0] reg_chan_cnt_o;
@@ -33,9 +33,9 @@ regfile test_regfile(
     .reg_wr_data_i(reg_wr_data_i),
 
     .reg_t0h_time_o(reg_t0h_time_o),
-    .reg_t0l_time_o(reg_t0l_time_o),
+    .reg_t0s_time_o(reg_t0s_time_o),
     .reg_t1h_time_o(reg_t1h_time_o),
-    .reg_t1l_time_o(reg_t1l_time_o),
+    .reg_t1s_time_o(reg_t1s_time_o),
 
     .reg_chan_len_o(reg_chan_len_o),
     .reg_chan_cnt_o(reg_chan_cnt_o)

@@ -13,9 +13,9 @@ module waveform_gen(
     input logic bit_data_i,
 
     input logic [7:0] reg_t0h_time_i,
-    input logic [7:0] reg_t0l_time_i,
+    input logic [8:0] reg_t0s_time_i,
     input logic [7:0] reg_t1h_time_i,
-    input logic [7:0] reg_t1l_time_i,
+    input logic [8:0] reg_t1s_time_i,
 
     output logic bit_rdy_o,
     output logic bit_code_o
@@ -25,10 +25,7 @@ logic [8:0] bit_cnt;
 
 logic bit_busy, bit_code;
 
-wire [8:0] t0s_time = reg_t0h_time_i + reg_t0l_time_i;
-wire [8:0] t1s_time = reg_t1h_time_i + reg_t1l_time_i;
-
-wire [8:0] bit_time = bit_data_i ? t1s_time : t0s_time;
+wire [8:0] bit_time = bit_data_i ? reg_t1s_time_i : reg_t0s_time_i;
 
 wire t0h_code = (bit_cnt <= reg_t0h_time_i) & ~bit_data_i;
 wire t1h_code = (bit_cnt <= reg_t1h_time_i) &  bit_data_i;

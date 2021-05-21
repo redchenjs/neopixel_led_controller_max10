@@ -34,7 +34,7 @@ logic [4:0] bit_sel;
 
 logic bit_vld, bit_data;
 
-logic [ 7:0] rd_addr;
+logic  [7:0] rd_addr;
 logic [23:0] rd_data;
 
 wire bit_next = bit_st | bit_rdy_i;

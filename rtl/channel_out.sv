@@ -10,9 +10,9 @@ module channel_out(
     input logic rst_n_i,
 
     input logic [7:0] reg_t0h_time_i,
-    input logic [7:0] reg_t0l_time_i,
+    input logic [8:0] reg_t0s_time_i,
     input logic [7:0] reg_t1h_time_i,
-    input logic [7:0] reg_t1l_time_i,
+    input logic [8:0] reg_t1s_time_i,
 
     input logic       ram_wr_en_i,
     input logic       ram_wr_done_i,
@@ -23,7 +23,7 @@ module channel_out(
     output logic bit_code_o
 );
 
-logic [ 7:0] ram_rd_addr;
+logic  [7:0] ram_rd_addr;
 logic [31:0] ram_rd_data;
 
 logic bit_vld, bit_rdy, bit_data;
@@ -61,9 +61,9 @@ waveform_gen waveform_gen(
     .bit_data_i(bit_data),
 
     .reg_t0h_time_i(reg_t0h_time_i),
-    .reg_t0l_time_i(reg_t0l_time_i),
+    .reg_t0s_time_i(reg_t0s_time_i),
     .reg_t1h_time_i(reg_t1h_time_i),
-    .reg_t1l_time_i(reg_t1l_time_i),
+    .reg_t1s_time_i(reg_t1s_time_i),
 
     .bit_rdy_o(bit_rdy),
     .bit_code_o(bit_code_o)

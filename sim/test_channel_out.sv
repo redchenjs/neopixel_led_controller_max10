@@ -13,9 +13,9 @@ logic clk_i;
 logic rst_n_i;
 
 logic [7:0] reg_t0h_time_i;
-logic [7:0] reg_t0l_time_i;
+logic [8:0] reg_t0s_time_i;
 logic [7:0] reg_t1h_time_i;
-logic [7:0] reg_t1l_time_i;
+logic [8:0] reg_t1s_time_i;
 
 logic       ram_wr_en_i;
 logic       ram_wr_done_i;
@@ -30,9 +30,9 @@ channel_out test_channel_out(
     .rst_n_i(rst_n_i),
 
     .reg_t0h_time_i(reg_t0h_time_i),
-    .reg_t0l_time_i(reg_t0l_time_i),
+    .reg_t0s_time_i(reg_t0s_time_i),
     .reg_t1h_time_i(reg_t1h_time_i),
-    .reg_t1l_time_i(reg_t1l_time_i),
+    .reg_t1s_time_i(reg_t1s_time_i),
 
     .ram_wr_en_i(ram_wr_en_i),
     .ram_wr_done_i(ram_wr_done_i),
@@ -48,9 +48,9 @@ initial begin
     rst_n_i <= 1'b0;
 
     reg_t0h_time_i <= 8'h00;
-    reg_t0l_time_i <= 8'h01;
+    reg_t0s_time_i <= 9'h001;
     reg_t1h_time_i <= 8'h01;
-    reg_t1l_time_i <= 8'h00;
+    reg_t1s_time_i <= 9'h001;
 
     ram_wr_en_i   <= 1'b0;
     ram_wr_done_i <= 1'b0;

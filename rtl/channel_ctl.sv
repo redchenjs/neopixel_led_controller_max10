@@ -22,8 +22,8 @@ module channel_ctl(
 
     output logic [15:0] ram_wr_en_o,
     output logic        ram_wr_done_o,
-    output logic [ 7:0] ram_wr_addr_o,
-    output logic [ 3:0] ram_wr_byte_en_o
+    output logic  [7:0] ram_wr_addr_o,
+    output logic  [3:0] ram_wr_byte_en_o
 );
 
 typedef enum logic [7:0] {
