@@ -342,12 +342,12 @@ set_global_assignment -name POWER_DEFAULT_INPUT_IO_TOGGLE_RATE "12.5 %"
 	# Pin & Location Assignments
 	# ==========================
 	set_instance_assignment -name FAST_INPUT_REGISTER ON -to clk_i
-	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to rst_n_i
-	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to dc_i
+	set_instance_assignment -name FAST_INPUT_REGISTER ON -to rst_n_i
+	set_instance_assignment -name FAST_INPUT_REGISTER ON -to dc_i
 	set_instance_assignment -name FAST_INPUT_REGISTER ON -to spi_sclk_i
-	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to spi_mosi_i
-	set_instance_assignment -name FAST_INPUT_REGISTER OFF -to spi_cs_n_i
-	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to spi_miso_o
+	set_instance_assignment -name FAST_INPUT_REGISTER ON -to spi_mosi_i
+	set_instance_assignment -name FAST_INPUT_REGISTER ON -to spi_cs_n_i
+	set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to spi_miso_o
 	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[8]
 	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[7]
 	set_instance_assignment -name FAST_OUTPUT_REGISTER OFF -to segment_led_1_o[6]
