@@ -5,7 +5,7 @@ NeoPixel LED Controller based on MAX10 FPGA.
 
 ## Main Features
 
-* 4-wire SPI interface (SCLK, MOSI, CS, DC)
+* 4-wire SPI interface (SCLK, MOSI, MISO, CS)
 * High refresh rate (500fps@8x8x8, 125fps@16x16x16)
 * 16 parallel output channels (up to 256 LEDs per channel)
 * Each output channel has a programmable circular linked list
@@ -24,7 +24,7 @@ NeoPixel LED Controller based on MAX10 FPGA.
 |  spi_miso_o | PIN_P9   | neopixel_code_o[1] |  PIN_P3  | neopixel_code_o[9]  |  PIN_A5  |
 |           - |          | neopixel_code_o[0] |  PIN_M4  | neopixel_code_o[8]  |  PIN_B4  |
 
-* SPI slave mode: F_MAX=33MHz, CPOL=0, CPHA=0, MSB first
+* SPI slave mode: F_MAX=30MHz, CPOL=0, CPHA=0, MSB first
 
 ## Commands
 
@@ -81,11 +81,11 @@ NeoPixel LED Controller based on MAX10 FPGA.
 
 * N_MAX = 256 x 16 x 3 = 12288
 
-### CONF_RD
+### INFO_RD
 
 | Inst / Para | D/C | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
 | :---------: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
-|   CONF_RD   |   0 |  0 |  0 |  1 |  0 |  1 |  1 |  0 |  1 | 2Dh |
+|   INFO_RD   |   0 |  0 |  0 |  1 |  0 |  1 |  1 |  0 |  1 | 2Dh |
 |  1st Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 |  2nd Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 |  3rd Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
@@ -94,7 +94,7 @@ NeoPixel LED Controller based on MAX10 FPGA.
 |  6th Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 |  7th Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 
-* 1st Data: RTL revision, major: {BIT7..BIT4}, minor: {BIT3..BIT0}
+* 1st Data: RTL revision, major: {D7..D4}, minor: {D3..D0}
 * 2nd Data: T0H time (10 ns), range: 0 - 255
 * 3rd Data: T0L time (10 ns), range: 0 - 255
 * 4th Data: T1H time (10 ns), range: 0 - 255

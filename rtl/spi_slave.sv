@@ -21,14 +21,13 @@ module spi_slave(
     output logic [7:0] spi_byte_data_o
 );
 
-logic spi_rst_n;
-logic spi_sclk_p;
-logic spi_sclk_n;
+logic spi_sclk;
 
 logic [2:0] bit_sel;
 logic       bit_mosi;
 
-logic       byte_vld;
+logic byte_vld, byte_next;
+
 logic [7:0] byte_mosi;
 logic [7:0] byte_miso;
 
@@ -36,35 +35,33 @@ assign spi_miso_o      = byte_miso[7];
 assign spi_byte_vld_o  = byte_vld;
 assign spi_byte_data_o = byte_mosi;
 
-rst_syn spi_rst_n_syn(
-    .clk_i(clk_i),
-    .rst_n_i(rst_n_i & ~spi_cs_n_i),
-    .rst_n_o(spi_rst_n)
-);
-
 edge2en spi_sclk_en(
     .clk_i(clk_i),
-    .rst_n_i(spi_rst_n),
+    .rst_n_i(rst_n_i),
     .data_i(spi_sclk_i),
-    .pos_edge_o(spi_sclk_p)
+    .pos_edge_o(spi_sclk)
 );
 
-always_ff @(posedge clk_i or negedge spi_rst_n)
+always_ff @(posedge clk_i or negedge rst_n_i)
 begin
-    if (!spi_rst_n) begin
+    if (!rst_n_i) begin
         bit_sel  <= 3'h0;
         bit_mosi <= 1'b0;
 
         byte_vld  <= 1'b0;
+        byte_next <= 1'b0;
+
         byte_mosi <= 8'h00;
         byte_miso <= 8'h00;
     end else begin
-        bit_sel  <= spi_sclk_p + bit_sel;
+        bit_sel  <= spi_cs_n_i ? 3'h0 : bit_sel + spi_sclk;
         bit_mosi <= spi_mosi_i;
 
-        byte_vld  <= spi_sclk_p & (bit_sel == 3'h7);
-        byte_mosi <= spi_sclk_p ? {byte_mosi[6:0], bit_mosi} : byte_mosi;
-        byte_miso <= spi_sclk_p ? ((bit_sel == 3'h7) ? spi_byte_data_i : {byte_miso[6:0], 1'b0}) : byte_miso;
+        byte_vld  <= spi_sclk & (bit_sel == 3'h7);
+        byte_next <= byte_vld;
+
+        byte_mosi <= spi_sclk ? {byte_mosi[6:0], bit_mosi} : byte_mosi;
+        byte_miso <= byte_next ? spi_byte_data_i : (spi_sclk ? {byte_miso[6:0], 1'b0} : byte_miso);
     end
 end
 
