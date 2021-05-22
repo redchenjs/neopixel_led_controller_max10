@@ -31,7 +31,7 @@ logic        ram_wr_done_o;
 logic  [7:0] ram_wr_addr_o;
 logic  [3:0] ram_wr_byte_en_o;
 
-channel_ctl test_channel_ctl(
+channel_ctl channel_ctl(
     .clk_i(clk_i),
     .rst_n_i(rst_n_i),
 

@@ -25,7 +25,7 @@ logic [3:0] ram_wr_byte_en_i;
 
 logic bit_code_o;
 
-channel_out test_channel_out(
+channel_out channel_out(
     .clk_i(clk_i),
     .rst_n_i(rst_n_i),
 

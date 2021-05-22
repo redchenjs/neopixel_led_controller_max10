@@ -22,7 +22,7 @@ logic bit_data_o;
 
 logic [7:0] ram_rd_addr_o;
 
-waveform_ctl test_waveform_ctl(
+waveform_ctl waveform_ctl(
     .clk_i(clk_i),
     .rst_n_i(rst_n_i),
 

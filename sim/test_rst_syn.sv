@@ -14,7 +14,7 @@ logic rst_n_i;
 
 logic rst_n_o;
 
-rst_syn test_rst_syn(
+rst_syn rst_syn(
     .clk_i(clk_i),
     .rst_n_i(rst_n_i),
 

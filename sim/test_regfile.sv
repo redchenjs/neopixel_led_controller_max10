@@ -28,7 +28,7 @@ logic [3:0] reg_chan_cnt_o;
 
 logic [7:0] reg_rd_data_o;
 
-regfile test_regfile(
+regfile regfile(
     .clk_i(clk_i),
     .rst_n_i(rst_n_i),
 

@@ -18,7 +18,7 @@ logic pos_edge_o;
 logic neg_edge_o;
 logic any_edge_o;
 
-edge2en test_edge2en(
+edge2en edge2en(
     .clk_i(clk_i),
     .rst_n_i(rst_n_i),
 

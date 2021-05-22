@@ -23,7 +23,7 @@ logic [8:0] reg_t1s_time_i;
 logic bit_rdy_o;
 logic bit_code_o;
 
-waveform_gen test_waveform_gen(
+waveform_gen waveform_gen(
     .clk_i(clk_i),
     .rst_n_i(rst_n_i),
 
