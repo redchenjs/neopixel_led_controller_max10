@@ -21,7 +21,6 @@ module spi_slave(
     output logic [7:0] spi_byte_data_o
 );
 
-logic spi_cs;
 logic spi_rst_n;
 logic spi_sclk_p;
 logic spi_sclk_n;
@@ -47,8 +46,7 @@ edge2en spi_sclk_en(
     .clk_i(clk_i),
     .rst_n_i(spi_rst_n),
     .data_i(spi_sclk_i),
-    .pos_edge_o(spi_sclk_p),
-    .neg_edge_o(spi_sclk_n)
+    .pos_edge_o(spi_sclk_p)
 );
 
 always_ff @(posedge clk_i or negedge spi_rst_n)
@@ -66,7 +64,7 @@ begin
 
         byte_vld  <= spi_sclk_p & (bit_sel == 3'h7);
         byte_mosi <= spi_sclk_p ? {byte_mosi[6:0], bit_mosi} : byte_mosi;
-        byte_miso <= spi_sclk_n ? ((bit_sel == 3'h0) ? spi_byte_data_i : {byte_miso[6:0], 1'b0}) : byte_miso;
+        byte_miso <= spi_sclk_p ? ((bit_sel == 3'h7) ? spi_byte_data_i : {byte_miso[6:0], 1'b0}) : byte_miso;
     end
 end
 
