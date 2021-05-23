@@ -85,7 +85,7 @@ NeoPixel LED Controller based on MAX10 FPGA.
 
 | Inst / Para | D/C | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
 | :---------: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
-|   INFO_RD   |   0 |  0 |  0 |  1 |  0 |  1 |  1 |  0 |  1 | 2Dh |
+|   INFO_RD   |   0 |  0 |  0 |  1 |  1 |  1 |  0 |  1 |  0 | 3Ah |
 |  1st Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 |  2nd Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 |  3rd Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |

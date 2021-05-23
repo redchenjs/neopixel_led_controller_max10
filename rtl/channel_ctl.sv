@@ -32,7 +32,7 @@ typedef enum logic [7:0] {
     CUBE0414_CONF_WR = 8'h2a,
     CUBE0414_ADDR_WR = 8'h2b,
     CUBE0414_DATA_WR = 8'h2c,
-    CUBE0414_INFO_RD = 8'h2d
+    CUBE0414_INFO_RD = 8'h3a
 } cmd_t;
 
 logic [2:0] rd_addr;
@@ -41,9 +41,9 @@ logic [7:0] wr_addr;
 logic       addr_en;
 logic [2:0] data_en;
 
-logic        conf_rd;
+logic        info_rd;
 logic        conf_wr;
-logic [15:0] code_wr;
+logic [15:0] data_wr;
 
 wire addr_done = (wr_addr == reg_chan_len_i) & addr_en;
 wire data_done = (wr_addr == reg_chan_len_i) & data_en[0];
@@ -51,7 +51,7 @@ wire data_done = (wr_addr == reg_chan_len_i) & data_en[0];
 genvar i;
 generate
     for (i = 0; i < 16; i++) begin: ram_wr_en
-        assign ram_wr_en_o[i] = spi_byte_vld_i & code_wr[i];
+        assign ram_wr_en_o[i] = spi_byte_vld_i & data_wr[i];
     end
 endgenerate
 
@@ -60,7 +60,7 @@ assign reg_rd_addr_o = rd_addr;
 assign reg_wr_en_o   = spi_byte_vld_i & conf_wr;
 assign reg_wr_addr_o = wr_addr;
 
-assign ram_wr_done_o = spi_byte_vld_i & code_wr[reg_chan_cnt_i] & data_done;
+assign ram_wr_done_o = spi_byte_vld_i & data_wr[reg_chan_cnt_i] & data_done;
 assign ram_wr_addr_o = wr_addr;
 
 assign ram_wr_byte_en_o = {addr_en, data_en};
@@ -74,9 +74,9 @@ begin
         addr_en <= 1'b0;
         data_en <= 3'b000;
 
-        conf_rd <= 1'b0;
+        info_rd <= 1'b0;
         conf_wr <= 1'b0;
-        code_wr <= 16'h0000;
+        data_wr <= 16'h0000;
     end else begin
         if (spi_byte_vld_i) begin
             if (!dc_i) begin  // Command
@@ -89,9 +89,9 @@ begin
                         addr_en <= 1'b0;
                         data_en <= 3'b000;
 
-                        conf_rd <= 1'b0;
+                        info_rd <= 1'b0;
                         conf_wr <= 1'b1;
-                        code_wr <= 16'h0000;
+                        data_wr <= 16'h0000;
                     end
                     CUBE0414_ADDR_WR: begin     // Write RAM Addr
                         rd_addr <= 3'h0;
@@ -99,9 +99,9 @@ begin
                         addr_en <= 1'b1;
                         data_en <= 3'b000;
 
-                        conf_rd <= 1'b0;
+                        info_rd <= 1'b0;
                         conf_wr <= 1'b0;
-                        code_wr <= 16'h0001;
+                        data_wr <= 16'h0001;
                     end
                     CUBE0414_DATA_WR: begin     // Write RAM Data
                         rd_addr <= 3'h0;
@@ -109,9 +109,9 @@ begin
                         addr_en <= 1'b0;
                         data_en <= 3'b100;
 
-                        conf_rd <= 1'b0;
+                        info_rd <= 1'b0;
                         conf_wr <= 1'b0;
-                        code_wr <= 16'h0001;
+                        data_wr <= 16'h0001;
                     end
                     CUBE0414_INFO_RD: begin     // Read Chip Info
                         rd_addr <= 3'h1;
@@ -119,9 +119,9 @@ begin
                         addr_en <= 1'b0;
                         data_en <= 3'b000;
 
-                        conf_rd <= 1'b1;
+                        info_rd <= 1'b1;
                         conf_wr <= 1'b0;
-                        code_wr <= 16'h0000;
+                        data_wr <= 16'h0000;
                     end
                     default: begin
                         rd_addr <= 3'h0;
@@ -129,21 +129,21 @@ begin
                         addr_en <= 1'b0;
                         data_en <= 3'b000;
 
-                        conf_rd <= 1'b0;
+                        info_rd <= 1'b0;
                         conf_wr <= 1'b0;
-                        code_wr <= 16'h0000;
+                        data_wr <= 16'h0000;
                     end
                 endcase
             end else begin    // Data
-                rd_addr <= rd_addr + conf_rd;
+                rd_addr <= rd_addr + info_rd;
                 wr_addr <= (addr_done | data_done) ? 8'h00 : wr_addr + (conf_wr | addr_en | data_en[0]);
 
-                addr_en <= addr_en & ~(addr_done & code_wr[reg_chan_cnt_i]);
+                addr_en <= addr_en & ~(addr_done & data_wr[reg_chan_cnt_i]);
                 data_en <= {data_en[0], data_en[2:1]};
 
-                conf_rd <= conf_rd;
+                info_rd <= info_rd;
                 conf_wr <= conf_wr;
-                code_wr <= code_wr << (addr_done | data_done);
+                data_wr <= data_wr << (addr_done | data_done);
             end
         end
     end

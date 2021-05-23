@@ -29,11 +29,11 @@ logic [31:0] ram_rd_data;
 logic bit_vld, bit_rdy, bit_data;
 
 ram256 ram256(
-    .byteena_a(ram_wr_byte_en_i),
     .clock(clk_i),
     .data({ram_wr_data_i, ram_wr_data_i, ram_wr_data_i, ram_wr_data_i}),
     .rdaddress(ram_rd_addr),
     .wraddress(ram_wr_addr_i),
+    .byteena_a(ram_wr_byte_en_i),
     .wren(ram_wr_en_i),
     .q(ram_rd_data)
 );

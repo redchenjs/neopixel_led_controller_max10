@@ -129,20 +129,6 @@ always begin
        spi_byte_data_i <= 8'h07;
     #5 spi_byte_vld_i  <= 1'b0;
 
-    // CONF_RD
-    #6 dc_i <= 1'b0;
-       spi_byte_vld_i  <= 1'b1;
-       spi_byte_data_i <= 8'h2d;
-    #5 spi_byte_vld_i  <= 1'b0;
-
-    // DUMMY DATA
-    for (integer i = 0; i < 16; i++) begin
-        #5 dc_i <= 1'b1;
-           spi_byte_vld_i  <= 1'b1;
-           spi_byte_data_i <= 1'b0;
-        #5 spi_byte_vld_i  <= 1'b0;
-    end
-
     // ADDR_WR
     #5 dc_i <= 1'b0;
        spi_byte_vld_i  <= 1'b1;
@@ -168,6 +154,20 @@ always begin
         #5 dc_i <= 1'b1;
            spi_byte_vld_i  <= 1'b1;
            spi_byte_data_i <= i % 8'hff;
+        #5 spi_byte_vld_i  <= 1'b0;
+    end
+
+    // INFO_RD
+    #6 dc_i <= 1'b0;
+       spi_byte_vld_i  <= 1'b1;
+       spi_byte_data_i <= 8'h3a;
+    #5 spi_byte_vld_i  <= 1'b0;
+
+    // DUMMY DATA
+    for (integer i = 0; i < 16; i++) begin
+        #5 dc_i <= 1'b1;
+           spi_byte_vld_i  <= 1'b1;
+           spi_byte_data_i <= 1'b0;
         #5 spi_byte_vld_i  <= 1'b0;
     end
 

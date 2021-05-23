@@ -137,10 +137,10 @@ always begin
         #12 spi_sclk_i <= 1'b1;
     end
 
-    // CONF_RD
+    // INFO_RD
     #12 dc_i <= 1'b0;
 
-    // 0x2D
+    // 0x3A
     #12 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b0;  // BIT7
     #12 spi_sclk_i <= 1'b1;
@@ -154,7 +154,7 @@ always begin
     #12 spi_sclk_i <= 1'b1;
 
     #12 spi_sclk_i <= 1'b0;
-        spi_mosi_i <= 1'b0;  // BIT4
+        spi_mosi_i <= 1'b1;  // BIT4
     #12 spi_sclk_i <= 1'b1;
 
     #12 spi_sclk_i <= 1'b0;
@@ -162,15 +162,15 @@ always begin
     #12 spi_sclk_i <= 1'b1;
 
     #12 spi_sclk_i <= 1'b0;
-        spi_mosi_i <= 1'b1;  // BIT2
+        spi_mosi_i <= 1'b0;  // BIT2
     #12 spi_sclk_i <= 1'b1;
 
     #12 spi_sclk_i <= 1'b0;
-        spi_mosi_i <= 1'b0;  // BIT1
+        spi_mosi_i <= 1'b1;  // BIT1
     #12 spi_sclk_i <= 1'b1;
 
     #12 spi_sclk_i <= 1'b0;
-        spi_mosi_i <= 1'b1;  // BIT0
+        spi_mosi_i <= 1'b0;  // BIT0
     #12 spi_sclk_i <= 1'b1;
 
     #12 dc_i <= 1'b1;
