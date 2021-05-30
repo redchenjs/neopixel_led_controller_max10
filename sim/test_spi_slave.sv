@@ -64,78 +64,78 @@ always begin
     #50 spi_cs_n_i <= 1'b0;
 
     // 0x2A
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b0;  // BIT7
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b0;  // BIT6
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b1;  // BIT5
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b0;  // BIT4
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b1;  // BIT3
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b0;  // BIT2
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b1;  // BIT1
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b0;  // BIT0
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
     // 0x2B
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b0;  // BIT7
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b0;  // BIT6
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b1;  // BIT5
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b0;  // BIT4
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b1;  // BIT3
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b0;  // BIT2
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b1;  // BIT1
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
         spi_mosi_i <= 1'b1;  // BIT0
-    #12 spi_sclk_i <= 1'b1;
+    #15 spi_sclk_i <= 1'b1;
 
     for (integer i = 0; i < 24; i++) begin
-        #12 spi_sclk_i <= 1'b0;
+        #15 spi_sclk_i <= 1'b0;
             spi_mosi_i <= 1'b0;
-        #12 spi_sclk_i <= 1'b1;
+        #15 spi_sclk_i <= 1'b1;
     end
 
-    #12 spi_sclk_i <= 1'b0;
+    #15 spi_sclk_i <= 1'b0;
 
     #25 spi_cs_n_i <= 1'b1;
 

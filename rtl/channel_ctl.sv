@@ -80,12 +80,11 @@ begin
     end else begin
         if (spi_byte_vld_i) begin
             if (!dc_i) begin  // Command
+                rd_addr <= 3'h0;
                 wr_addr <= 8'h00;
 
                 case (spi_byte_data_i)
                     CUBE0414_CONF_WR: begin     // Write Reg Conf
-                        rd_addr <= 3'h0;
-
                         addr_en <= 1'b0;
                         data_en <= 3'b000;
 
@@ -94,8 +93,6 @@ begin
                         data_wr <= 16'h0000;
                     end
                     CUBE0414_ADDR_WR: begin     // Write RAM Addr
-                        rd_addr <= 3'h0;
-
                         addr_en <= 1'b1;
                         data_en <= 3'b000;
 
@@ -104,8 +101,6 @@ begin
                         data_wr <= 16'h0001;
                     end
                     CUBE0414_DATA_WR: begin     // Write RAM Data
-                        rd_addr <= 3'h0;
-
                         addr_en <= 1'b0;
                         data_en <= 3'b100;
 
@@ -114,8 +109,6 @@ begin
                         data_wr <= 16'h0001;
                     end
                     CUBE0414_INFO_RD: begin     // Read Chip Info
-                        rd_addr <= 3'h1;
-
                         addr_en <= 1'b0;
                         data_en <= 3'b000;
 
@@ -124,8 +117,6 @@ begin
                         data_wr <= 16'h0000;
                     end
                     default: begin
-                        rd_addr <= 3'h0;
-
                         addr_en <= 1'b0;
                         data_en <= 3'b000;
 

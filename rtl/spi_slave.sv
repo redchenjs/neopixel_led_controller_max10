@@ -26,7 +26,8 @@ logic spi_sclk;
 logic [2:0] bit_sel;
 logic       bit_mosi;
 
-logic byte_vld, byte_next;
+logic       byte_vld;
+logic [1:0] byte_rdy;
 
 logic [7:0] byte_mosi;
 logic [7:0] byte_miso;
@@ -48,8 +49,8 @@ begin
         bit_sel  <= 3'h0;
         bit_mosi <= 1'b0;
 
-        byte_vld  <= 1'b0;
-        byte_next <= 1'b0;
+        byte_vld <= 1'b0;
+        byte_rdy <= 2'b00;
 
         byte_mosi <= 8'h00;
         byte_miso <= 8'h00;
@@ -57,11 +58,11 @@ begin
         bit_sel  <= spi_cs_n_i ? 3'h0 : bit_sel + spi_sclk;
         bit_mosi <= spi_mosi_i;
 
-        byte_vld  <= spi_sclk & (bit_sel == 3'h7);
-        byte_next <= byte_vld;
+        byte_vld <= spi_sclk & (bit_sel == 3'h7);
+        byte_rdy <= {byte_rdy[0], byte_vld};
 
         byte_mosi <= spi_sclk ? {byte_mosi[6:0], bit_mosi} : byte_mosi;
-        byte_miso <= byte_next ? spi_byte_data_i : (spi_sclk ? {byte_miso[6:0], 1'b0} : byte_miso);
+        byte_miso <= byte_rdy[1] ? spi_byte_data_i : (spi_sclk ? {byte_miso[6:0], 1'b0} : byte_miso);
     end
 end
 

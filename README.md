@@ -24,40 +24,40 @@ NeoPixel LED Controller based on MAX10 FPGA.
 |  spi_miso_o | PIN_P9   | neopixel_code_o[1] |  PIN_P3  | neopixel_code_o[9]  |  PIN_A5  |
 |           - |          | neopixel_code_o[0] |  PIN_M4  | neopixel_code_o[8]  |  PIN_B4  |
 
-* SPI slave mode: F_MAX=30MHz, CPOL=0, CPHA=0, MSB first
+* SPI slave mode: F_MAX=20MHz, CPOL=0, CPHA=0, MSB first
 
 ## Commands
 
 ### CONF_WR
 
-| Inst / Para | D/C | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
-| :---------: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
-|   CONF_WR   |   0 |  0 |  0 |  1 |  0 |  1 |  0 |  1 |  0 | 2Ah |
-|  1st Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  2nd Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  3rd Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  4th Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  5th Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  6th Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+| Inst / Para | D/C | R/W | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
+| :---------: | --: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
+|   CONF_WR   |  0  |  W  |  0 |  0 |  1 |  0 |  1 |  0 |  1 |  0 | 2Ah |
+|  1st Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  2nd Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  3rd Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  4th Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  5th Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  6th Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 
 * 1st Param: T0H time (10 ns), range: 0 - 255
 * 2nd Param: T0L time (10 ns), range: 0 - 255
 * 3rd Param: T1H time (10 ns), range: 0 - 255
 * 4th Param: T1L time (10 ns), range: 0 - 255
-* 5th Param: channel length, range: 0 - 255
-* 6th Param: channel count, range: 0 - 15
+* 5th Param: Channel length, range: 0 - 255
+* 6th Param: Channel count, range: 0 - 15
 
 ### ADDR_WR
 
-| Inst / Para | D/C | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
-| :---------: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
-|   ADDR_WR   |   0 |  0 |  0 |  1 |  0 |  1 |  0 |  1 |  1 | 2Bh |
-|  1st Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|     ...     |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  Nth Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+| Inst / Para | D/C | R/W | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
+| :---------: | --: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
+|   ADDR_WR   |  0  |  W  |  0 |  0 |  1 |  0 |  1 |  0 |  1 |  1 | 2Bh |
+|  1st Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|     ...     |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  Nth Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 
-* 1st Param: channel 0, the next pointer of the 1st color data, range: 0 - 255
-* 2nd Param: channel 0, the next pointer of the 2nd color data, range: 0 - 255
+* 1st Param: Channel 0, the next pointer of the 1st color data, range: 0 - 255
+* 2nd Param: Channel 0, the next pointer of the 2nd color data, range: 0 - 255
 * ...
 * Nth Param: ...
 
@@ -65,17 +65,17 @@ NeoPixel LED Controller based on MAX10 FPGA.
 
 ### DATA_WR
 
-| Inst / Para | D/C | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
-| :---------: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
-|   DATA_WR   |   0 |  0 |  0 |  1 |  0 |  1 |  1 |  0 |  0 | 2Ch |
-|  1st Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|     ...     |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  Nth Param  |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+| Inst / Para | D/C | R/W | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
+| :---------: | --: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
+|   DATA_WR   |  0  |  W  |  0 |  0 |  1 |  0 |  1 |  1 |  0 |  0 | 2Ch |
+|  1st Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|     ...     |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  Nth Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 
-* 1st Param: channel 0, the 1st color data, byte 2, range: 0 - 255
-* 2nd Param: channel 0, the 1st color data, byte 1, range: 0 - 255
-* 3rd Param: channel 0, the 1st color data, byte 0, range: 0 - 255
-* 4th Param: channel 0, the 2nd color data, byte 2, range: 0 - 255
+* 1st Param: Channel 0, the 1st color data, byte 2, range: 0 - 255
+* 2nd Param: Channel 0, the 1st color data, byte 1, range: 0 - 255
+* 3rd Param: Channel 0, the 1st color data, byte 0, range: 0 - 255
+* 4th Param: Channel 0, the 2nd color data, byte 2, range: 0 - 255
 * ...
 * Nth Param: ...
 
@@ -83,24 +83,26 @@ NeoPixel LED Controller based on MAX10 FPGA.
 
 ### INFO_RD
 
-| Inst / Para | D/C | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
-| :---------: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
-|   INFO_RD   |   0 |  0 |  0 |  1 |  1 |  1 |  0 |  1 |  0 | 3Ah |
-|  1st Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  2nd Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  3rd Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  4th Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  5th Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  6th Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
-|  7th Data   |   1 | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+| Inst / Para | D/C | R/W | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
+| :---------: | --: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
+|   INFO_RD   |  0  |  W  |  0 |  0 |  1 |  1 |  1 |  0 |  1 |  0 | 3Ah |
+|  1st Data   |  1  |  R  |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 | 00h |
+|  2nd Data   |  1  |  R  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  3rd Data   |  1  |  R  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  4th Data   |  1  |  R  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  5th Data   |  1  |  R  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  6th Data   |  1  |  R  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  7th Data   |  1  |  R  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
+|  7th Data   |  1  |  R  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 
-* 1st Data: RTL revision, major: {D7..D4}, minor: {D3..D0}
-* 2nd Data: T0H time (10 ns), range: 0 - 255
-* 3rd Data: T0L time (10 ns), range: 0 - 255
-* 4th Data: T1H time (10 ns), range: 0 - 255
-* 5th Data: T1L time (10 ns), range: 0 - 255
-* 6th Data: channel length, range: 0 - 255
-* 7th Data: channel count, range: 0 - 15
+* 1st Data: Dummy byte, 0x00
+* 2nd Data: RTL revision, major: {D7..D4}, minor: {D3..D0}
+* 3rd Data: T0H time (10 ns), range: 0 - 255
+* 4th Data: T0L time (10 ns), range: 0 - 255
+* 5th Data: T1H time (10 ns), range: 0 - 255
+* 6th Data: T1L time (10 ns), range: 0 - 255
+* 7th Data: Channel length, range: 0 - 255
+* 8th Data: Channel count, range: 0 - 15
 
 ## Preparing
 
