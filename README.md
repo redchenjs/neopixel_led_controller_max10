@@ -31,7 +31,7 @@ NeoPixel LED Controller based on MAX10 FPGA.
 ### CONF_WR
 
 | Inst / Para | D/C | R/W | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
-| :---------: | --: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
+| :---------: | :-: | :-: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
 |   CONF_WR   |  0  |  W  |  0 |  0 |  1 |  0 |  1 |  0 |  1 |  0 | 2Ah |
 |  1st Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 |  2nd Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
@@ -50,7 +50,7 @@ NeoPixel LED Controller based on MAX10 FPGA.
 ### ADDR_WR
 
 | Inst / Para | D/C | R/W | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
-| :---------: | --: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
+| :---------: | :-: | :-: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
 |   ADDR_WR   |  0  |  W  |  0 |  0 |  1 |  0 |  1 |  0 |  1 |  1 | 2Bh |
 |  1st Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 |     ...     |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
@@ -66,7 +66,7 @@ NeoPixel LED Controller based on MAX10 FPGA.
 ### DATA_WR
 
 | Inst / Para | D/C | R/W | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
-| :---------: | --: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
+| :---------: | :-: | :-: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
 |   DATA_WR   |  0  |  W  |  0 |  0 |  1 |  0 |  1 |  1 |  0 |  0 | 2Ch |
 |  1st Param  |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
 |     ...     |  1  |  W  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
@@ -84,7 +84,7 @@ NeoPixel LED Controller based on MAX10 FPGA.
 ### INFO_RD
 
 | Inst / Para | D/C | R/W | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 | HEX |
-| :---------: | --: | --: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
+| :---------: | :-: | :-: | -: | -: | -: | -: | -: | -: | -: | -: | --: |
 |   INFO_RD   |  0  |  W  |  0 |  0 |  1 |  1 |  1 |  0 |  1 |  0 | 3Ah |
 |  1st Data   |  1  |  R  |  0 |  0 |  0 |  0 |  0 |  0 |  0 |  0 | 00h |
 |  2nd Data   |  1  |  R  | D7 | D6 | D5 | D4 | D3 | D2 | D1 | D0 |     |
