@@ -48,19 +48,13 @@ logic [15:0] data_wr;
 wire addr_done = (wr_addr == reg_chan_len_i) & addr_en;
 wire data_done = (wr_addr == reg_chan_len_i) & data_en[0];
 
-genvar i;
-generate
-    for (i = 0; i < 16; i++) begin: ram_wr_en
-        assign ram_wr_en_o[i] = spi_byte_vld_i & data_wr[i];
-    end
-endgenerate
-
 assign reg_rd_addr_o = rd_addr;
 
-assign reg_wr_en_o   = spi_byte_vld_i & conf_wr;
+assign reg_wr_en_o   = conf_wr & spi_byte_vld_i;
 assign reg_wr_addr_o = wr_addr;
 
-assign ram_wr_done_o = spi_byte_vld_i & data_wr[reg_chan_cnt_i] & data_done;
+assign ram_wr_en_o   = data_wr & {16{spi_byte_vld_i}};
+assign ram_wr_done_o = data_wr[reg_chan_cnt_i] & data_done & spi_byte_vld_i;
 assign ram_wr_addr_o = wr_addr;
 
 assign ram_wr_byte_en_o = {addr_en, data_en};

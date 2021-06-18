@@ -43,7 +43,7 @@ initial begin
     clk_i   <= 1'b1;
     rst_n_i <= 1'b0;
 
-    spi_byte_data_i <= 8'h7e;
+    spi_byte_data_i <= 8'h6e;
 
     spi_cs_n_i <= 1'b1;
     spi_sclk_i <= 1'b0;
@@ -129,7 +129,7 @@ always begin
         spi_mosi_i <= 1'b1;  // BIT0
     #15 spi_sclk_i <= 1'b1;
 
-    for (integer i = 0; i < 24; i++) begin
+    for (integer i = 0; i < 1024; i++) begin
         #15 spi_sclk_i <= 1'b0;
             spi_mosi_i <= 1'b0;
         #15 spi_sclk_i <= 1'b1;
