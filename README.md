@@ -120,7 +120,7 @@ git pull
 
 ## Building
 
-* Quartus Prime 20.1.0 Lite Edition
+* Quartus Prime 21.1.0 Lite Edition
 
 ## Music Light Cube
 

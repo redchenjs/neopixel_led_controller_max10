@@ -95,8 +95,8 @@ channel_ctl channel_ctl(
     .ram_wr_byte_en_o(ram_wr_byte_en)
 );
 
-genvar i;
 generate
+    genvar i;
     for (i = 0; i < 16; i++) begin: channel
         channel_out out(
             .clk_i(sys_clk),
