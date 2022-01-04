@@ -48,9 +48,9 @@ initial begin
     rst_n_i <= 1'b0;
 
     reg_t0h_time_i <= 8'h00;
-    reg_t0s_time_i <= 9'h001;
+    reg_t0s_time_i <= 9'h00f;
     reg_t1h_time_i <= 8'h01;
-    reg_t1s_time_i <= 9'h001;
+    reg_t1s_time_i <= 9'h00f;
 
     ram_wr_en_i   <= 1'b0;
     ram_wr_done_i <= 1'b0;
@@ -73,8 +73,13 @@ always begin
         ram_wr_en_i <= 1'b1;
     #5  ram_wr_en_i <= 1'b0;
 
-    #10 ram_wr_data_i <= 8'h00;
-        ram_wr_byte_en_i <= 4'b0111;
+    #10 ram_wr_data_i <= 8'haa;
+        ram_wr_byte_en_i <= 4'b0101;
+        ram_wr_en_i <= 1'b1;
+    #5  ram_wr_en_i <= 1'b0;
+
+    #10 ram_wr_data_i <= 8'h55;
+        ram_wr_byte_en_i <= 4'b0010;
         ram_wr_en_i <= 1'b1;
     #5  ram_wr_en_i <= 1'b0;
 
@@ -85,8 +90,13 @@ always begin
         ram_wr_en_i <= 1'b1;
     #5  ram_wr_en_i <= 1'b0;
 
-    #10 ram_wr_data_i <= 8'haa;
-        ram_wr_byte_en_i <= 4'b0111;
+    #10 ram_wr_data_i <= 8'h77;
+        ram_wr_byte_en_i <= 4'b0101;
+        ram_wr_en_i <= 1'b1;
+    #5  ram_wr_en_i <= 1'b0;
+
+    #10 ram_wr_data_i <= 8'hff;
+        ram_wr_byte_en_i <= 4'b0010;
         ram_wr_en_i <= 1'b1;
     #5  ram_wr_en_i <= 1'b0;
 
@@ -97,8 +107,13 @@ always begin
         ram_wr_en_i <= 1'b1;
     #5  ram_wr_en_i <= 1'b0;
 
-    #10 ram_wr_data_i <= 8'hcc;
-        ram_wr_byte_en_i <= 4'b0111;
+    #10 ram_wr_data_i <= 8'h99;
+        ram_wr_byte_en_i <= 4'b0101;
+        ram_wr_en_i <= 1'b1;
+    #5  ram_wr_en_i <= 1'b0;
+
+    #10 ram_wr_data_i <= 8'h00;
+        ram_wr_byte_en_i <= 4'b0010;
         ram_wr_en_i <= 1'b1;
     #5  ram_wr_en_i <= 1'b0;
 
@@ -109,8 +124,13 @@ always begin
         ram_wr_en_i <= 1'b1;
     #5  ram_wr_en_i <= 1'b0;
 
-    #10 ram_wr_data_i <= 8'hff;
-        ram_wr_byte_en_i <= 4'b0111;
+    #10 ram_wr_data_i <= 8'hcc;
+        ram_wr_byte_en_i <= 4'b0101;
+        ram_wr_en_i <= 1'b1;
+    #5  ram_wr_en_i <= 1'b0;
+
+    #10 ram_wr_data_i <= 8'h33;
+        ram_wr_byte_en_i <= 4'b0010;
         ram_wr_en_i <= 1'b1;
     #5  ram_wr_en_i <= 1'b0;
 

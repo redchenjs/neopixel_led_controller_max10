@@ -78,7 +78,7 @@ begin
         bit_sel <= (ctl_sta == SEND_BIT) ? bit_sel + bit_next : 5'h00;
 
         bit_vld  <= (ctl_sta == SEND_BIT) & bit_next;
-        bit_data <= (ctl_sta == SEND_BIT) & bit_vld ? rd_data[5'd23 - bit_sel] : bit_data;
+        bit_data <= (ctl_sta == SEND_BIT) & bit_next ? rd_data[5'd23 - bit_sel] : bit_data;
 
         rd_addr <= (ctl_sta == READ_RAM) ? ram_rd_data_i[31:24] : rd_addr;
         rd_data <= (ctl_sta == READ_RAM) ? ram_rd_data_i[23:0] : rd_data;
